@@ -14,5 +14,4 @@ echo "Done!"
 
 #In terminal code "echo -e "test \t\t test" >> NEW FILE"
 #Output = test , test
-
-#What does tr -s "\t" "," mean? Because its to remove space or subsitute?
+#tr -s [string1] [string2], subsitute many of string 1 with one of string 2 
