@@ -1,0 +1,24 @@
+#I first moved Fasta directory from TheMulQuaBio-master into my Document/CMEECourseWork/week1 Directory
+
+#1
+cd ~/Documents/CMEECourseWork/week1/Fasta
+wc -l 407228326.fasta
+wc -l 407228412.fasta
+wc -l E.coli.fasta
+
+#2
+tail -n+2 E.coli.fasta
+
+#3
+tail -n+2 E.coli.fasta | wc -m
+
+#4
+tail -n+2 E.coli.fasta | tr -d '\n\' | grep -i -o ATGC | wc -l 
+
+#5
+grep -i -o 'A\|T' E.coli.fasta | wc -l
+grep -i -o 'C\|G' E.coli.fasta | wc -l
+echo $((echo "2306454/2379682" | bc -l )
+
+myvar=$(grep -i -o 'A\|T' E.coli.fasta | wc -l)
+myvar2=$(grep -i -o 'C\|G' E.coli.fasta | wc -l) 
