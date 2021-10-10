@@ -1,4 +1,9 @@
 #!/bin/bash
+#Author: cy221@ic.ac.uk
+#Script: variables.sh
+#Description: Assigning and use of variables for shell scripts
+#Arugments: MyVar -> 'string', a and b -> read number provided by reader
+#Date: Oct 2021
 
 #Shows the use of variables
 MyVar='some string'
@@ -14,3 +19,4 @@ echo 'you entered' $a 'and' $b '. Their sum is:' #Dollar sign means signify it a
 mysum=`expr $a + $b` #Adding two numbers in Bash and putting it as a variable
 echo $mysum
 
+#exit
