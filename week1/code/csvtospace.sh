@@ -5,8 +5,13 @@
 #Arugments: 1 -> CSV file , 2 -> New Output file 
 #Date: Oct 2021
 
-if [ $# -le 1 ]; then #if command to make sure input files are provided: CSV + output filename 
+if [ $# -eq 0 ]; then #if command to make sure input files are provided: CSV  
     echo "No Input File Provided"
+    exit 1
+fi
+
+if [ $# -eq 1 ]; then #if command to make sure input files are provided: output filename 
+    echo "No Output File Provided"
     exit 1
 fi
 
