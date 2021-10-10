@@ -3,3 +3,5 @@
  
 # Gitignore files and directory
 *.DS_Store
+./week1/code/.*
+
