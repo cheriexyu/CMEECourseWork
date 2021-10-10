@@ -4,4 +4,7 @@
 # Gitignore files and directory
 *.DS_Store
 ./week1/code/.*
+./week1/sandbox/*
+!./week1/sandbox/.gitkeep
+
 
