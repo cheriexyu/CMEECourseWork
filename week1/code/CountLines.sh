@@ -5,6 +5,11 @@
 #Arugments: 1 -> Input File for counting 
 #Date: Oct 2021
 
+if [ $# -eq 0 ]; then 
+    echo "Error, Need Input File"
+    exit 1
+fi
+
 NumLines=`wc -l < $1` 
 #Variable 'NumLines' mean count line number of $1, < redirects the content of the files into the command wc -l
 #Without < it will also print out the script name
