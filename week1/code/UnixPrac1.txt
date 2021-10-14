@@ -14,12 +14,6 @@ tail -n+2 ../data/Fasta/E.coli.fasta | wc -m
 tail -n+2 ../data/Fasta/E.coli.fasta | tr -d '\n\' | grep -i -o ATGC | wc -l 
 
 #5 
-#Method one includes using numerical integers to calculate ratio
-grep -i -o 'A\|T' ../data/Fasta/E.coli.fasta | wc -l
-grep -i -o 'C\|G' ../data/Fasta/E.coli.fasta | wc -l
-echo $((echo "2306454/2379682" | bc -l )
-
-#Method two includes substitution with variables
 myvar=$(grep -i -o 'A\|T' ../data/Fasta/E.coli.fasta | wc -l)
 myvar2=$(grep -i -o 'C\|G' ../data/Fasta/E.coli.fasta | wc -l) 
 echo $(echo "scale=3; $myvar / $myvar2"  | bc )
