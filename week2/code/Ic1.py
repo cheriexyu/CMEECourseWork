@@ -1,7 +1,7 @@
 ##################
 #Practical Comprehensions
 ##################
-#Practical Comprehension from task 1c1.py
+#Practical list Comprehension from task 1c1.py
 
 birds = ( ('Passerculus sandwichensis','Savannah sparrow',18.7),
           ('Delichon urbica','House martin',19),
