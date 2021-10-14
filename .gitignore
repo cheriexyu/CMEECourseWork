@@ -3,15 +3,16 @@
  
 # Gitignore files and directory
 *.DS_Store
-./week1/code/.*
-./week1/sandbox/*
-!./week1/sandbox/.gitkeep
-./week2/sandbox/*
-!./week2/sandbox/.gitkeep
-./week3/sandbox/*
-!./week3/sandbox/.gitkeep
-./week4/sandbox/*
-!./week4/sandbox/.gitkeep
+week1/code/.*
+week1/sandbox/*
+!week1/sandbox/.gitkeep
+week2/sandbox/*
+!week2/sandbox/.gitkeep
+week3/sandbox/*
+!week3/sandbox/.gitkeep
+week4/sandbox/*
+!week4/sandbox/.gitkeep
+week2/code/__*
 
 
 

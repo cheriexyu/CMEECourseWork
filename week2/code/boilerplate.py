@@ -8,14 +8,14 @@
 """Description of this program or application. 
 You can use several lines""" #Docstring
 
-#Internal variables signalled by __, special variables reserved for python
+#Internal variables signalled by __, special variables reserved for python, don't mess with them 
 _appname_= '[python3]'
 _author_= 'Cherie Yu (cy221@ic.ac.uk)'
 _version_= '3.9.7'
 _license_= "License for this code/program"
 
 ## imports ##
-import sys #module to interface our program with the operating system
+import sys #module to interface our program with the operating system, always import something in a program
 
 ## constants ##
 
