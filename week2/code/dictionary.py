@@ -22,41 +22,13 @@ taxa = [ ('Myotis lucifugus','Chiroptera'),
 #Chiroptera, Carnivora, Afrosoricida, Rodentia
 #{} creates an empty dictionary
 
-#Rodentia
-rodent = []
-for a in taxa:
-        if a[1]=="Rodentia":
-                rodent.append(a)
-print(rodent)
-
-
-
-rodentdict={}
-rodentdict['Rodentia'] = []
-rodentdict['Rodentia'].append(rodent[0])
-print (rodentdict) 
-
-###
-
-# Get list of Families
-# for each family:
-    # Make list of spp
-
-
-fams = set([])
-for t in taxa:
-        fams.add(t[1])
-fams = list(fams)
-
-final_dict = {}
-for fam in fams:
-        tmp_list = []
-        for t in taxa:
-                if t[1] == fam:
-                        tmp_list.append(t[0])
-        final_dict[fam] = set(tmp_list)
-
-print(final_dict)
-
-taxa_dic = {        :}{          }
+newlist = {} #When you do dictionary {} means that already
+for spp, fam in taxa: # for x,y in the list
+    newlist.setdefault(fam, []).append(spp) #setdefault() searches for a key and displays the value. 
+    #but if that value is not present, it will create a new key
+    #It loops through taxa, gets the first one, takes fam = y puts it in the front, and then puts species into []
+    #without append spp, the [] will be blank 
+    #put nothing inside [] to show no key, so the value in spp will become that new value
+    #dictioinary prevents repeating as well so the same family won't be repeated 
+print(newlist)
 

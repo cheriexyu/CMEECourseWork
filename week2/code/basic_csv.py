@@ -13,7 +13,6 @@ with open('../data/testcsv.csv','r') as f:
     for row in csvread: 
         temp.append(tuple(row)) #changing temp list with tuple(list) of rows, you are locking the rows together as a immendible set
         print(row)
-        print("The species is", row[0])
 
 # write a file named bodymass.csv containing only species name and Body mass
 with open('../data/testcsv.csv','r') as f:
