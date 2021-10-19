@@ -11,7 +11,7 @@ __license__ = "License for this code/program"
 import sys # module to interface our program with the operating system
 
 # Import input code file 
-with open('../code/testalign.txt', 'r') as f:
+with open('../data/testalign.txt', 'r') as f:
     """Opening input file and assigning variables to each sequence"""
     lines = []
     for line in f:
