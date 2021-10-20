@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
-#Author: cy221@ic.ac.uk
-#Script: boilerplate2.sh
-#Description: simple boilerplate for python3
-#Arugments: none
-#Date: Oct 2021
+##################
+#Control Flow Debugging with DocTest
+##################
 
 """Description of this program or application. 
 You can use several lines""" #Docstring

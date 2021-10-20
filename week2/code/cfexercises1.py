@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
-#Author: cy221@ic.ac.uk
-#Script: cfexercises1.py
-#Description: Use of condtionals in functions 
-#Arugments: none
-#Date: Oct 2021
+#############################
+# USE OF CONDITIONALS IN FUNCTIONS
+#############################
 
 ## imports ##
 import sys 

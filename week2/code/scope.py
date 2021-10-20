@@ -1,6 +1,7 @@
-#################
+#!/usr/bin/env python3
+#############################
 #Local variables and global variables
-################
+#############################
 #Local variables and explicitly returning function to show inside and outside function
 
 _a_global = 10 #global variable

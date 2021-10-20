@@ -1,6 +1,7 @@
-###############
-#Loops and conditions combined
-###############
+#!/usr/bin/env python3
+#############################
+#LOOPS AND CONDITIONALS COMBINED
+#############################
 
 for j in range(12): #0 to 11
     if j % 3 == 0: #modulo operator e.g 8%3=2 , if J%3=0, true in this case 

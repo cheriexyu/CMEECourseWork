@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+##################
+#Align DNA Sequence Practical 
+##################
+
 
 """Python program that aligns two DNA sequences and calculates the best alignment score"""
 

@@ -1,3 +1,8 @@
+#!/usr/bin/env python3
+##################
+#Debugging Funtion
+##################
+
 def buggyfunc(x):
     y = x
     for i in range(x):

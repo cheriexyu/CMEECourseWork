@@ -1,14 +1,9 @@
 #!/usr/bin/env python3
-#Author: cy221@ic.ac.uk
-#Script: boilerplate2.sh
-#Description: simple boilerplate for python3
-#Arugments: none
-#Date: Oct 2021
+#############################
+#CONTROL FLOW
+#############################
 
-"""Description of this program or application. 
-You can use several lines""" #Docstring
-
-"""Some functions exemplifying the use of control statements"""
+"""Some functions exemplifying the use of control statements""" #Docstring
 #docstrings are considered part of the running code (normal comments are
 #stripped). Hence, you can access your docstrings at run time.
 __author__ = 'Cherie Yu (cy221@ic.ac.uk)'
