@@ -1,11 +1,25 @@
 import csv
 import sys
+import doctest
 
-#Define function
+#write doctests to make sure that your is_an_oak function is working as expected (hint: >>> is_an_oak('Fagus sylvatica') should return False)
 def is_an_oak(name):
-    #import ipdb; ipdb.set_trace()
-    """ Returns True if name is starts with 'quercus' """
-    """Will return False if it is not an oak"""
+    """Find whether name is an oak
+    >>> is_an_oak('Fagus sylvatica')
+    False
+
+    >>> is_an_oak('Pinus sylvestris')
+    False
+
+    >>> is_an_oak('quercus cerris')
+    True
+
+    >>> is_an_oak('Crataegus monogyna')
+    False
+
+    >>> is_an_oak('Quercuss cerris')
+    True
+    """
     return name.lower().startswith('quercus') #bug was here, spelling error 
 
 def main(argv): 
@@ -30,5 +44,5 @@ def main(argv):
 if (__name__ == "__main__"): 
     status = main(sys.argv) #read the main function
 
-
+doctest.testmod()
 #starts off with reading the entire script from the top, then hits line 27, and go back up to main function
