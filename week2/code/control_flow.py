@@ -55,13 +55,13 @@ def find_all_primes(x=22):
     return allprimes
 
 def main(argv):  # Step 2
-    print(t.even_or_odd(22)) # Loop 1 to the top
-    print(t.even_or_odd(33)) # Loop 2 to the top 
-    print(t.largest_divisor_five(120)) # Loop3 to the top
-    print(t.largest_divisor_five(121)) #Loop 4
-    print(t.is_prime(60)) #Loop 5
-    print(t.is_prime(59)) #Loop 6
-    print(t.find_all_primes(100)) #Loop 7
+    print(even_or_odd(22)) # Loop 1 to the top
+    print(even_or_odd(33)) # Loop 2 to the top 
+    print(largest_divisor_five(120)) # Loop3 to the top
+    print(largest_divisor_five(121)) #Loop 4
+    print(is_prime(60)) #Loop 5
+    print(is_prime(59)) #Loop 6
+    print(find_all_primes(100)) #Loop 7
     return 0
 
 if (__name__ == "__main__"): # Step 1

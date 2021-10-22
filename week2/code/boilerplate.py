@@ -23,7 +23,7 @@ import sys #module to interface our program with the operating system, always im
 def main(argv): #defintions, start of a function, main means the main function, argv is the arguments from the bottom function
     """ Main entry point of the program """
     print('This is a boilerplate') # NOTE: indented using two tabs or 4 spaces
-    eturn 0
+    return 0
 
 if __name__ == "__main__": #adding this directs the python reader to set the special _name_ variable 
 #to have a value called main. So the file will be usable as a script and an importable module (for usibility and packaging). 
