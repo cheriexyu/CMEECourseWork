@@ -5,7 +5,7 @@ MyData
 MyMetaData<-read.csv("../data/PoundHillMetaData.csv",header=TRUE, sep=";")
 class(MyMetaData)
 head(MyMetaData)
-
+MyData <- t(MyData) 
 #Refer to DataWrang.R for data wrangling 
 
 #####Opening as a data frame as needed by R for data analysis. 
@@ -15,7 +15,7 @@ TempData<-as.data.frame(MyData[-1,],stringsAsFactors = F)
 # Strings as factors is needed because we don't want R to convert columns to factors
 head(TempData)
 colnames(TempData)<-MyData[1,]
-head(TempData)
+head(TempData) 
 #Delete row names, I don't like them
 rownames(TempData)<-NULL
 head(TempData)
@@ -42,7 +42,10 @@ tidyverse_packages(include_self = TRUE)
 # "::" allow you to access a particular function from a package 
 tibble::as_tibble(MyWrangledData)#Data frames that are lazy surly and do less 
 
-dplyr::glimpse(MyWrangledData) #Change the dataframe to like strings but nicer
+dplyr::glimpse(MyWrangledData) #Change the dataframe to like strings but nicer, to see all the data like print
 
-dplyr::filter(MyWrangledData,Count>100)
+dplyr::filter(MyWrangledData,Count>100) #subsetting data to only showing rows that satisfy your condition
+#here is more than 100
+
+dplyr::slice(MyWrangledData,10:15)
 

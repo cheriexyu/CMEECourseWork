@@ -28,7 +28,8 @@ print(N)
 stochrick <- function(p0 = runif(1000, .5, 1.5), r = 1.2, K = 1, sigma = 0.2,numyears = 100)
   N <- matrix(NA, numyears, length(p0))  #initialize empty matrix
 
-
+#adding fluctuation to every timestep value, add fluctuations in a vectorized way, 
+-column by column
 
 
 

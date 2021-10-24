@@ -14,3 +14,4 @@ Ricker<-function(N0=1,r=1,K=10,generations=50) #r is intrinsic growth, k is carr
 }
 
 plot(Ricker(generations=10), type="l")
+

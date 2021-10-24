@@ -8,16 +8,16 @@ MyData <- as.matrix(read.csv("../data/PoundHillData.csv", header = FALSE))
 
 # header = true because we do have metadata headers
 MyMetaData <- read.csv("../data/PoundHillMetaData.csv", header = TRUE, sep = ";")
-
+require(tidyverse)
 ############# Inspect the dataset ###############
 head(MyData)
-dim(MyData) #dimentions of the data
-str(MyData) #Whats the string of the data
-fix(MyData) #you can also do this
-fix(MyMetaData)
+tibble::as_tibble(MyData)
+dplyr::glimpse(MyData)
 
 ############# Transpose ###############
-# To get those species into columns and treatments into rows 
+# To get those species into columns and treatments into rows
+tidyr::gather(MyData)
+
 MyData <- t(MyData) #Flip the columns and rows 
 head(MyData)
 dim(MyData)
@@ -25,6 +25,7 @@ dim(MyData)
 ############# Replace species absences with zeros ###############
 MyData[MyData == ""] = 0 #" " is absences
 head(MyData)
+dplyr::mutate(MyData=replace(MyData, MyData == "", 0))
 
 ############# Convert raw matrix to data frame ###############
 
@@ -34,7 +35,7 @@ colnames(TempData) <- MyData[1,] # assign column names from original data so
 head(TempData)
 
 ############# Convert from wide to long format  ###############
-require(reshape2) # load the reshape2 package
+require(tidyverse) # load the reshape2 package
 
 #Melt function takes data in wide format and stacks a set of columns into a single columnn of data
 ??melt #check out the melt function, convert a object into a molten dataframe
