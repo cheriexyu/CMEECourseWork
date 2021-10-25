@@ -9,55 +9,41 @@ MyData <- as.matrix(read.csv("../data/PoundHillData.csv", header = FALSE))
 # header = true because we do have metadata headers
 MyMetaData <- read.csv("../data/PoundHillMetaData.csv", header = TRUE, sep = ";")
 require(tidyverse)
-############# Inspect the dataset ###############
+############# Inspect the dataset and Transpose ###############
 head(MyData)
-tibble::as_tibble(MyData)
+MyData<-tibble::as_tibble(data.frame(t(MyData),stringsAsFactors = F)) #convert matrix to dataframe
 dplyr::glimpse(MyData)
 
-############# Transpose ###############
-# To get those species into columns and treatments into rows
-tidyr::gather(MyData)
-
-MyData <- t(MyData) #Flip the columns and rows 
-head(MyData)
-dim(MyData)
-
 ############# Replace species absences with zeros ###############
-MyData[MyData == ""] = 0 #" " is absences
-head(MyData)
-dplyr::mutate(MyData=replace(MyData, MyData == "", 0))
+library(dplyr)
+library(tidyr)
 
-############# Convert raw matrix to data frame ###############
-
-TempData <- as.data.frame(MyData[-1,],stringsAsFactors = F) #stringsAsFactors = F is important!, character should not be coverted to a factor = False
-#make a new data frame and get rid of the first column (-1) 
-colnames(TempData) <- MyData[1,] # assign column names from original data so 
-head(TempData)
+MyData<-MyData %>% dplyr::mutate_all(list(~na_if(.,"")))
+MyData<-MyData %>% mutate_all(funs(replace(., is.na(.), 0)))
+MyData
 
 ############# Convert from wide to long format  ###############
-require(tidyverse) # load the reshape2 package
+MyData<-MyData %>% set_names(slice(.,1)) #Convert first row to column name
+MyData<-MyData %>% slice(-1) #Delete duplicated name
+view(MyData)
 
-#Melt function takes data in wide format and stacks a set of columns into a single columnn of data
-??melt #check out the melt function, convert a object into a molten dataframe
-# opposite of melt is dcast(), to switch between long and wide
+print(MyData[45]) #View last column
 
-MyWrangledData <- melt(TempData, id=c("Cultivation", "Block", "Plot", "Quadrat"), variable.name = "Species", value.name = "Count")
-MyWrangledData # id is the names that stay the same, value name is name of variable used to store values 
+EditMyData<-MyData%>%pivot_longer(`Achillea millefolium`:`Vulpia myuros `, names_to = "Species",values_to="Count")
+head(EditMyData)
 
 #Convert each column into a factor
-MyWrangledData[, "Cultivation"] <- as.factor(MyWrangledData[, "Cultivation"])
-MyWrangledData[, "Block"] <- as.factor(MyWrangledData[, "Block"])
-MyWrangledData[, "Plot"] <- as.factor(MyWrangledData[, "Plot"])
-MyWrangledData[, "Quadrat"] <- as.factor(MyWrangledData[, "Quadrat"])
+EditMyData<-EditMyData%>%mutate_at(1:4,as.factor)
 
 #Convert into a integer 
-MyWrangledData[, "Count"] <- as.integer(MyWrangledData[, "Count"])
+EditMyData<-EditMyData%>%mutate_at(6,as.integer)
+head(EditMyData)
 
 #You convert into factors or integer becasue if you don't R might assumeyour data as other variables e.g plot 1 is not a integer
 
-str(MyWrangledData)
-head(MyWrangledData)
-dim(MyWrangledData) #Check dimentions , convert data to a long format
+str(EditMyData)
+head(EditMyData)
+dim(EditMyData) #Check dimentions 
 
 ############# Exploring the data (extend the script below)  ###############
 
