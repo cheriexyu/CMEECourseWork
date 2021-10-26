@@ -28,9 +28,12 @@ for (i in 1:10000){
 print(a)
 
 #histagram of correlation coefficents
-hist(a, xlab="Correlation Coefficent", ylab="Frequency", main="Histagram of Matrix", xlim=c(-0.5,0.5),ylim=c(0,2000))
-summary(a)
+pdf("../results/histogram.pdf")
+graph<-hist(a, xlab="Correlation Coefficent", ylab="Frequency", main="Histagram of Matrix", xlim=c(-0.5,0.5),ylim=c(0,2000))
+print(graph)
+graphics.off()
 
 #Calculate what fraction of the random correlation coefficients were greater than the observed one (this is your approximate, asymptotic p-value).
 length(a[a>approx]) #number of elements greater than approx in R 
+#None are larger than 0 
 

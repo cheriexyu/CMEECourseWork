@@ -7,9 +7,9 @@ stochrick <- function(p0 = runif(1000, .5, 1.5), r = 1.2, K = 1, sigma = 0.2,num
 #run if = generate 1000 random numbers 
   N <- matrix(NA, numyears, length(p0))  #initialize empty matrix
 
-  N[1, ] <- p0 #In row 1 and all the columns of the empty matrix 
+  N[1, ] <- p0 #In row 1 p0 and all the columns of the empty matrix row is year, column is population
 
-  for (pop in 1:length(p0)) { #loop through the populations
+ for (pop in 1:length(p0)) { #loop through the populations
 
     for (yr in 2:numyears){ #for each pop, loop through the years
 
@@ -19,17 +19,25 @@ stochrick <- function(p0 = runif(1000, .5, 1.5), r = 1.2, K = 1, sigma = 0.2,num
   
   }
  return(N)
-
 }
-print(N)
+view(stochrick())
+
 # Now write another function called stochrickvect that vectorizes the above to
 # the extent possible, with improved performance: 
+rm(list = ls())
 
-stochrick <- function(p0 = runif(1000, .5, 1.5), r = 1.2, K = 1, sigma = 0.2,numyears = 100)
+stochrick1 <- function(p0 = runif(1000, .5, 1.5), r = 1.2, K = 1, sigma = 0.2,numyears = 100)
+{
 N <- matrix(NA, numyears, length(p0))  #initialize empty matrix
-N[1, ] <- p0 #for first row 
-B <- sapply(1:p0 ,function (i) stochrick))
+N[1, ] <- p0 #In row 1 p0 and all the columns of the empty matrix row is year, column is population
+  for (yr in 2:numyears){ #for each pop, loop through the years
+    N[yr, (1:length(p0))] <- N[yr-1, (1:length(p0))] * exp(r * (1 - N[yr - 1, (1:length(p0))] / K) + rnorm(1, 0, sigma)) # add one fluctuation from normal distribution
+    } #Changed to length of population instead of the first population 
+  return(N)
+}
 
+
+view(stochrick1())
 
 
 #adding fluctuation to every timestep value, add fluctuations in a vectorized way, 
