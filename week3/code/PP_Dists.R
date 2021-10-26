@@ -5,17 +5,20 @@ MyDF$Type.of.feeding.interaction <- as.factor(MyDF$Type.of.feeding.interaction)
 MyDF$Location <- as.factor(MyDF$Location)
 str(MyDF)
 
+
 ########### Calculations ########
-Ratio<-data.frame((MyDF$Prey.mass[MyDF$Type.of.feeding.interaction] / MyDF$Predator.mass[MyDF$Type.of.feeding.interaction]), MyDF$Type.of.feeding.interaction)
+Ratio<-data.frame((MyDF$Prey.mass / MyDF$Predator.mass), MyDF$Type.of.feeding.interaction)
 colnames(Ratio)
-names(Ratio)[names(Ratio) == "X.MyDF.Prey.mass.MyDF.Type.of.feeding.interaction..MyDF.Predator.mass.MyDF.Type.of.feeding.interaction.."] <- "Size.Ratio"
+names(Ratio)[names(Ratio) == "X.MyDF.Prey.mass.MyDF.Predator.mass."] <- "Size.Ratio"
+names(Ratio)[names(Ratio) == "MyDF.Type.of.feeding.interaction"] <-"Type.of.feeding.interaction"
+head(Ratio)
 
 Predator.mean<-tapply(log10(MyDF$Predator.mass),MyDF$Type.of.feeding.interaction,mean)
 Prey.mean<-tapply(log10(MyDF$Prey.mass),MyDF$Type.of.feeding.interaction,mean)
-Predator.Prey.Size.Ratios.mean<-tapply(log10(Ratio$Size.Ratio),MyDF$Type.of.feeding.interaction,mean)
+Predator.Prey.Size.Ratios.mean<-tapply(log10(Ratio$Size.Ratio),Ratio$Type.of.feeding.interaction,mean)
 Predator.median<-tapply(log10(MyDF$Predator.mass),MyDF$Type.of.feeding.interaction,median)
 Prey.median<-tapply(log10(MyDF$Prey.mass),MyDF$Type.of.feeding.interaction,median)
-Predator.Prey.Size.Ratios.median<-tapply(log10(Ratio$Size.Ratio),MyDF$Type.of.feeding.interaction,median)
+Predator.Prey.Size.Ratios.median<-tapply(log10(Ratio$Size.Ratio),Ratio$Type.of.feeding.interaction,median)
 
 calc<-data.frame(Predator.mean,Prey.mean,Predator.Prey.Size.Ratios.mean, Predator.median,Prey.median,Predator.Prey.Size.Ratios.median)
 calc
@@ -49,11 +52,11 @@ graphics.off(); #you can also use dev.off()
 #Subplots of size ratio of prey mass over predator mass by feeding interaction type
 pdf("../results/SizeRatio_Subplots.pdf", 11.7, 8.3)# Open blank pdf page using a relative path
 par(mfrow=c(3,2)) 
-hist(log10(Ratio1), xlab = "log10 (Size ratio of prey mass over predator mass (g))", ylab = "Insectivorous", main ="")
-hist(log10(Ratio2), xlab = "log10 (Size ratio of prey mass over predator mass (g))", ylab = "piscivorous", main ="")
-hist(log10(Ratio3), xlab = "log10 (Size ratio of prey mass over predator mass (g))", ylab = "planktivorous", main ="")
-hist(log10(Ratio4), xlab = "log10 (Size ratio of prey mass over predator mass (g))", ylab = "predacious", main ="")
-hist(log10(Ratio5), xlab = "log10 (Size ratio of prey mass over predator mass (g))", ylab = "predacious/piscivorous", main ="")
+hist(log10(Ratio$Size.Ratio[Ratio$Type.of.feeding.interaction=="insectivorous"]), xlab = "log10 (Size ratio of prey mass over predator mass (g))", ylab = "insectivorous", main ="")
+hist(log10(Ratio$Size.Ratio[Ratio$Type.of.feeding.interaction=="piscivorous"]), xlab = "log10 (Size ratio of prey mass over predator mass (g))", ylab = "piscivorous", main ="")
+hist(log10(Ratio$Size.Ratio[Ratio$Type.of.feeding.interaction=="planktivorous"]), xlab = "log10 (Size ratio of prey mass over predator mass (g))", ylab = "planktivorous", main ="")
+hist(log10(Ratio$Size.Ratio[Ratio$Type.of.feeding.interaction=="predacious"]), xlab = "log10 (Size ratio of prey mass over predator mass (g))", ylab = "predacious", main ="")
+hist(log10(Ratio$Size.Ratio[Ratio$Type.of.feeding.interaction=="predacious/piscivorous"]), xlab = "log10 (Size ratio of prey mass over predator mass (g))", ylab = "predacious/piscivorous", main ="")
 mtext("Types of feeding interaction and Size ratios of prey mass over predator mass (g)",side = 3,line = - 2,outer = TRUE)
 graphics.off();
 

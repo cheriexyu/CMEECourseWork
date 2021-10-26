@@ -26,11 +26,15 @@ print(N)
 # the extent possible, with improved performance: 
 
 stochrick <- function(p0 = runif(1000, .5, 1.5), r = 1.2, K = 1, sigma = 0.2,numyears = 100)
-  N <- matrix(NA, numyears, length(p0))  #initialize empty matrix
+N <- matrix(NA, numyears, length(p0))  #initialize empty matrix
+N[1, ] <- p0 #for first row 
+B <- sapply(1:p0 ,function (i) stochrick))
+
+
 
 #adding fluctuation to every timestep value, add fluctuations in a vectorized way, 
--column by column
-
+#instead of doing it by column first then every row in two loops
+#delete one loop and use apply functions
 
 
 # print("Vectorized Stochastic Ricker takes:")
