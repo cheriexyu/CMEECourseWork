@@ -3,7 +3,11 @@
 
 load("../data/KeyWestAnnualMeanTemperature.Rdata") #Temperature in KeyWest for the 20th Century
 head(ats)
-plot(ats)
+pdf("../results/keywest.pdf")
+keywest<-plot(ats)
+keywest<-abline(lm(ats$Temp~ats$Year),col="blue")
+print(keywest)
+graphics.off()
 
 #Save it as a vector
 keywest <- vect
@@ -36,4 +40,6 @@ graphics.off()
 #Calculate what fraction of the random correlation coefficients were greater than the observed one (this is your approximate, asymptotic p-value).
 length(a[a>approx]) #number of elements greater than approx in R 
 #None are larger than 0 
+
+
 
