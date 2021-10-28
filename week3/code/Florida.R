@@ -3,14 +3,13 @@
 
 load("../data/KeyWestAnnualMeanTemperature.Rdata") #Temperature in KeyWest for the 20th Century
 head(ats)
-pdf("../results/keywest.pdf")
+pdf("../LaTex/keywest.pdf")
 keywest<-plot(ats)
 keywest<-abline(lm(ats$Temp~ats$Year),col="blue")
 print(keywest)
 graphics.off()
 
 #Save it as a vector
-keywest <- vect
 is.vector(Year) #is it a vector
 Year<-ats[,1]
 Year
@@ -24,7 +23,7 @@ approx<-cor(Year,Temp,use="everything",method=c("pearson")) #correlation coeffic
 approx
 #0.5331784 is the approx correlation coefficent 
 
-#Shuffle the temp then calculate a correlation coefficent, repeat by 10000
+#Shuffle the temp then calculate a correlation coefficient, repeat by 10000
 a <- rep(NA,10000) #pre=allocated vector for correlation coefficent
 for (i in 1:10000){
   a[i] <- cor(Year,sample(Temp,replace=FALSE))
@@ -32,8 +31,10 @@ for (i in 1:10000){
 print(a)
 
 #histagram of correlation coefficents
-pdf("../results/histogram.pdf")
-graph<-hist(a, xlab="Correlation Coefficent", ylab="Frequency", main="Histagram of Matrix", xlim=c(-0.5,0.5),ylim=c(0,2000))
+pdf("../LaTex/histogram.pdf")
+graph<-hist(a, xlab="Correlation Coefficent", ylab="Frequency", main="Histagram of Matrix", xlim=c(-0.5,0.7),ylim=c(0,2000))
+abline(v = approx, col="blue", lwd=3, lty=2)
+legend("top",legend="Observed correlation coefficient", col="blue",cex=0.4,lwd=3, lty=2)
 print(graph)
 graphics.off()
 
