@@ -11,6 +11,7 @@ week1/sandbox/*
 !week1/sandbox/.gitkeep
 week2/sandbox/*
 !week2/sandbox/.gitkeep
+!week2/sandbox/text.txt
 week3/sandbox/*
 !week3/sandbox/.gitkeep
 week4/sandbox/*
