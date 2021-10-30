@@ -17,7 +17,7 @@ imagemagick, LaTeX
 ***
 ## Installation
 
-Use the package manager [homebrew] (https://brew.sh/) to install imagemagick and LaTeX.
+Use the package manager [homebrew](https://brew.sh/) to install imagemagick and LaTeX.
 
 ```bash
 brew install imagemagick

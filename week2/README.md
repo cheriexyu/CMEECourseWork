@@ -17,7 +17,7 @@ ipython3
 ***
 ## Installation
 
-Use the package manager [homebrew] (https://brew.sh/) to install ipython3.
+Use the package manager [homebrew](https://brew.sh/) to install ipython3.
 
 ```bash
 brew install ipython

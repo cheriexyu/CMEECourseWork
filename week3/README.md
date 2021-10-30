@@ -17,7 +17,7 @@ IDEs such as RStudio
 ***
 ## Installation
 
-Use the package manager [homebrew] (https://brew.sh/) to install R and RStudio.
+Use the package manager [homebrew](https://brew.sh/) to install R and RStudio.
 
 ```bash
 brew install r
@@ -29,19 +29,20 @@ brew install --cask rstudio
 
 Package Installations in RStudio:
 
-    tidyverse package in R [Link to more information] (https://www.tidyverse.org/) includes the core packages (ggplot2,dplyr,readr,purrr,tibble,stringr,forcats)
+tidyverse package in R [Link to more information](https://www.tidyverse.org/) includes the core packages (ggplot2,dplyr,readr,purrr,tibble,stringr,forcats)
 
-    ```r
+    ```bash
     install.packages("tidyverse")
     ```
     
-    Reshape2 package in R [Link to more information] (https://www.rdocumentation.org/packages/reshape2/versions/1.4.4)
+Reshape2 package in R [Link to more information](https://www.rdocumentation.org/packages/reshape2/versions/1.4.4)
+
     
-    ```r
+    ```bash
     install.packages("reshape2")
     ```
 
-    ```r
+    ```bash
     #To load packages in R after installation:
     library(#name of package)
     ```
