@@ -29,23 +29,22 @@ brew install --cask rstudio
 
 Package Installations in RStudio:
 
-tidyverse package in R [Link to more information](https://www.tidyverse.org/) includes the core packages (ggplot2,dplyr,readr,purrr,tibble,stringr,forcats)
+[tidyverse](https://www.tidyverse.org/) package in R includes the core packages ( ggplot2, dplyr, readr, purrr, tibble, stringr, forcats)
 
-    ```bash
-    install.packages("tidyverse")
-    ```
+```bash
+install.packages("tidyverse")
+```
     
-Reshape2 package in R [Link to more information](https://www.rdocumentation.org/packages/reshape2/versions/1.4.4)
-
+[Reshape2](https://www.rdocumentation.org/packages/reshape2/versions/1.4.4) package in R.
     
-    ```bash
-    install.packages("reshape2")
-    ```
+```bash
+install.packages("reshape2")
+```
 
-    ```bash
-    #To load packages in R after installation:
-    library(#name of package)
-    ```
+```bash
+#To load packages in R after installation:
+library(#name of package)
+```
 ***
 ## Project Structure and Usage
 
