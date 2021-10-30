@@ -2,9 +2,7 @@
 ##################
 #Control Flow Debugging with DocTest
 ##################
-
-"""Description of this program or application. 
-You can use several lines""" #Docstring
+"""Use of control flow statements and debugging using doctests""" #Docstring
 
 """Some functions exemplifying the use of control statements"""
 #docstrings are considered part of the running code (normal comments are
@@ -42,6 +40,7 @@ def even_or_odd(x=0): # if not specified, x should take value 0.
     return "%d is Odd!" % x
 
 #def main(argv):  # Step 2
+    """Main functions to be tested"""
     print(t.even_or_odd(22)) # Loop 1 to the top
     print(t.even_or_odd(33)) # Loop 2 to the top 
     return 0

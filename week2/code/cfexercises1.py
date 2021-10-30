@@ -2,6 +2,7 @@
 #############################
 # USE OF CONDITIONALS IN FUNCTIONS
 #############################
+"""Use of conditionals in loop functions"""
 
 ## imports ##
 import sys 
@@ -61,6 +62,7 @@ def foo_6(x): # Calculate the factorial of x in a different way
     return facto 
 
 def main(argv):  # Step 2
+    """Testing functions with assigned variables"""
     print(foo_1(11)) # Loop 1 to the top
     print(foo_1(9)) # Loop 2 to the top 
     print(foo_2(4,3)) # Loop3 to the top

@@ -11,14 +11,15 @@ with open('../data/testcsv.csv','r') as f:
 
     csvread = csv.reader(f) 
     temp = [] #you make a empty list and set is as the object temp
-    for row in csvread: 
+    for row in csvread:
+        """append file list into a tuple and making it into a new list"""
         temp.append(tuple(row)) #changing temp list with tuple(list) of rows, you are locking the rows together as a immendible set
         print(row)
 
 # write a file named bodymass.csv containing only species name and Body mass
 with open('../data/testcsv.csv','r') as f:
     with open('../data/bodymass.csv','w') as g:
-
+        """open a new csv file and write in it with a new table"""
         csvread = csv.reader(f) #open file f and make it as an object
         csvwrite = csv.writer(g) #writing a file g.csv and make it as an object
         for row in csvread: 

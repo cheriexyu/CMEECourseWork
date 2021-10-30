@@ -29,6 +29,7 @@ taxa = [ ('Myotis lucifugus','Chiroptera'),
 
 newlist = {} #When you do dictionary {} means that already
 for spp, fam in taxa: # for x,y in the list
+    """create a new dictionary listing out all species within each families"""
     newlist.setdefault(fam, []).append(spp) #setdefault() searches for a key and displays the value. 
     #but if that value is not present, it will create a new key
     #It loops through taxa, gets the first one, takes fam = y puts it in the front, and then puts species into []

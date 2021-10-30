@@ -15,7 +15,6 @@ import sys #module to interface our program with the operating system
 ## functions ##
 
 def even_or_odd(x=0): # if not specified, x should take value 0.
-   
     """Find whether a number x is even or odd."""
     if x % 2 == 0: #The conditional if 
         return "%d is Even!" % x # % x at the end is used to tell %d, a placeholder what it is and to sub
@@ -55,6 +54,7 @@ def find_all_primes(x=22):
     return allprimes
 
 def main(argv):  # Step 2
+    """main functions with arguments"""
     print(even_or_odd(22)) # Loop 1 to the top
     print(even_or_odd(33)) # Loop 2 to the top 
     print(largest_divisor_five(120)) # Loop3 to the top
@@ -65,6 +65,7 @@ def main(argv):  # Step 2
     return 0
 
 if (__name__ == "__main__"): # Step 1
+    """system name"""
     status = main(sys.argv) 
     sys.exit(status) 
 

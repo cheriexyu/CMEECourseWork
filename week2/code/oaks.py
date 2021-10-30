@@ -11,10 +11,12 @@ taxa = [ 'Quercus robur',
        ]
 
 def is_an_oak(name): # a function = true or falste statement, define is_an_oak, replace name with the name of the taxa
+    """True or false function, if starts with 'quercus', is an oak"""
     return name.lower().startswith('quercus') #make name lower case and if starts with quercus = TRUE (it is an oak)
 
 ##Using for loops to make a set
 oaks_loops = set() #new set called oaks_loops
+"""using loops to make a new set of oak species"""
 for species in taxa: 
     if is_an_oak(species): #if it is an oak species like from above function
         oaks_loops.add(species) #add it into the set called oak loop
@@ -26,6 +28,7 @@ print(oaks_lc)
 
 ##Get names in UPPER CASE using for loops
 oaks_loops = set() 
+"""uppercase names in new set"""
 for species in taxa:
     if is_an_oak(species):
         oaks_loops.add(species.upper()) #add it into oaks_loops in uppercase

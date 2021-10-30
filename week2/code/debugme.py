@@ -2,8 +2,10 @@
 ##################
 #Debugging Funtion
 ##################
+"""Testing how to debug a function"""
 
 def buggyfunc(x):
+    """using ipdb to debug this function"""
     y = x
     for i in range(x):
         try: #tries to do something and if it doesnt work (error) transfer control to the except block 

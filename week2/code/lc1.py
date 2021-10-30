@@ -34,17 +34,20 @@ print(body_mass)
 #List of Latin Names
 species_names= []
 for names in birds: 
+    """append a new list of latin names from birds"""
     species_names.append(names[0])
 print(species_names)
 
 #List of common names
 common_names = []
 for common in birds:
+    """append a new list of common names from birds"""
     common_names.append(common[1])
 print(common_names)
 
 #List of mean body massess
 body_mass = []
 for body in birds:
+    """append a new list of body mass from birds"""
     body_mass.append(body[2])
 print(body_mass)

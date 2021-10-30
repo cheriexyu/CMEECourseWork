@@ -10,6 +10,7 @@ if _a_global >= 5: #global variable, if a_global is equal or bigger than 5, go t
     _b_global = _a_global + 5
 
 def a_function(): # Defining a new function
+    """When we definie a new variables it stays inside the function when overwritten"""
     _a_global = 5 # local variable, we overwritten a_global with 5 instead of 10 but it stayed inside this function
 
     if _a_global >= 5: # if a is bigger or equal to 5 which it is
@@ -39,6 +40,7 @@ _a_global = 10
 print("Outside the function, the value of _a_global is", _a_global) # a global = 10
 
 def a_function():
+    """global variables can be overwritten outside of a function"""
     global _a_global #global variable from inside a function 
     _a_global = 5
     _a_local = 4
@@ -54,6 +56,7 @@ print("Outside the function, the value of _a_global now is", _a_global) # a glob
 
 #Global variables can also be Inside Nested Functions
 def a_function():
+    """Global variables in nested loops"""
     _a_global = 10
 
     def _a_function2():
@@ -77,7 +80,7 @@ print("The value of a_global in main workspace / namespace is ", _a_global) # a 
 _a_global = 10 # The main difference from the one above , defined in advanced
 
 def a_function():
-
+    """definied new global variable inside loop, overwrites the variable outside the loop as well"""
     def _a_function2():
         global _a_global
         _a_global = 20

@@ -2,8 +2,6 @@
 ##################
 #Align DNA Sequence Practical 
 ##################
-
-
 """Python program that aligns two DNA sequences and calculates the best alignment score"""
 
 __appname__ = '[application name here]'
@@ -42,6 +40,7 @@ l2 = len(seq2)
 print(l1) #10
 print(l2) #16
 if l1 >= l2: # if l1 is longer than l2
+    """Switching position of squences with longer sequence on top as first sequence"""
     s1 = seq1 #longer sequence
     s2 = seq2 #shorter sequence
 else:
@@ -62,7 +61,7 @@ def calculate_score(s1, s2, l1, l2, startpoint):
     matched = "" # to hold string displaying alignements
     score = 0 
     for i in range(l2): #Starting from base 0 to base 9, l2 is the shorter sequence e.g 10, 
-        #import ipdb; ipdb.set_trace()
+        """starting from base 0, if bases are matched add a star and a score point, then shift to next startpoint on the right and repeat loop"""
         if (i + startpoint) < l1: # If the end of the sequence hasnt been reached, then starting from the startpoint + i (rangel2), count the number of bases
             if s1[i + startpoint] == s2[i]: # if the bases match 
                 matched = matched + "*" # add a star to the  matched 

@@ -5,8 +5,7 @@
 #Arugments: none
 #Date: Oct 2021
 
-"""Description of this program or application. 
-You can use several lines""" #Docstring
+"""Simple boilerplate""" #Docstring
 
 #Internal variables signalled by __, special variables reserved for python, don't mess with them 
 _appname_= '[python3]'

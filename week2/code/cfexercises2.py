@@ -4,10 +4,12 @@
 #############################
 
 for j in range(12): #0 to 11
+    """print out 'hello' if remainder is 0 under conditions given"""
     if j % 3 == 0: #modulo operator e.g 8%3=2 , if J%3=0, true in this case 
         print('hello') #prints 4 times cause 4 numbers in range(12) has module of 0
 
 for j in range(15):
+    """print out 'hello' if remainder from 5 is 3 or else undergo the elif condition"""
     if j % 5 == 3: 
         print('hello') 
     elif j % 4 == 3: #in this case if range(15), print hello, elif=for else if, if the first condition for if is false, it checks the condition of elif
@@ -18,15 +20,20 @@ for j in range(15):
 
 z = 0 #LOOP, starts off with z is 0
 while z != 15: # != not equal to , true statement 
+    """starting from 0, when z is not equal to 15 print command"""
+    """sub z with the previous z and start off new loop"""
     print('hello') 
     z = z + 3 # sub 0 into z first, then next z is 3 and go back to line 14, loop restarts until reaches z=15
 
 z = 12
 while z < 100: # true if z is smaller than 100
+    """three different conditions that can be satisfied"""
     if z == 31: # only one number which is 31
+        """if z is 31 then undergo the loop below"""
         for k in range(7): # range 0 to 6
             print('hello') # hello is print out 7 times [0,1,2,3,4,5,6]
     elif z == 18: # if above statement is false (if), the go to elif statement , only one number which is 18
+        """if above statement is false, go to this statement but only one number suits this condition"""
         print('hello') # hello is print out 1 time
     z = z + 1 # if non above is true just jump to a new loop with a new z and not print out hello 
     # final is 8 output of hello
