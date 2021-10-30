@@ -12,7 +12,7 @@ a <- a + guides(colour = guide_legend(nrow = 1)) + theme(plot.margin = unit(c(1,
 a
 
 #### Save figures a pdf in result folder
-pdf("../results/PP_Regress.pdf")
+pdf("../results/PP_Regress.pdf",height=10,width=7)
 print(a)
 graphics.off()
 
@@ -27,10 +27,11 @@ fig1<-lm(log10(MyDF$Predator.mass[MyDF$Type.of.feeding.interaction=="insectivoro
 summary(fig1)
 
 #piscivorous
+install.packages("lme4")
+library(lme4)
 count(piscivorous$lifestage) # 5 lines
-fig2<-lm(log10(MyDF$Predator.mass[MyDF$Type.of.feeding.interaction=="piscivorous"])~log10(MyDF$Prey.mass[MyDF$Type.of.feeding.interaction=="piscivorous"])*MyDF$Predator.lifestage[MyDF$Type.of.feeding.interaction=="piscivorous"])
+fig2<-lmer(log10(MyDF$Predator.mass[MyDF$Type.of.feeding.interaction=="piscivorous"])~log10(MyDF$Prey.mass[MyDF$Type.of.feeding.interaction=="piscivorous"])*MyDF$Predator.lifestage[MyDF$Type.of.feeding.interaction=="piscivorous"])
 summary(fig2)
-summary(fig2)$r.squared
 
 #planktivorous
 count(MyDF$Predator.lifestage[MyDF$Type.of.feeding.interaction=="planktivorous"]) # 5 lines
