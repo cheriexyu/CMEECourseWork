@@ -1,9 +1,12 @@
 require(tidyverse)
 require(ggplot2)
-library(plyr)
+require(tidyr)
+library(dplyr)
+library(broom)
+
 MyDF <- read.csv("../data/EcolArchives-E089-51-D1.csv")
-head(MyDF)
-str(MyDF)
+MyDF$Type.of.feeding.interaction<-as.factor(MyDF$Type.of.feeding.interaction)
+MyDF$Predator.lifestage<-as.factor(MyDF$Predator.lifestage)
 
 a <- ggplot(MyDF,aes(x=Prey.mass, y=Predator.mass, colour=Predator.lifestage)) 
 a <- a + geom_point(shape = I(3)) + facet_grid( Type.of.feeding.interaction~.) + scale_y_continuous(trans = 'log10') + theme_bw() + theme(panel.grid.minor = element_blank()) + geom_smooth(method = "lm",size=0.5,fullrange=TRUE) + scale_x_continuous(trans = 'log10') 
@@ -12,88 +15,116 @@ a <- a + guides(colour = guide_legend(nrow = 1)) + theme(plot.margin = unit(c(1,
 a
 
 #### Save figures a pdf in result folder
-pdf("../results/PP_Regress.pdf",height=10,width=7)
+pdf("../results/PP_Regress.pdf",height=10,width=8)
 print(a)
 graphics.off()
 
 #### Calculate regression results acording the lines in figure and save as csv
-MyDF$Type.of.feeding.interaction<-as.factor(MyDF$Type.of.feeding.interaction)
-str(MyDF)
-MyDF$Predator.lifestage<-as.factor(MyDF$Predator.lifestage)
-str(MyDF)
 
 #Insectivorous
 fig1<-lm(log10(MyDF$Predator.mass[MyDF$Type.of.feeding.interaction=="insectivorous"])~log10(MyDF$Prey.mass[MyDF$Type.of.feeding.interaction=="insectivorous"]))
-summary(fig1)
-library(broom)
-glance(fig1)
+Insect_summary1<-tidy(summary(fig1))
+Insect_summary2<-glance(fig1)
+
+Insect_summary1<-Insect_summary1 %>% pivot_wider(names_from="term",values_from = c(estimate,std.error,statistic,p.value)) #convert to wide format
+
+name<-c("larva / juvenile")
+Insect_data<-data.frame(name,Insect_summary1[1:2],Insect_summary2[1],Insect_summary2[4:5])
+colnames(Insect_data)[2] <- "Intercept"
+colnames(Insect_data)[3] <- "Slope"
+
 
 #piscivorous # 5 lines
-count(MyDF$Predator.lifestage[MyDF$Type.of.feeding.interaction=="piscivorous"]) 
-fig2<-lm(log10(MyDF$Predator.mass[MyDF$Type.of.feeding.interaction=="piscivorous"])~log10(MyDF$Prey.mass[MyDF$Type.of.feeding.interaction=="piscivorous"])*MyDF$Predator.lifestage[MyDF$Type.of.feeding.interaction=="piscivorous"])
-summary(fig2)
-summary(fig2)$ccorrelation
-
 table<-data.frame(log10(MyDF$Predator.mass[MyDF$Type.of.feeding.interaction=="piscivorous"]),log10(MyDF$Prey.mass[MyDF$Type.of.feeding.interaction=="piscivorous"]), MyDF$Predator.lifestage[MyDF$Type.of.feeding.interaction=="piscivorous"])
 names(table)[1] <- "Predatormass"
 names(table)[2] <- "Preymass"
 names(table)[3] <- "Lifestage"
-
-fitted_models = table %>% group_by(Lifestage) %>% do(model=lm(Predatormass~Preymass,data=.))
-fitted_models$model
-require(broom)
-require(tidyverse)
-require(dplyr)
-fitted_models %>% tidy(model)
+str(table)
 
 
+pis_summary1<-table %>% group_by(Lifestage) %>%
+  do(fitHour = tidy(lm(Predatormass~Preymass, data=.))) %>% 
+  unnest(fitHour)
 
+pis_summary1<-pis_summary1 %>% pivot_wider(names_from="term",values_from = c(estimate,std.error,statistic,p.value)) #convert to wide format
 
-#correlation coefficent
-cor(table$Predatormass[table$Lifestage=="adult"],table$Preymass[table$Lifestage=="adult"]) #0.276143
-cor(table$Predatormass[table$Lifestage=="juvenile"],table$Preymass[table$Lifestage=="juvenile"]) #0.2675479
-cor(table$Predatormass[table$Lifestage=="larva / juvenile"],table$Preymass[table$Lifestage=="larva / juvenile"]) #0.7087045
-cor(table$Predatormass[table$Lifestage=="postlarva"],table$Preymass[table$Lifestage=="postlarva"]) #0.1974079
-cor(table$Predatormass[table$Lifestage=="postlarva/juvenile"],table$Preymass[table$Lifestage=="postlarva/juvenile"]) #NA
+pis_summary2<-table %>% group_by(Lifestage) %>%
+  do(fitHour = glance(lm(Predatormass~Preymass, data=.))) %>% 
+  unnest(fitHour)
 
-numbers<-c(0.276143,0.2675479,0.7087045,0.1974079,NA) #Correlation coefficent then need to square it to get R2 values
-for (i in numbers){
-  j <- i * i
-  print(j)
-}
+pis_data<-data.frame(pis_summary1[1:3],pis_summary2[2],pis_summary2[5:6])
+colnames(pis_data)[1] <- "name"
+colnames(pis_data)[2] <- "Intercept"
+colnames(pis_data)[3] <- "Slope"
 
 #planktivorous
-count(MyDF$Predator.lifestage[MyDF$Type.of.feeding.interaction=="planktivorous"]) # 5 lines
-fig3<-lm(log10(MyDF$Predator.mass[MyDF$Type.of.feeding.interaction=="planktivorous"])~log10(MyDF$Prey.mass[MyDF$Type.of.feeding.interaction=="planktivorous"])*MyDF$Predator.lifestage[MyDF$Type.of.feeding.interaction=="planktivorous"])
-summary(fig3)
+table2<-data.frame(log10(MyDF$Predator.mass[MyDF$Type.of.feeding.interaction=="planktivorous"]),log10(MyDF$Prey.mass[MyDF$Type.of.feeding.interaction=="planktivorous"]), MyDF$Predator.lifestage[MyDF$Type.of.feeding.interaction=="planktivorous"])
+names(table2)[1] <- "Predatormass"
+names(table2)[2] <- "Preymass"
+names(table2)[3] <- "Lifestage"
+str(table2)
+
+plank_summary1<-table2 %>% group_by(Lifestage) %>%
+  do(fitHour = tidy(lm(Predatormass~Preymass, data=.))) %>% 
+  unnest(fitHour)
+
+plank_summary1<-plank_summary1 %>% pivot_wider(names_from="term",values_from = c(estimate,std.error,statistic,p.value)) #convert to wide format
+
+plank_summary2<-table2%>% group_by(Lifestage) %>%
+  do(fitHour = glance(lm(Predatormass~Preymass, data=.))) %>% 
+  unnest(fitHour)
+
+plank_data<-data.frame(plank_summary1[1:3],plank_summary2[2],pis_summary2[5:6])
+colnames(plank_data)[1] <- "name"
+colnames(plank_data)[2] <- "Intercept"
+colnames(plank_data)[3] <- "Slope"
 
 #predacious
-count(MyDF$Predator.lifestage[MyDF$Type.of.feeding.interaction=="predacious"]) # 6 lines
-fig4<-lm(log10(MyDF$Predator.mass[MyDF$Type.of.feeding.interaction=="predacious"])~log10(MyDF$Prey.mass[MyDF$Type.of.feeding.interaction=="predacious"])*MyDF$Predator.lifestage[MyDF$Type.of.feeding.interaction=="predacious"])
-summary(fig4)
+table3<-data.frame(log10(MyDF$Predator.mass[MyDF$Type.of.feeding.interaction=="predacious"]),log10(MyDF$Prey.mass[MyDF$Type.of.feeding.interaction=="predacious"]), MyDF$Predator.lifestage[MyDF$Type.of.feeding.interaction=="predacious"])
+names(table3)[1] <- "Predatormass"
+names(table3)[2] <- "Preymass"
+names(table3)[3] <- "Lifestage"
+str(table3)
+
+pred_summary1<-table3 %>% group_by(Lifestage) %>%
+  do(fitHour = tidy(lm(Predatormass~Preymass, data=.))) %>% 
+  unnest(fitHour)
+
+pred_summary1<-pred_summary1%>% pivot_wider(names_from="term",values_from = c(estimate,std.error,statistic,p.value)) #convert to wide format
+
+pred_summary2<-table3 %>% group_by(Lifestage) %>%
+  do(fitHour = glance(lm(Predatormass~Preymass, data=.))) %>% 
+  unnest(fitHour)
+
+pred_data<-data.frame(pred_summary1[1:3],pred_summary2[2],pred_summary2[5:6])
+colnames(pred_data)[1] <- "name"
+colnames(pred_data)[2] <- "Intercept"
+colnames(pred_data)[3] <- "Slope"
 
 #Predacious/piscivorous
-count(MyDF$Predator.lifestage[MyDF$Type.of.feeding.interaction=="predacious/piscivorous"]) # 1 line
 fig5<-lm(log10(MyDF$Predator.mass[MyDF$Type.of.feeding.interaction=="predacious/piscivorous"])~log10(MyDF$Prey.mass[MyDF$Type.of.feeding.interaction=="predacious/piscivorous"]))
-summary(fig5)
+pred_pis_summary1<-tidy(summary(fig5))
+pred_pis_summary2<-glance(fig5)
+
+pred_pis_summary1<-pred_pis_summary1 %>% pivot_wider(names_from="term",values_from = c(estimate,std.error,statistic,p.value)) #convert to wide format
+colnames(pred_pis_summary1)[1] <- "Intercept"
+colnames(pred_pis_summary1)[2] <- "Slope"
+
+name2<-c("adult")
+pred_pis_data<-data.frame(name,pred_pis_summary1[1:2],pred_pis_summary2[1],pred_pis_summary2[4:5])
+colnames(pred_pis_data)[1] <- "name"
 
 #DataFrame
 
-#Done with v1,v2,v3
+Feeding_Type<-c("Insectivorous","Piscivorous","Piscivorous","Piscivorous","Piscivorous","Piscivorous",
+      "Planktivorous","Planktivorous","Planktivorous","Planktivorous", "Planktivorous",
+      "Predacious","Predacious","Predacious","Predacious","Predacious","Predacious","Predacious/piscivorous")
+v2<-data.frame(Feeding_Type)
 
-v1<-c("FeedingType x PredatorLifeStage","Insectivorous x larva/juvenile","Piscivorous x adult","Piscivorous x juvenile","Piscivorous x larva/juvenile","Piscivorous x postlarva","Piscivorous x postlarva/juvenile",
-      "Planktivorous x adult","Planktivorous x juvenile","Planktivorous x larva","Planktivorous x larva/juvenile", "Planktivorous x postlarva/juvenile",
-      "Predacious x adult","Predacious x juvenile","Predacious x larva","Predacious x larva/juvenile","Predacious x postlarva","Predacious x postlarva/juvenile","Predacious/piscivorous x adult")
-v2<-c("Regression Slope","0.3842","0.285409","0.22348","0.652631","0.106773","NA","0.80276","0.16891","0.20422","0.53754","0.67548","0.321994","0.932339","0.323614","0.512543","0.154038","0.211648","0.54103")
-v3<-c("Regression Intercept","0.4109","3.042309","3.7887597","2.157279","-1.097665","0.68524","3.87815","1.13499","-0.87915","2.20757","2.95889","3.356362","3.098729","0.621931","1.564958","-0.694844","0.724032","2.07757")
-v4<-c("Overall R squared","0.1256","")
-v5<-c("Overall F statistic value","4.308")
-v6<-c("Overall regression p-value","p=0.0466")
+a<-dplyr::bind_rows(Insect_data,pis_data,plank_data,pred_data,pred_pis_data)
 
-test<-data.frame(col1=v1,col2=v2,col3=v3)
+final<-data.frame(Feeding_Type,a)
+colnames(final)[2] <- "Predator.Lifestage"
+colnames(final)[6] <- "F.statistic"
 
-
-
-Output<-as.data.frame()
-Output<-read.csv("../results/PP_Regress_Results.csv", header = TRUE)
-write.table(MyData[1,], file = "../results/MyData.csv",append=TRUE)
+write.csv(final,"../results/PP_Regress_Results.csv")
