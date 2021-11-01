@@ -25,13 +25,42 @@ str(MyDF)
 #Insectivorous
 fig1<-lm(log10(MyDF$Predator.mass[MyDF$Type.of.feeding.interaction=="insectivorous"])~log10(MyDF$Prey.mass[MyDF$Type.of.feeding.interaction=="insectivorous"]))
 summary(fig1)
+library(broom)
+glance(fig1)
 
-#piscivorous
-install.packages("lme4")
-library(lme4)
-count(piscivorous$lifestage) # 5 lines
-fig2<-lmer(log10(MyDF$Predator.mass[MyDF$Type.of.feeding.interaction=="piscivorous"])~log10(MyDF$Prey.mass[MyDF$Type.of.feeding.interaction=="piscivorous"])*MyDF$Predator.lifestage[MyDF$Type.of.feeding.interaction=="piscivorous"])
+#piscivorous # 5 lines
+count(MyDF$Predator.lifestage[MyDF$Type.of.feeding.interaction=="piscivorous"]) 
+fig2<-lm(log10(MyDF$Predator.mass[MyDF$Type.of.feeding.interaction=="piscivorous"])~log10(MyDF$Prey.mass[MyDF$Type.of.feeding.interaction=="piscivorous"])*MyDF$Predator.lifestage[MyDF$Type.of.feeding.interaction=="piscivorous"])
 summary(fig2)
+summary(fig2)$ccorrelation
+
+table<-data.frame(log10(MyDF$Predator.mass[MyDF$Type.of.feeding.interaction=="piscivorous"]),log10(MyDF$Prey.mass[MyDF$Type.of.feeding.interaction=="piscivorous"]), MyDF$Predator.lifestage[MyDF$Type.of.feeding.interaction=="piscivorous"])
+names(table)[1] <- "Predatormass"
+names(table)[2] <- "Preymass"
+names(table)[3] <- "Lifestage"
+
+fitted_models = table %>% group_by(Lifestage) %>% do(model=lm(Predatormass~Preymass,data=.))
+fitted_models$model
+require(broom)
+require(tidyverse)
+require(dplyr)
+fitted_models %>% tidy(model)
+
+
+
+
+#correlation coefficent
+cor(table$Predatormass[table$Lifestage=="adult"],table$Preymass[table$Lifestage=="adult"]) #0.276143
+cor(table$Predatormass[table$Lifestage=="juvenile"],table$Preymass[table$Lifestage=="juvenile"]) #0.2675479
+cor(table$Predatormass[table$Lifestage=="larva / juvenile"],table$Preymass[table$Lifestage=="larva / juvenile"]) #0.7087045
+cor(table$Predatormass[table$Lifestage=="postlarva"],table$Preymass[table$Lifestage=="postlarva"]) #0.1974079
+cor(table$Predatormass[table$Lifestage=="postlarva/juvenile"],table$Preymass[table$Lifestage=="postlarva/juvenile"]) #NA
+
+numbers<-c(0.276143,0.2675479,0.7087045,0.1974079,NA) #Correlation coefficent then need to square it to get R2 values
+for (i in numbers){
+  j <- i * i
+  print(j)
+}
 
 #planktivorous
 count(MyDF$Predator.lifestage[MyDF$Type.of.feeding.interaction=="planktivorous"]) # 5 lines
@@ -56,9 +85,9 @@ v1<-c("FeedingType x PredatorLifeStage","Insectivorous x larva/juvenile","Pisciv
       "Planktivorous x adult","Planktivorous x juvenile","Planktivorous x larva","Planktivorous x larva/juvenile", "Planktivorous x postlarva/juvenile",
       "Predacious x adult","Predacious x juvenile","Predacious x larva","Predacious x larva/juvenile","Predacious x postlarva","Predacious x postlarva/juvenile","Predacious/piscivorous x adult")
 v2<-c("Regression Slope","0.3842","0.285409","0.22348","0.652631","0.106773","NA","0.80276","0.16891","0.20422","0.53754","0.67548","0.321994","0.932339","0.323614","0.512543","0.154038","0.211648","0.54103")
-v3<-c("Regression Intercept","-0.4109","3.042309","3.7887597","2.157279","-1.097665","0.68524","3.87815","1.13499","-0.87915","2.20757","2.95889","3.356362","3.098729","0.621931","1.564958","-0.694844","0.724032","2.07757")
-v4<-c("R squared","0.1256","")
-v5<-c("F statistic value","4.308")
+v3<-c("Regression Intercept","0.4109","3.042309","3.7887597","2.157279","-1.097665","0.68524","3.87815","1.13499","-0.87915","2.20757","2.95889","3.356362","3.098729","0.621931","1.564958","-0.694844","0.724032","2.07757")
+v4<-c("Overall R squared","0.1256","")
+v5<-c("Overall F statistic value","4.308")
 v6<-c("Overall regression p-value","p=0.0466")
 
 test<-data.frame(col1=v1,col2=v2,col3=v3)
