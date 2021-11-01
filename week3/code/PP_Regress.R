@@ -2,7 +2,7 @@ require(tidyverse)
 require(ggplot2)
 require(tidyr)
 library(dplyr)
-library(broom)
+require(broom)
 
 MyDF <- read.csv("../data/EcolArchives-E089-51-D1.csv")
 MyDF$Type.of.feeding.interaction<-as.factor(MyDF$Type.of.feeding.interaction)

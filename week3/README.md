@@ -29,7 +29,7 @@ brew install --cask rstudio
 
 Package Installations in RStudio:
 
-[tidyverse](https://www.tidyverse.org/) package in R includes the core packages ( ggplot2, dplyr, readr, purrr, tibble, stringr, forcats)
+[tidyverse](https://www.tidyverse.org/) package in R includes the core packages ( tidyr, ggplot2, dplyr, readr, purrr, tibble, stringr, forcats)
 
 ```bash
 install.packages("tidyverse")
@@ -39,6 +39,12 @@ install.packages("tidyverse")
     
 ```bash
 install.packages("reshape2")
+```
+
+[Broom](https://broom.tidymodels.org/) package to summarize key information about models in R.
+
+```bash
+install.packages("broom")
 ```
 
 ```bash
@@ -71,12 +77,9 @@ library(#name of package)
    - MyBars.R : Annotating plots using ggplot in R
    - plotLin.R : Annotating linear regression plots 
    - PP_Regress.R : Practical on visualizing regression analysis 
-
-../LaTex
-
-   - bash.sh : Bash program to run Floridaoutput.tex script
-   - Floridaoutput.pdf : pdf result file for Florida.R code pratical
-   - Floridaoutput.tex : LaTex source codes to producing a pdf results file (Floridaoutput.pdf)
+   - bash.sh : Bash program to run Florida_warming.tex script
+   - Florida_warming.pdf : pdf result file for Florida_warming.R code pratical
+   - Florida_warming.tex : LaTex source codes to producing a pdf results file (Florida_warming.pdf)
 
 Author: Cherie Yu
 Contact: cyy21@ic.ac.uk
