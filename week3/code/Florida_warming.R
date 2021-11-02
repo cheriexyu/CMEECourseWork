@@ -3,7 +3,7 @@
 
 load("../data/KeyWestAnnualMeanTemperature.Rdata") #Temperature in KeyWest for the 20th Century
 head(ats)
-pdf("../results/keywest.pdf")
+pdf("../code/keywest.pdf")
 keywest<-plot(ats)
 keywest<-abline(lm(ats$Temp~ats$Year),col="blue")
 print(keywest)
@@ -30,7 +30,7 @@ for (i in 1:10000){
 print(a)
 
 #histagram of correlation coefficents
-pdf("../results/histogram.pdf")
+pdf("../code/histogram.pdf")
 graph<-hist(a, xlab="Correlation Coefficent", ylab="Frequency", main="Histagram of Matrix", xlim=c(-0.5,0.7),ylim=c(0,2000))
 abline(v = approx, col="blue", lwd=3, lty=2)
 legend("top",legend="Observed correlation coefficient", col="blue",cex=0.4,lwd=3, lty=2)

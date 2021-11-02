@@ -1,10 +1,12 @@
-load("../data/GPDDFiltered.RData")
-head(gpdd)
 install.packages('maps')
 install.packages('mapdata')
 
 require(maps)
 require(mapdata)
+require(ggplot2)
+
+load("../data/GPDDFiltered.RData")
+head(gpdd)
 
 world<-map_data("world")
 head(world)

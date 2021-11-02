@@ -45,11 +45,6 @@ str(EditMyData)
 head(EditMyData)
 dim(EditMyData) #Check dimentions 
 
-############# Exploring the data (extend the script below)  ###############
-
-MyMetaData #Metadata files describes the data 
-MyData[MyData == ""] = 0
-
 
 
 
