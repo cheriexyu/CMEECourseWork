@@ -1,3 +1,7 @@
+install.packages("tidyverse")
+require("tidyverse")
+
+
 MyDF <- read.csv("../data/EcolArchives-E089-51-D1.csv")
 dim(MyDF)
 head(MyDF)
@@ -22,7 +26,6 @@ Predator.Prey.Size.Ratios.median<-tapply(log10(Ratio$Size.Ratio),Ratio$Type.of.f
 
 calc<-data.frame(Predator.mean,Prey.mean,Predator.Prey.Size.Ratios.mean, Predator.median,Prey.median,Predator.Prey.Size.Ratios.median)
 calc
-require("tidyverse")
 calc<-tibble::rownames_to_column(calc,var="Feeding.Types") %>% head
 write.csv(calc,"../results/PP_Results.csv")
 

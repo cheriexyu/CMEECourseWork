@@ -1,23 +1,21 @@
 ################################################################
 ################## Wrangling the Pound Hill Dataset ############
 ################################################################
+install.packages("tidyverse")
+require(tidyverse)
+library(dplyr)
+library(tidyr)
 
 ############# Load the dataset ###############
 # header = false because the raw data don't have real headers
 MyData <- as.matrix(read.csv("../data/PoundHillData.csv", header = FALSE))
 
-# header = true because we do have metadata headers
-MyMetaData <- read.csv("../data/PoundHillMetaData.csv", header = TRUE, sep = ";")
-require(tidyverse)
 ############# Inspect the dataset and Transpose ###############
 head(MyData)
 MyData<-tibble::as_tibble(data.frame(t(MyData),stringsAsFactors = F)) #convert matrix to dataframe
 dplyr::glimpse(MyData)
 
 ############# Replace species absences with zeros ###############
-library(dplyr)
-library(tidyr)
-
 MyData<-MyData %>% dplyr::mutate_all(list(~na_if(.,"")))
 MyData<-MyData %>% mutate_all(funs(replace(., is.na(.), 0)))
 MyData

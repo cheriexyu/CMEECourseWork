@@ -1,3 +1,5 @@
+require(ggplot2)
+
 #function object that calculate the ellipse
 build_ellipse<-function(hradius,vradius){ #function that returns an ellipse
   npoints=250
