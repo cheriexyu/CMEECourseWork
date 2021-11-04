@@ -8,6 +8,7 @@ head(MyDF)
 MyDF$Type.of.feeding.interaction <- as.factor(MyDF$Type.of.feeding.interaction)
 MyDF$Location <- as.factor(MyDF$Location)
 str(MyDF)
+MyDF$Prey.mass <- ifelse(grepl("mg", MyDF$Prey.mass.unit), MyDF$Prey.mass*0.001, MyDF$Prey.mass) #Change mg to grams
 
 
 ########### Calculations ########
@@ -17,14 +18,14 @@ names(Ratio)[names(Ratio) == "X.MyDF.Prey.mass.MyDF.Predator.mass."] <- "Size.Ra
 names(Ratio)[names(Ratio) == "MyDF.Type.of.feeding.interaction"] <-"Type.of.feeding.interaction"
 head(Ratio)
 
-Predator.mean<-tapply(log10(MyDF$Predator.mass),MyDF$Type.of.feeding.interaction,mean)
-Prey.mean<-tapply(log10(MyDF$Prey.mass),MyDF$Type.of.feeding.interaction,mean)
-Predator.Prey.Size.Ratios.mean<-tapply(log10(Ratio$Size.Ratio),Ratio$Type.of.feeding.interaction,mean)
-Predator.median<-tapply(log10(MyDF$Predator.mass),MyDF$Type.of.feeding.interaction,median)
-Prey.median<-tapply(log10(MyDF$Prey.mass),MyDF$Type.of.feeding.interaction,median)
-Predator.Prey.Size.Ratios.median<-tapply(log10(Ratio$Size.Ratio),Ratio$Type.of.feeding.interaction,median)
+Predator.mean.log10<-tapply(log10(MyDF$Predator.mass),MyDF$Type.of.feeding.interaction,mean)
+Prey.mean.log10<-tapply(log10(MyDF$Prey.mass),MyDF$Type.of.feeding.interaction,mean)
+Predator.Prey.Size.Ratios.mean.log10<-tapply(log10(Ratio$Size.Ratio),Ratio$Type.of.feeding.interaction,mean)
+Predator.median.log10<-tapply(log10(MyDF$Predator.mass),MyDF$Type.of.feeding.interaction,median)
+Prey.median.log10<-tapply(log10(MyDF$Prey.mass),MyDF$Type.of.feeding.interaction,median)
+Predator.Prey.Size.Ratios.median.log10<-tapply(log10(Ratio$Size.Ratio),Ratio$Type.of.feeding.interaction,median)
 
-calc<-data.frame(Predator.mean,Prey.mean,Predator.Prey.Size.Ratios.mean, Predator.median,Prey.median,Predator.Prey.Size.Ratios.median)
+calc<-data.frame(Predator.mean.log10,Prey.mean.log10,Predator.Prey.Size.Ratios.mean.log10, Predator.median.log10,Prey.median.log10,Predator.Prey.Size.Ratios.median.log10)
 calc
 calc<-tibble::rownames_to_column(calc,var="Feeding.Types") %>% head
 write.csv(calc,"../results/PP_Results.csv")

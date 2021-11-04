@@ -8,6 +8,8 @@ MyDF <- read.csv("../data/EcolArchives-E089-51-D1.csv")
 MyDF$Type.of.feeding.interaction<-as.factor(MyDF$Type.of.feeding.interaction)
 MyDF$Predator.lifestage<-as.factor(MyDF$Predator.lifestage)
 
+MyDF$Prey.mass <- ifelse(grepl("mg", MyDF$Prey.mass.unit), MyDF$Prey.mass*0.001, MyDF$Prey.mass) #Change mg to grams
+
 a <- ggplot(MyDF,aes(x=Prey.mass, y=Predator.mass, colour=Predator.lifestage)) 
 a <- a + geom_point(shape = I(3)) + facet_grid( Type.of.feeding.interaction~.) + scale_y_continuous(trans = 'log10') + theme_bw() + theme(panel.grid.minor = element_blank()) + geom_smooth(method = "lm",size=0.5,fullrange=TRUE) + scale_x_continuous(trans = 'log10') 
 a <- a + xlab("Prey Mass in grams") + ylab("Predator mass in grams") + theme(legend.position="bottom", legend.title=element_text(face="bold"), legend.box="horizontal") 
