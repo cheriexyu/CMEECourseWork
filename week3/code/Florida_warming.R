@@ -18,7 +18,7 @@ Temp
 is.vector(Temp) #Check it is a vector
 
 #approx correltation of year and temp
-approx<-cor(Year,Temp,use="everything",method=c("pearson")) #correlation coefficent
+approx<-cor.test(Year,Temp,use="everything",method=c("pearson")) #correlation coefficent
 approx
 #0.5331784 is the approx correlation coefficent 
 
@@ -36,6 +36,8 @@ abline(v = approx, col="blue", lwd=3, lty=2)
 legend("top",legend="Observed correlation coefficient", col="blue",cex=0.4,lwd=3, lty=2)
 print(graph)
 graphics.off()
+summary(lm(Year~Temp, data=ats))
+
 
 #Calculate what fraction of the random correlation coefficients were greater than the observed one (this is your approximate, asymptotic p-value).
 length(a[a>approx]) #number of elements greater than approx in R 
