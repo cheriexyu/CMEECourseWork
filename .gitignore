@@ -17,6 +17,6 @@ week3/sandbox/*
 week4/sandbox/*
 !week4/sandbox/.gitkeep
 week2/code/__*
-
-
+week7/sandbox/*
+!week7/sandbox/.gitkeep
 
