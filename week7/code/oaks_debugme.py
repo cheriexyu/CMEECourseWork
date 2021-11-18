@@ -42,23 +42,22 @@ def main(argv):
     csvwrite = csv.writer(g) # write g
     csvwrite.writerow(header)
     oaks = set()
-    is_an_oak("")
     #for b in taxa:
         #if b[0][0] in ("Genus"):
             #next(b)
         #else:
             #return(b)
             
-    #for row in taxa: # in f file
-        #"""if f is an oak print out a statement"""
-       # print(row)
-        #print ("The genus is: ") 
-       # print(row[0] + '\n')
-       # if is_an_oak(row[0]):
-            #print('FOUND AN OAK!\n')
-            #csvwrite.writerow([row[0], row[1]])
+    for row in taxa: # in f file
+        """if f is an oak print out a statement"""
+        print(row)
+        print ("The genus is: ") 
+        print(row[0] + '\n')
+        if is_an_oak(row[0]+ " "):
+            print('FOUND AN OAK!\n')
+            csvwrite.writerow([row[0], row[1]])
         
-    #return 0
+    return 0
         
 if (__name__ == "__main__"):
     """read main function"""
