@@ -4,6 +4,7 @@
 ## General Description
 
 Biological Computing in Python II - In continuation to week 2, week 7 covers more advanced topics within Python, such as numerical computing and building workflows. 
+
 Introduction to Jupyter Notebooks - The Jupyter Notebook is an interactive platform that allows users to use mulitple programming languages (including R and Python), which can be viewed and manipulated though a web browser. 
 
 ***
@@ -21,12 +22,12 @@ IDEs such as RStudio and Visual Studio Code
 Package Installations for use in Python 3.9: 
 
 [Numpy](https://numpy.org/) package allows for data creation, manipulation and undergoing basic arithemtic calculations within Python. 
-Can use `pip` to install packages on bash terminal 
+Can use `pip` to install packages on bash terminal.  
 
 ```bash
 pip3 install numpy
 ```
-Note: `pip3` downloads packages directly into Python version 3.9
+Note: `pip3` download packages directly into Python version 3.9
 
 
 [SciPy](https://scipy.org/) package is simillar to Numpy however it is recommended for more complex numerical operations (e.g integration). Other sub packages in SciPy used is `scipy.integrate`. 
@@ -49,7 +50,7 @@ import matplotlib.pylab as p
 
 To install Jupyter Notebooks read through [this](https://jupyter.readthedocs.io/en/latest/install.html) and [this](https://imperial-fons-computing.github.io/jupyter.html). Jupyter Notebook can be launched via bash terminal in Linux/Unix. 
 
-Instructions to install IPython kernel and R kernel can be found [here](https://imperial-fons-computing.github.io/jupyter.html). Additional language kernels is listed [here](https://github.com/jupyter/jupyter/wiki/Jupyter-kernels). 
+Instructions to install iPython kernel and R kernel can be found [here](https://imperial-fons-computing.github.io/jupyter.html). Additional language kernels are listed [here](https://github.com/jupyter/jupyter/wiki/Jupyter-kernels). 
 
 
 ## Project Structure and Usage
@@ -63,7 +64,7 @@ Instructions to install IPython kernel and R kernel can be found [here](https://
    - TestR.py : Creating a workflow by running R script(TestR.R) within ipython  
    - TestR.R : R script used for building workflows 
    - oaks_debugme.py : Practical using doctest to debug code 
-   - MyFirstJupyterNb.ipynb
+   - MyFirstJupyterNb.ipynb : First notebook in Jupyter using both ipython and R languages
 
 Author: Cherie Yu
 Contact: cyy21@ic.ac.uk
