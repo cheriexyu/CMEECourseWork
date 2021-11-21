@@ -2,7 +2,7 @@
 *.tmp
 *.Rhistory
 *.RData
-
+*.ipynb_checkpoints/
  
 # Gitignore files and directory
 *.DS_Store

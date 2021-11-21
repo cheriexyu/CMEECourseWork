@@ -16,6 +16,9 @@ The repository is organised in week structures. Within each week contains the co
 
     - Week1: Unix/Linux, Bash Shell Scripting and LaTeX
     - Week2: Biological Computing with Python I
+    - Week3: Biological Computhin with R
+    - Week7: Biological Computing with Python II and Introduction to Jupyter Notebooks
+    - MiniProject 
 
 ***
 ## Note
