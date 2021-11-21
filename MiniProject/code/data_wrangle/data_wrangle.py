@@ -28,18 +28,6 @@ data['ID'] = pd.factorize(data.ID)[0]
 
 print(data['ID']) # data has been ID from number 0 to 284
 
-ID_0 = data[data['ID']==0] #How to subset data to only get ID 0 with all columns 
-ID_0
-
-data_subset=data[['ID','Time','PopBio','Time_units','PopBio_units']] #data_subset is a subset of data with only the variables we need
-
-ID_0 = data_subset[data['ID']==0] #getting data for only variables we need 
-ID_0 
-
-sns.lmplot("Time","PopBio",data=ID_0,fit_reg=False) #FOR ID 0 
-pl.show() #show graph
-
 data.isnull().values.any() #Check if there is any NaN
-
 
 data.to_csv("../../data/editeddata.csv", sep=',')
