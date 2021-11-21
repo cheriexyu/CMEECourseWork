@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #############################
-# Build Workflows 
+# Build Workflows, using ipython to open and run R script 
 #############################
 
 import subprocess

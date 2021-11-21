@@ -10,6 +10,7 @@ import scipy.integrate as integrate
 #######The Lotka-Volterra model
 
 def dCR_dt(pops,t=0): # Define a new function
+    """function that returns the growth rate of consumer and resource population at a given time"""
     R = pops[0]
     C = pops[1]
     dRdt = r * R - a * R * C
