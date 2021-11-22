@@ -83,7 +83,8 @@ for d in range(len(outtime)):
         AIC.append(text)
 
 #AIC number output
-AIC_output = pd.DataFrame(AIC,columns=['Cubic'])
+AIC_output = pd.DataFrame(subset,columns=['ID'])
+AIC_output['Cubic'] = AIC
 AIC_output.to_csv("../../data/AIC_output.csv",sep=',')
 
 #report_fit(linear_minimize[0]) #use this to see the report of each linear 
@@ -132,9 +133,9 @@ vec=np.ones(len(t_vec)) #allocating a vector of one for the below function
 for e in range(len(outpop)):
     if len(outtime[e])>4:
         result = outpop[e] + linear_residuals[e] # Make a variable that adds the y datapoints and residuals of the fitted data together, the datapoint on the fitted line 
-        pl.plot(outtime[e], result , 'y.', markersize = 10, label = 'Cubic') #plots the datapoints from above
+        pl.plot(outtime[e], result , 'g.', markersize = 10, label = 'Cubic') #plots the datapoints from above
         smooth_line = residuals_linear(linear_params[e],t_vec,vec) #to get a smooth curve we are also getting data points for (y). Plugging in the paramaters using the x (t_vec_), plug in the new data into vec
-        pl.plot(t_vec,smooth_line + vec, 'orange', linestyle = '--', linewidth = 1) #plot the smooth curve  
+        pl.plot(t_vec,smooth_line + vec, 'green', linestyle = '--', linewidth = 1) #plot the smooth curve  
         pl.plot(outtime[e],outpop[e], 'r+', markersize = 10,markeredgewidth = 2, label = 'Data')
         pl.show()
 
@@ -145,50 +146,61 @@ pl.ylabel('Population', fontsize = 10)
 pl.ticklabel_format(style='scientific', scilimits=[0,3])
 pl.show(block=False)
 
-#Dont even need to hand calculate residuals 
 #Should I make the axis better? 700 hours mean nothing and should i log the 7 axis?
 
 ##############Fiting a phenomenological Quadratic Equation using NLLS##############
 
 params_quadratic=Parameters() #To store parameters
-params_linear.add('b', value = 1)
-params_linear.add('c', value = 1)
-params_linear.add('d', value = 1)
+params_quadratic.add('b2', value = 1)
+params_quadratic.add('c2', value = 1)
+params_quadratic.add('d2', value = 1)
 
 def residuals_quadratic(params, t, data):
     """Calculate cubic growth and subtract data"""
     #Get an ordered dictionary of parameter values
-    v = params.valuesdict()
+    v2 = params.valuesdict()
     #Quadratic model
-    model = v['b']*t**2 + v['c']*t + v['d']
+    model = v2['b2']*t**2 + v2['c2']*t + v2['d2']
     return model - data     #Return residuals
 
-linear_minimize = []
-linear_residuals = []
-linear_params = []
-AIC = [] 
+quadratic_minimize = []
+quadratic_residuals = []
+quadratic_params = []
+AIC_quadratic = [] 
 
-for d in range(len(outtime)):
-    if len(outtime[d])>4:
-        minner = Minimizer(residuals_linear, params_linear, fcn_args=(outtime[d],outpop[d]))
-        fit_linear_NLLS = minner.minimize()
-        linear_minimize.append(fit_linear_NLLS)
-        linear_residuals.append(fit_linear_NLLS.residual)
-        linear_params.append(fit_linear_NLLS.params)
-        AIC.append(fit_linear_NLLS.aic)
+for f in range(len(outtime)):
+    if len(outtime[f])>3:
+        minner_quadratic = Minimizer(residuals_quadratic, params_quadratic, fcn_args=(outtime[f],outpop[f]))
+        fit_quadratic_NLLS = minner_quadratic.minimize()
+        quadratic_minimize.append(fit_quadratic_NLLS)
+        quadratic_residuals.append(fit_quadratic_NLLS.residual)
+        quadratic_params.append(fit_quadratic_NLLS.params)
+        AIC_quadratic.append(fit_quadratic_NLLS.aic)
     else:
         text = 'NA'
-        linear_minimize.append(text)
-        linear_residuals.append(text)
-        linear_params.append(text)
-        AIC.append(text)
+        quadratic_minimize.append(text)
+        quadratic_residuals.append(text)
+        quadratic_params.append(text)
+        AIC_quadratic.append(text)
 
+#AIC number output
+AIC_output['Quadratic'] = AIC_quadratic
+AIC_output.to_csv("../../data/AIC_output.csv",sep=',')
 
+#Plotting
+pl.rcParams['figure.figsize'] = [5, 10] #set up figure enivornment with width and height #NEED TO FIGURE THIS OUT
+t_vec=np.linspace(0,700,1000) #to get a smooth curve we need to plug in our own time vector (x)
+vec=np.ones(len(t_vec)) #allocating a vector of one for the below function
 
-
-
-
-
+for e in range(len(outpop)):
+    if len(outtime[e])>4:
+        result_quadratic = outpop[e] + quadratic_residuals[e] # Make a variable that adds the y datapoints and residuals of the fitted data together, the datapoint on the fitted line 
+        pl.plot(outtime[e], result_quadratic , 'y.', markersize = 10, label = 'Quadratic') #plots the datapoints from above
+        smooth_line_quadratic = residuals_quadratic(quadratic_params[e],t_vec,vec) #to get a smooth curve we are also getting data points for (y). Plugging in the paramaters using the x (t_vec_), plug in the new data into vec
+        pl.plot(t_vec,smooth_line_quadratic + vec, 'orange', linestyle = '--', linewidth = 1) #plot the smooth curve  
+        pl.plot(outtime[e],outpop[e], 'r+', markersize = 10,markeredgewidth = 2, label = 'Data')
+        
+        
 ##############Fitting the Gompertz Model using NLLS##############
 
 
