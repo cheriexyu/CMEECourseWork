@@ -30,4 +30,7 @@ print(data['ID']) # data has been ID from number 0 to 284
 
 data.isnull().values.any() #Check if there is any NaN
 
+#Get rid of negative values in time column 
+data = data[data['Time'] > 0]
+
 data.to_csv("../../data/editeddata.csv", sep=',')
