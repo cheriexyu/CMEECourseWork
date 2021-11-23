@@ -8,7 +8,9 @@
 
 from lmfit import Minimizer, Parameters, report_fit
 import pandas as pd
-import scipy as sc 
+import scipy as sc
+from scipy import stats 
+from scipy.stats import linregress
 import numpy as np
 import matplotlib.pylab as pl 
 import seaborn as sns 
@@ -69,7 +71,7 @@ AIC = []
 
 for d in range(len(outtime)):
     if len(outtime[d])>4:
-        minner = Minimizer(residuals_linear, params_linear, fcn_args=(outtime[d],outpop[d]))
+        minner = Minimizer(residuals_linear, params_linear, fcn_args=(outtime[d],np.log(outpop[d])))
         fit_linear_NLLS = minner.minimize()
         linear_minimize.append(fit_linear_NLLS)
         linear_residuals.append(fit_linear_NLLS.residual)
@@ -126,18 +128,18 @@ AIC_output.to_csv("../../data/AIC_output.csv",sep=',')
 # pl.show(block=False)
 
 #Plot FOR LOOP
-pl.rcParams['figure.figsize'] = [5, 10] #set up figure enivornment with width and height #NEED TO FIGURE THIS OUT
-t_vec=np.linspace(0,700,1000) #to get a smooth curve we need to plug in our own time vector (x)
-vec=np.ones(len(t_vec)) #allocating a vector of one for the below function
+# pl.rcParams['figure.figsize'] = [5, 10] #set up figure enivornment with width and height #NEED TO FIGURE THIS OUT
+# t_vec=np.linspace(0,700,1000) #to get a smooth curve we need to plug in our own time vector (x)
+# vec=np.ones(len(t_vec)) #allocating a vector of one for the below function
 
-for e in range(len(outpop)):
-    if len(outtime[e])>4:
-        result = outpop[e] + linear_residuals[e] # Make a variable that adds the y datapoints and residuals of the fitted data together, the datapoint on the fitted line 
-        pl.plot(outtime[e], result , 'g.', markersize = 10, label = 'Cubic') #plots the datapoints from above
-        smooth_line = residuals_linear(linear_params[e],t_vec,vec) #to get a smooth curve we are also getting data points for (y). Plugging in the paramaters using the x (t_vec_), plug in the new data into vec
-        pl.plot(t_vec,smooth_line + vec, 'green', linestyle = '--', linewidth = 1) #plot the smooth curve  
-        pl.plot(outtime[e],outpop[e], 'r+', markersize = 10,markeredgewidth = 2, label = 'Data')
-        pl.show()
+# for e in range(len(outpop)):
+#     if len(outtime[e])>4:
+#         result = np.log(outpop[e]) + linear_residuals[e] # Make a variable that adds the y datapoints and residuals of the fitted data together, the datapoint on the fitted line 
+#         pl.plot(outtime[e], result , 'g.', markersize = 10, label = 'Cubic') #plots the datapoints from above
+#         smooth_line = residuals_linear(linear_params[e],t_vec,vec) #to get a smooth curve we are also getting data points for (y). Plugging in the paramaters using the x (t_vec_), plug in the new data into vec
+#         pl.plot(t_vec,smooth_line + vec, 'green', linestyle = '--', linewidth = 1) #plot the smooth curve  
+#         pl.plot(outtime[e],np.log(outpop[e]), 'r+', markersize = 10,markeredgewidth = 2, label = 'Data')
+#         pl.show()
 
 
 pl.legend(fontsize = 10)
@@ -170,7 +172,7 @@ AIC_quadratic = []
 
 for f in range(len(outtime)):
     if len(outtime[f])>3:
-        minner_quadratic = Minimizer(residuals_quadratic, params_quadratic, fcn_args=(outtime[f],outpop[f]))
+        minner_quadratic = Minimizer(residuals_quadratic, params_quadratic, fcn_args=(outtime[f],np.log(outpop[f])))
         fit_quadratic_NLLS = minner_quadratic.minimize()
         quadratic_minimize.append(fit_quadratic_NLLS)
         quadratic_residuals.append(fit_quadratic_NLLS.residual)
@@ -188,33 +190,227 @@ AIC_output['Quadratic'] = AIC_quadratic
 AIC_output.to_csv("../../data/AIC_output.csv",sep=',')
 
 #Plotting
+# pl.rcParams['figure.figsize'] = [5, 10] #set up figure enivornment with width and height #NEED TO FIGURE THIS OUT
+# t_vec=np.linspace(0,700,1000) #to get a smooth curve we need to plug in our own time vector (x)
+# vec=np.ones(len(t_vec)) #allocating a vector of one for the below function
+
+# for e in range(len(outpop)):
+#     if len(outtime[e])>4:
+#         result_quadratic = np.log(outpop[e]) + quadratic_residuals[e] # Make a variable that adds the y datapoints and residuals of the fitted data together, the datapoint on the fitted line 
+#         pl.plot(outtime[e], result_quadratic , 'y.', markersize = 10, label = 'Quadratic') #plots the datapoints from above
+#         smooth_line_quadratic = residuals_quadratic(quadratic_params[e],t_vec,vec) #to get a smooth curve we are also getting data points for (y). Plugging in the paramaters using the x (t_vec_), plug in the new data into vec
+#         pl.plot(t_vec,smooth_line_quadratic + vec, 'orange', linestyle = '--', linewidth = 1) #plot the smooth curve  
+#         pl.plot(outtime[e],np.log(outpop[e]), 'r+', markersize = 10,markeredgewidth = 2, label = 'Data')
+
+
+
+
+
+
+
+##############Fitting the Gompertz Model using NLLS##############
+
+sns.lmplot(x='Time',y='PopBio',data=ID_0,fit_reg=False) #FOR ID 0 
+pl.show(block=True)
+
+#FOR first ID
+outtime[0]
+outpop[0]
+
+#Parameters
+params_gompertz=Parameters()
+params_gompertz.add_many(('N_0', np.log(outpop[0][-1]) , True, None, None, None, None),
+                         ('N_max', np.log(max(outpop[0])) , True, None, None, None, None),
+                         ('r_max', 0.00383, True, None, None, None, None),
+                         ('t_lag', 334.939759036145, True, None, None, None, None)) #0.0086293 is the correct one via eyeing, 334 was calculated by diff 
+
+np.log(outpop[0][-1]) #N_0, last number of the list is the starting value
+np.log(max(outpop[0])) #N_max
+
+#Calculate the slope (max growth rate) as rate of growth r_max
+from scipy import stats 
+from scipy.stats import linregress
+x = outtime[0]
+y = np.log(outpop[0])
+slope, intercept, r_value, p_value, std_err = stats.linregress(x,y) #calc regression line using least square 
+slope #0.003827136617541358 
+
+#Calculate the time_lag 
+np.diff(np.log(outpop[0])) #Differences between population points 
+np.diff(np.diff(np.log(outpop[0]))) #Differences between the Differences 
+max(np.diff(np.diff(np.log(outpop[0])))) # Max differences
+np.argmax(np.diff(np.diff(np.log(outpop[0])))) #Location 15 = is the location of the max diff of diff in the array
+outpop[0][np.argmax(np.diff(np.diff(np.log(outpop[0]))))] #0.197290029683953, number 15 this is the data point of end the exponential growth 
+outtime[0][np.argmax(np.diff(np.diff(np.log(outpop[0]))))] #time number when p is 0.197
+
+#Function
+def residuals_gompertz(params, t, data):
+    v = params.valuesdict()
+    model = v['N_0'] + (v['N_max'] - v['N_0']) * np.exp(-np.exp(v['r_max'] * np.exp(1) * (v['t_lag'] - t) / ((v['N_max'] - v['N_0']) * np.log(10)) + 1))
+    return model - data 
+
+minner = Minimizer(residuals_gompertz, params_gompertz, fcn_args=(outtime[0], np.log(outpop[0])))
+#Perform the minimization
+fit_gompertz = minner.minimize()
+report_fit(fit_gompertz)
+
+result_gompertz = np.log(outpop[0]) + fit_gompertz.residual
+pl.plot(outtime[0], result_gompertz, 'g.', markersize = 10, label = 'Gompertz')
+#Get a smooth curve by plugging a time vector to the fitted logistic model
+t_vec = np.linspace(0,700,1000)
+log_N_vec = np.ones(len(t_vec))
+residual_smooth_gompertz = residuals_gompertz(fit_gompertz.params, t_vec, log_N_vec)
+pl.plot(t_vec, residual_smooth_gompertz + log_N_vec, 'green', linestyle = '--', linewidth = 1)
+pl.plot(outtime[0], np.log(outpop[0]), 'r+', markersize = 10,markeredgewidth = 2, label = 'Data')
+pl.show()
+
+####LOOPS for ALL dataset#####
+
+for k in range(len(outpop)):
+    x = outtime[k]
+    y = np.log(outpop[k])
+    slope, intercept, r_value, p_value, std_err = stats.linregress(x,y) #calculate slope, r_max
+    diff = outtime[k][np.argmax(np.diff(np.diff(np.log(outpop[k]))))] #calculate t_lag
+    params_gompertz=Parameters()
+    params_gompertz.add_many(('N_0', np.log(outpop[k][-1]) , True, None, None, None, None),('N_max', np.log(max(outpop[k])) , True, None, None, None, None),('r_max', slope, True, None, None, None, None),('t_lag', diff, True, None, None, None, None)) 
+
+#Function
+def residuals_gompertz(params, t, data):
+    v3 = params.valuesdict()
+    model = v3['N_0'] + (v3['N_max'] - v3['N_0']) * np.exp(-np.exp(v3['r_max'] * np.exp(1) * (v3['t_lag'] - t) / ((v3['N_max'] - v3['N_0']) * np.log(10)) + 1))
+    return model - data 
+
+gompertz_minimize = []
+gompertz_residuals = []
+gompertz_params = []
+AIC_gompertz = [] 
+
+for m in range(len(outtime)):
+    if len(outtime[m])>4:
+        minner_gompertz = Minimizer(residuals_gompertz, params_gompertz, fcn_args=(outtime[m],np.log(outpop[m])))
+        fit_gompertz_NLLS = minner_gompertz.minimize()
+        gompertz_minimize.append(fit_gompertz_NLLS)
+        gompertz_residuals.append(fit_gompertz_NLLS.residual)
+        gompertz_params.append(fit_gompertz_NLLS.params)
+        AIC_gompertz.append(fit_gompertz_NLLS.aic)
+    else:
+        text = 'NA'
+        gompertz_minimize.append(text)
+        gompertz_residuals.append(text)
+        gompertz_params.append(text)
+        AIC_gompertz.append(text)
+
+AIC_output['Gompertz'] = AIC_gompertz
+AIC_output.to_csv("../../data/AIC_output.csv",sep=',')
+
+
+#Notes
+outpop[0][14]
+outtime[0][14]
+
+cut_time = outtime[0][16:28] 
+cut_pop = outpop[0][16:28] #cut the graph at the end of the exponential graph
+np.diff(np.log(cut_pop)) #Differences between population points 
+np.diff(np.diff(np.log(cut_pop))) #Differences between the Differences 
+max(np.diff(np.diff(np.log(cut_pop)))) # Max differences
+np.argmax(np.diff(np.diff(np.log(cut_pop)))) #10 number position in the cut_pop array
+cut_time[np.argmax(np.diff(np.diff(np.log(cut_pop))))] #286.74698795
+
+
+slope = (y2 - y1) / (x2 - x1)
+y2= np.log(outpop[0][15])
+x2 = outtime[0][15]
+y1 = np.log(outpop[0][14])
+x1 = outtime[0][14]
+
+x = outtime[0]
+y = np.log(outpop[0])
+slope, intercept, r_value, p_value, std_err = stats.linregress(x,y)
+
+output[0] = dataframe
+
+def calc_slope(x):
+    slope=np.polyfit(range(len(x)),x,1)[0]
+    return slope
+
+new['slope']=new.rolling(60, min_periods=2).apply(calc_slope)
+
+#################### Rolling Regression??
+
+new = pd.DataFrame(output[0]['Time'])
+new['PopBio'] = (output[0]['PopBio'])
+
+def get_slope(array):
+    y = np.log(array)
+    x = np.arange(len(y))
+    slope, intercept, r_value, p_value, std_err = linregress(x,y)
+    return slope
+
+new['roll_slope']=new.PopBio.Rolling(2).apply(get_slope,raw=True)
+
+#.reset_index(0, drop=True)
+
+
+####################################################################Plotting all graphs####################################################################
+
 pl.rcParams['figure.figsize'] = [5, 10] #set up figure enivornment with width and height #NEED TO FIGURE THIS OUT
 t_vec=np.linspace(0,700,1000) #to get a smooth curve we need to plug in our own time vector (x)
 vec=np.ones(len(t_vec)) #allocating a vector of one for the below function
 
-for e in range(len(outpop)):
-    if len(outtime[e])>4:
+for e in range(len(outpop)): #Quadratic
+    if len(outtime[e])>3:
         result_quadratic = outpop[e] + quadratic_residuals[e] # Make a variable that adds the y datapoints and residuals of the fitted data together, the datapoint on the fitted line 
         pl.plot(outtime[e], result_quadratic , 'y.', markersize = 10, label = 'Quadratic') #plots the datapoints from above
         smooth_line_quadratic = residuals_quadratic(quadratic_params[e],t_vec,vec) #to get a smooth curve we are also getting data points for (y). Plugging in the paramaters using the x (t_vec_), plug in the new data into vec
         pl.plot(t_vec,smooth_line_quadratic + vec, 'orange', linestyle = '--', linewidth = 1) #plot the smooth curve  
-        pl.plot(outtime[e],outpop[e], 'r+', markersize = 10,markeredgewidth = 2, label = 'Data')
-        
-        
-##############Fitting the Gompertz Model using NLLS##############
+
+for e in range(len(outpop)): #Cubic 
+    if len(outtime[e])>4:
+        result = np.log(outpop[e]) + linear_residuals[e] # Make a variable that adds the y datapoints and residuals of the fitted data together, the datapoint on the fitted line 
+        pl.plot(outtime[e], result , 'g.', markersize = 10, label = 'Cubic') #plots the datapoints from above
+        smooth_line = residuals_linear(linear_params[e],t_vec,vec) #to get a smooth curve we are also getting data points for (y). Plugging in the paramaters using the x (t_vec_), plug in the new data into vec
+        pl.plot(t_vec,smooth_line + vec, 'green', linestyle = '--', linewidth = 1) #plot the smooth curve  
+
+for e in range(len(outpop)): #Gompertz 
+    if len(outtime[e])>4:
+        result_gompertz = np.log(outpop[e]) + gompertz_residuals[e] #Gompertz 
+        pl.plot(outtime[e], result_gompertz, 'b.', markersize = 10, label = 'Gompertz') #datapoints
+        residual_smooth_gompertz = residuals_gompertz(gompertz_params[e], t_vec, vec)
+        pl.plot(t_vec, residual_smooth_gompertz + vec, 'blue', linestyle = '--', linewidth = 1)
+
+pl.plot(outtime[e],np.log(outpop[e]), 'r+', markersize = 10,markeredgewidth = 2, label = 'Data')
+pl.legend(fontsize = 10)
+pl.xlabel('Time(Hours)', fontsize = 10)
+pl.ylabel('Population(log)', fontsize = 10)
+pl.ticklabel_format(style='scientific', scilimits=[0,3])
+pl.show()
 
 
+#Plotting all graphs for e = 0
+pl.rcParams['figure.figsize'] = [5, 10] #set up figure enivornment with width and height #NEED TO FIGURE THIS OUT
+t_vec=np.linspace(0,700,1000) #to get a smooth curve we need to plug in our own time vector (x)
+vec=np.ones(len(t_vec)) #allocating a vector of one for the below function
 
-data[ID_0.PopBio == 0.005]
+result_quadratic = np.log(outpop[e]) + quadratic_residuals[e] # Make a variable that adds the y datapoints and residuals of the fitted data together, the datapoint on the fitted line 
+pl.plot(outtime[e], result_quadratic , 'y.', markersize = 10, label = 'Quadratic') #plots the datapoints from above
+smooth_line_quadratic = residuals_quadratic(quadratic_params[e],t_vec,vec) #to get a smooth curve we are also getting data points for (y). Plugging in the paramaters using the x (t_vec_), plug in the new data into vec
+pl.plot(t_vec,smooth_line_quadratic + vec, 'orange', linestyle = '--', linewidth = 1)
+
+result = np.log(outpop[e]) + linear_residuals[e] # Make a variable that adds the y datapoints and residuals of the fitted data together, the datapoint on the fitted line 
+pl.plot(outtime[e], result , 'g.', markersize = 10, label = 'Cubic') #plots the datapoints from above
+smooth_line = residuals_linear(linear_params[e],t_vec,vec) #to get a smooth curve we are also getting data points for (y). Plugging in the paramaters using the x (t_vec_), plug in the new data into vec
+pl.plot(t_vec,smooth_line + vec, 'green', linestyle = '--', linewidth = 1)
+
+result_gompertz = np.log(outpop[e]) + gompertz_residuals[e] #Gompertz 
+pl.plot(outtime[e], result_gompertz, 'b.', markersize = 10, label = 'Gompertz') #datapoints
+residual_smooth_gompertz = residuals_gompertz(gompertz_params[e], t_vec, vec)
+pl.plot(t_vec, residual_smooth_gompertz + vec, 'blue', linestyle = '--', linewidth = 1)
+
+pl.plot(outtime[e],np.log(outpop[e]), 'r+', markersize = 10,markeredgewidth = 2, label = 'Data')
+pl.legend(fontsize = 10)
+pl.xlabel('Time(Hours)', fontsize = 10)
+pl.ylabel('Population(log)', fontsize = 10)
+pl.ticklabel_format(style='scientific', scilimits=[0,3])
+pl.show()
 
 
-
-#Parameters
-params_gompertz=Parameters()
-params_gompertz.add_many(('N_0',0.5,))
-
-
-params_gompertz.add_many(('N_0', np.log(N_rand)[0] , True, 0, None, None, None),
-                         ('N_max', np.log(N_rand)[-1], True, 0, None, None, None),
-                         ('r_max', 0.62, True, None, None, None, None),
-                         ('t_lag', 5, True, 0, None, None, None))#I see it in the graph

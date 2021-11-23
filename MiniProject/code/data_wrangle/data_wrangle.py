@@ -33,4 +33,7 @@ data.isnull().values.any() #Check if there is any NaN
 #Get rid of negative values in time column 
 data = data[data['Time'] > 0]
 
+#Get rid of negative values in pop column 
+data = data[data['Time'] > 0]
+
 data.to_csv("../../data/editeddata.csv", sep=',')
