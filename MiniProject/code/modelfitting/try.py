@@ -128,18 +128,18 @@ AIC_output.to_csv("../../data/AIC_output.csv",sep=',')
 # pl.show(block=False)
 
 #Plot FOR LOOP
-# pl.rcParams['figure.figsize'] = [5, 10] #set up figure enivornment with width and height #NEED TO FIGURE THIS OUT
-# t_vec=np.linspace(0,700,1000) #to get a smooth curve we need to plug in our own time vector (x)
-# vec=np.ones(len(t_vec)) #allocating a vector of one for the below function
+pl.rcParams['figure.figsize'] = [5, 10] #set up figure enivornment with width and height #NEED TO FIGURE THIS OUT
+t_vec=np.linspace(0,700,1000) #to get a smooth curve we need to plug in our own time vector (x)
+vec=np.ones(len(t_vec)) #allocating a vector of one for the below function
 
-# for e in range(len(outpop)):
-#     if len(outtime[e])>4:
-#         result = np.log(outpop[e]) + linear_residuals[e] # Make a variable that adds the y datapoints and residuals of the fitted data together, the datapoint on the fitted line 
-#         pl.plot(outtime[e], result , 'g.', markersize = 10, label = 'Cubic') #plots the datapoints from above
-#         smooth_line = residuals_linear(linear_params[e],t_vec,vec) #to get a smooth curve we are also getting data points for (y). Plugging in the paramaters using the x (t_vec_), plug in the new data into vec
-#         pl.plot(t_vec,smooth_line + vec, 'green', linestyle = '--', linewidth = 1) #plot the smooth curve  
-#         pl.plot(outtime[e],np.log(outpop[e]), 'r+', markersize = 10,markeredgewidth = 2, label = 'Data')
-#         pl.show()
+for e in range(len(outpop)):
+    if len(outtime[e])>4:
+        result = np.log(outpop[e]) + linear_residuals[e] # Make a variable that adds the y datapoints and residuals of the fitted data together, the datapoint on the fitted line 
+        pl.plot(outtime[e], result , 'g.', markersize = 10, label = 'Cubic') #plots the datapoints from above
+        smooth_line = residuals_linear(linear_params[e],t_vec,vec) #to get a smooth curve we are also getting data points for (y). Plugging in the paramaters using the x (t_vec_), plug in the new data into vec
+        pl.plot(t_vec,smooth_line + vec, 'green', linestyle = '--', linewidth = 1) #plot the smooth curve  
+        pl.plot(outtime[e],np.log(outpop[e]), 'r+', markersize = 10,markeredgewidth = 2, label = 'Data')
+        pl.show()
 
 
 pl.legend(fontsize = 10)
@@ -201,9 +201,6 @@ AIC_output.to_csv("../../data/AIC_output.csv",sep=',')
 #         smooth_line_quadratic = residuals_quadratic(quadratic_params[e],t_vec,vec) #to get a smooth curve we are also getting data points for (y). Plugging in the paramaters using the x (t_vec_), plug in the new data into vec
 #         pl.plot(t_vec,smooth_line_quadratic + vec, 'orange', linestyle = '--', linewidth = 1) #plot the smooth curve  
 #         pl.plot(outtime[e],np.log(outpop[e]), 'r+', markersize = 10,markeredgewidth = 2, label = 'Data')
-
-
-
 
 
 
@@ -349,6 +346,111 @@ def get_slope(array):
 new['roll_slope']=new.PopBio.Rolling(2).apply(get_slope,raw=True)
 
 #.reset_index(0, drop=True)
+
+##############Fitting the Baranyi Model using NLLS##############
+#CHANGE TO LOOP and TRY CATCH
+#get rid of log ????
+#e=1 WORKS rest doesnt 
+#(NAME VALUE VARY MIN  MAX  EXPR  BRUTE_STEP)
+
+#For One Data Set e=1
+x = outtime[1]
+y = np.log(outpop[1])
+slope_baranyi, intercept, r_value, p_value, std_err = stats.linregress(x,y) #calculate slope, r_max
+params_baranyi=Parameters()
+params_baranyi.add_many(('N_0', outpop[1][-1] , True, None, None, None, None),('N_max', max(outpop[1]) , True, None, None, None, None),('r_max', slope_baranyi, True, None, None, None, None),('V', slope_baranyi , True, None, None, None, None),('M', 1, True, None, None, None, None),('t_lag', (outtime[1][np.argmax(np.diff(np.diff(np.log(outpop[1]))))]), True, None, None, None, None))  #h_0 = lag time * growth rate 
+
+def residuals_baranyi(params, t, data):
+    v4 = params.valuesdict()
+    model3 = t + (1 / v4['V']) * np.log( np.exp(-v4['V'] * t) + np.exp((-v4['t_lag'] * v4['r_max']) - np.exp(((-v4['V']) * t) - (v4['t_lag'] * v4['r_max']))))
+    model = v4['N_0'] + v4['r_max'] * model3 - ( 1 / v4['M'] ) * np.log ( 1 + ((( np.exp(v4['r_max'] * model3)) - 1 ) / (np.exp(v4['M'] * (v4['N_max'] - v4['N_0'])))))
+    return model - data 
+
+minner_baranyi = Minimizer(residuals_baranyi, params_baranyi, fcn_args=(outtime[1], np.log(outpop[1])))
+fit_baranyi = minner_baranyi.minimize()
+report_fit(fit_baranyi)
+
+result_baranyi = np.log(outpop[1]) + fit_baranyi.residual
+pl.plot(outtime[1], result_baranyi, 'g.', markersize = 10, label = 'Baranyi')
+t_vec = np.linspace(0,700,1000)
+log_N_vec = np.ones(len(t_vec))
+residual_smooth_baranyi = residuals_baranyi(fit_baranyi.params, t_vec, log_N_vec)
+pl.plot(t_vec, residual_smooth_baranyi + log_N_vec, 'green', linestyle = '--', linewidth = 1)
+pl.show()
+
+# LOOPING ALL 
+for p in range(len(outpop)):
+    x = outtime[p]
+    y = np.log(outpop[p])
+    slope_baranyi, intercept, r_value, p_value, std_err = stats.linregress(x,y) #calculate slope, r_max
+    params_baranyi=Parameters()
+    params_baranyi.add_many(('N_0', outpop[p][-1] , True, None, None, None, None),('N_max', max(outpop[p]) , True, None, None, None, None),('r_max', slope_baranyi, True, None, None, None, None),('V', slope_baranyi , True, None, None, None, None),('M', 1, True, None, None, None, None),('t_lag', (outtime[p][np.argmax(np.diff(np.diff(np.log(outpop[p]))))]), True, None, None, None, None))  #h_0 = lag time * growth rate 
+
+#(outtime[1][np.argmax(np.diff(np.diff(np.log(outpop[1]))))]) * r_max =H_0
+def residuals_baranyi(params, t, data):
+    v4 = params.valuesdict()
+    model3 = t + (1 / v4['V']) * np.log( np.exp(-v4['V'] * t) + np.exp((-v4['t_lag'] * v4['r_max']) - np.exp(((-v4['V']) * t) - (v4['t_lag'] * v4['r_max']))))
+    model = v4['N_0'] + v4['r_max'] * model3 - ( 1 / v4['M'] ) * np.log ( 1 + ((( np.exp(v4['r_max'] * model3)) - 1 ) / (np.exp(v4['M'] * (v4['N_max'] - v4['N_0'])))))
+    return model - data 
+
+baranyi_minimize = []
+baranyi_residuals = []
+baranyi_params = []
+AIC_baranyi = [] 
+
+for p in range(len(outpop)):
+    if len(outtime[p])>5:
+        minner_baranyi = Minimizer(residuals_baranyi, params_baranyi, fcn_args=(outtime[p], np.log(outpop[p])))
+        fit_baranyi = minner_baranyi.minimize()
+        baranyi_minimize.append(fit_baranyi)
+        baranyi_residuals.append(fit_baranyi.residual)
+        baranyi_params.append(fit_baranyi.params)
+        AIC_baranyi.append(fit_baranyi.aic)
+    else:
+        text = 'NA'
+        baranyi_minimize.append(text)
+        baranyi_residuals.append(text)
+        baranyi_params.append(text)
+        AIC_baranyi.append(text)
+
+for p in range(len(outpop)):  
+    if len(outtime[p])>5:
+    result_baranyi = np.log(outpop[p]) + baranyi_residuals[p]
+    pl.plot(outtime[p], result_baranyi, 'g.', markersize = 10, label = 'Baranyi')
+    t_vec = np.linspace(0,700,1000)
+    log_N_vec = np.ones(len(t_vec))
+    residual_smooth_baranyi = residuals_baranyi(baranyi_params[p], t_vec, log_N_vec)
+    pl.plot(t_vec, residual_smooth_baranyi + log_N_vec, 'green', linestyle = '--', linewidth = 1)
+
+pl.show()
+
+# AIC_output['Baranyi'] = AIC_baranyi
+# AIC_output.to_csv("../../data/AIC_output.csv",sep=',')
+
+# minner = Minimizer(residuals_baranyi, params_baranyi, fcn_args=(outtime[3], np.log(outpop[3])))
+# #Perform the minimization
+# fit_baranyi = minner.minimize()
+#report_fit(fit_baranyi)
+
+
+
+
+
+
+
+
+
+
+
+x = outtime[1]
+y = np.log(outpop[1])
+slope, intercept, r_value, p_value, std_err = stats.linregress(x,y)
+
+
+
+
+
+
 
 
 ####################################################################Plotting all graphs####################################################################
