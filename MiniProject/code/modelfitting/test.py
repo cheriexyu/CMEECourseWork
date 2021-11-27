@@ -64,7 +64,6 @@ def residuals_quadratic(params, t, data):
 
 minner_quadratic = Minimizer(residuals_quadratic, params_quadratic, fcn_args=(outtime[i],np.log(outpop[i])))
 fit_quadratic_NLLS = minner_quadratic.minimize()
-report_fit(fit_linear_NLLS)
 
 #Gompertz Model
 x = outtime[i]
@@ -72,10 +71,7 @@ y = np.log(outpop[i])
 slope, intercept, r_value, p_value, std_err = stats.linregress(x,y) #calc regression line using least square 
 
 params_gompertz=Parameters()
-params_gompertz.add_many(('N_0', np.log(outpop[i][-1]) , True, None, None, None, None),
-                         ('N_max', np.log(max(outpop[i])) , True, None, None, None, None),
-                         ('r_max', slope, True, None, None, None, None),
-                         ('t_lag', outtime[i][np.argmax(np.diff(np.diff(np.log(outpop[i]))))], True, None, None, None, None)) #0.0086293 is the correct one via eyeing, 334 was calculated by diff 
+params_gompertz.add_many(('N_0', np.log(outpop[i][-1]) , True, None, None, None, None),('N_max', np.log(max(outpop[i])) , True, None, None, None, None),('r_max', slope, True, None, None, None, None),('t_lag', diff, True, None, None, None, None)) 
 
 def residuals_gompertz(params, t, data):
     v = params.valuesdict()
@@ -86,7 +82,7 @@ minner = Minimizer(residuals_gompertz, params_gompertz, fcn_args=(outtime[i], np
 fit_gompertz = minner.minimize()
 report_fit(fit_gompertz)
 
-#Baranyi
+# #Baranyi
 params_baranyi=Parameters()
 params_baranyi.add_many(('N_0', outpop[i][-1] , True, None, None, None, None),('N_max', max(outpop[i]) , True, None, None, None, None),('r_max', slope, True, None, None, None, None),('V', slope , True, None, None, None, None),('M', 1, True, None, None, None, None),('t_lag', (outtime[i][np.argmax(np.diff(np.diff(np.log(outpop[i]))))]), True, None, None, None, None))  #h_0 = lag time * growth rate 
 
@@ -105,28 +101,28 @@ f1 = pl.figure()
 
 result_quadratic = np.log(outpop[i]) + fit_quadratic_NLLS.residual # Make a variable that adds the y datapoints and residuals of the fitted data together, the datapoint on the fitted line 
 pl.plot(outtime[i], result_quadratic , 'y.', markersize = 8, label = 'Quadratic') #plots the datapoints from above
-t_vec = np.linspace(0,700,1000)
+t_vec = np.linspace(0,max(outtime[i]),1000)
 vec = np.ones(len(t_vec))
 smooth_line_quadratic = residuals_quadratic(fit_quadratic_NLLS.params,t_vec,vec) #to get a smooth curve we are also getting data points for (y). Plugging in the paramaters using the x (t_vec_), plug in the new data into vec
 pl.plot(t_vec,smooth_line_quadratic + vec, 'orange', linestyle = '--', linewidth = 1)
 
 result = np.log(outpop[i]) + fit_linear_NLLS.residual # Make a variable that adds the y datapoints and residuals of the fitted data together, the datapoint on the fitted line 
 pl.plot(outtime[i], result , 'g.', markersize = 8, label = 'Cubic') #plots the datapoints from above
-t_vec = np.linspace(0,700,1000)
+t_vec = np.linspace(0,max(outtime[i]),1000)
 vec = np.ones(len(t_vec))
 smooth_line = residuals_linear(fit_linear_NLLS.params,t_vec,vec) #to get a smooth curve we are also getting data points for (y). Plugging in the paramaters using the x (t_vec_), plug in the new data into vec
 pl.plot(t_vec,smooth_line + vec, 'green', linestyle = '--', linewidth = 1)
 
 result_gompertz = np.log(outpop[i]) + fit_gompertz.residual #Gompertz 
 pl.plot(outtime[i], result_gompertz, 'b.', markersize = 8, label = 'Gompertz') #datapoints
-t_vec = np.linspace(0,700,1000)
+t_vec = np.linspace(0,max(outtime[i]),1000)
 vec = np.ones(len(t_vec))
 residual_smooth_gompertz = residuals_gompertz(fit_gompertz.params, t_vec, vec)
 pl.plot(t_vec, residual_smooth_gompertz + vec, 'blue', linestyle = '--', linewidth = 1)
 
 result_baranyi = np.log(outpop[i]) + fit_baranyi.residual
 pl.plot(outtime[i], result_baranyi, '.', markerfacecolor = 'magenta', markeredgecolor = 'magenta', markersize = 8, label = 'Baranyi')
-t_vec = np.linspace(0,700,1000)
+t_vec = np.linspace(0,max(outtime[i]),1000)
 vec = np.ones(len(t_vec))
 residual_smooth_baranyi = residuals_baranyi(fit_baranyi.params, t_vec, vec)
 pl.plot(t_vec, residual_smooth_baranyi + vec, 'magenta', linestyle = '--', linewidth = 1)

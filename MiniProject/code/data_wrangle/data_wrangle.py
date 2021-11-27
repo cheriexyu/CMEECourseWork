@@ -37,3 +37,16 @@ data = data[data['Time'] > 0]
 data = data[data['Time'] > 0]
 
 data.to_csv("../../data/editeddata.csv", sep=',')
+
+# #Get rid of 280,281,282,283,284,285 ID, didn't work while sampling for minimizing 
+
+data_aftersample = data
+
+data_aftersample = data_aftersample.loc[data_aftersample["ID"] != 280]
+data_aftersample = data_aftersample.loc[data_aftersample["ID"] != 281]
+data_aftersample = data_aftersample.loc[data_aftersample["ID"] != 282]
+data_aftersample = data_aftersample.loc[data_aftersample["ID"] != 283]
+data_aftersample = data_aftersample.loc[data_aftersample["ID"] != 284]
+
+data_aftersample.to_csv("../../data/data_aftersample.csv", sep=',')
+

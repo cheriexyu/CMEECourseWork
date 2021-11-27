@@ -94,13 +94,6 @@ for d in range(len(outtime)):
         AIC_quadratic.append(text)
 
 #####Gompertz
-for d in range(len(outpop)):
-    x = outtime[d]
-    y = np.log(outpop[d])
-    slope, intercept, r_value, p_value, std_err = stats.linregress(x,y) #calculate slope, r_max
-    diff = outtime[d][np.argmax(np.diff(np.diff(np.log(outpop[d]))))] #calculate t_lag
-    params_gompertz=Parameters()
-    params_gompertz.add_many(('N_0', np.log(outpop[d][-1]) , True, None, None, None, None),('N_max', np.log(max(outpop[d])) , True, None, None, None, None),('r_max', slope, True, None, None, None, None),('t_lag', diff, True, None, None, None, None)) 
 
 def residuals_gompertz(params, t, data):
     v3 = params.valuesdict()
@@ -109,24 +102,34 @@ def residuals_gompertz(params, t, data):
 
 gompertz_minimize = []
 gompertz_residuals = []
-gompertz_params = []
+gompertz_params_minimize = [] #Minimized parameters for storing
 AIC_gompertz = [] 
+params = [] #Storing starting points for parameters
 
 for d in range(len(outtime)):
+    x = outtime[d]
+    y = np.log(outpop[d])
+    slope, intercept, r_value, p_value, std_err = stats.linregress(x,y) #calculate slope, r_max
+    diff = outtime[d][np.argmax(np.diff(np.diff(np.log(outpop[d]))))] #calculate t_lag
+    params_gompertz=Parameters()
+    params_gompertz.add_many(('N_0', np.log(outpop[d][-1]) , True, None, None, None, None),('N_max', np.log(max(outpop[d])) , True, None, None, None, None),('r_max', slope, True, None, None, None, None),('t_lag', diff, True, None, None, None, None)) 
+    params.append(params_gompertz)
+
     if len(outtime[d])>4:
-        minner_gompertz = Minimizer(residuals_gompertz, params_gompertz, fcn_args=(outtime[d],np.log(outpop[d])))
+        minner_gompertz = Minimizer(residuals_gompertz, params[d], fcn_args=(outtime[d],np.log(outpop[d])))
         fit_gompertz_NLLS = minner_gompertz.minimize()
         gompertz_minimize.append(fit_gompertz_NLLS)
         gompertz_residuals.append(fit_gompertz_NLLS.residual)
-        gompertz_params.append(fit_gompertz_NLLS.params)
+        gompertz_params_minimize.append(fit_gompertz_NLLS.params)
         AIC_gompertz.append(fit_gompertz_NLLS.aic)
+
+
     else:
         text = 'NA'
         gompertz_minimize.append(text)
         gompertz_residuals.append(text)
-        gompertz_params.append(text)
+        gompertz_params_minimize.append(text)
         AIC_gompertz.append(text)
-
 
 #AIC number output to output CSV
 AIC_output = pd.DataFrame(subset,columns=['ID'])
@@ -135,7 +138,7 @@ AIC_output['Quadratic'] = AIC_quadratic
 AIC_output['Gompertz'] = AIC_gompertz
 AIC_output.to_csv("../../data/AIC_output.csv",sep=',')
 
-#######GRAPHHHHHHHH
+#######GRAPHHHHHHHH 
 for e in range(len(outpop)): #Cubic
     if len(outtime[e])>4:
         result = np.log(outpop[e]) + linear_residuals[e] # Make a variable that adds the y datapoints and residuals of the fitted data together, the datapoint on the fitted line 
@@ -158,12 +161,54 @@ for e in range(len(outpop)): #Cubic
         pl.plot(outtime[e], result_gompertz, 'b.', markersize = 8, label = 'Gompertz') #datapoints
         t_vec=np.linspace(0,700,1000) #to get a smooth curve we need to plug in our own time vector (x)
         vec=np.ones(len(t_vec)) 
-        residual_smooth_gompertz = residuals_gompertz(gompertz_params[e], t_vec, vec)
+        residual_smooth_gompertz = residuals_gompertz(gompertz_params_minimize[e], t_vec, vec)
         pl.plot(t_vec, residual_smooth_gompertz + vec, 'blue', linestyle = '--', linewidth = 1)
 
-    pl.plot(outtime[e],np.log(outpop[e]), 'k+', markersize = 8,markeredgewidth = 2, label = 'Data', numtostr(e))
+    pl.plot(outtime[e],np.log(outpop[e]), 'k+', markersize = 8,markeredgewidth = 2, label = 'Data')
+    pl.legend(fontsize = 10)
+    pl.xlabel('Time(Hours)', fontsize = 10)
+    pl.ylabel('Population(log)', fontsize = 10)
+    pl.ticklabel_format(style='scientific', scilimits=[0,3])
+    pl.show(block=False)
+
+
+#######GRAPHHHHHHHH LOOP USING TEST DATA BECAUSE ERROR OCCURS WITH STARTING VALUES 
+test = outtime[0:50]
+test2 = outpop[0:50]
+
+for e in range(len(test)): #Cubic
+    if len(outtime[e])>4:
+        result = np.log(test2[e]) + linear_residuals[e] # Make a variable that adds the y datapoints and residuals of the fitted data together, the datapoint on the fitted line 
+        pl.plot(outtime[e], result , 'g.', markersize = 8, label = 'Cubic') #plots the datapoints from above
+        t_vec=np.linspace(0,700,1000) #to get a smooth curve we need to plug in our own time vector (x)
+        vec=np.ones(len(t_vec)) 
+        smooth_line = residuals_linear(linear_params[e],t_vec,vec) #to get a smooth curve we are also getting data points for (y). Plugging in the paramaters using the x (t_vec_), plug in the new data into vec
+        pl.plot(t_vec,smooth_line + vec, 'green', linestyle = '--', linewidth = 1) #plot the smooth curve  
+
+    if len(outtime[e])>3: #Quadratic
+        result_quadratic = np.log(test2[e]) + quadratic_residuals[e] # Make a variable that adds the y datapoints and residuals of the fitted data together, the datapoint on the fitted line 
+        pl.plot(outtime[e], result_quadratic , 'y.', markersize = 8, label = 'Quadratic') #plots the datapoints from above
+        t_vec=np.linspace(0,700,1000) #to get a smooth curve we need to plug in our own time vector (x)
+        vec=np.ones(len(t_vec)) 
+        smooth_line_quadratic = residuals_quadratic(quadratic_params[e],t_vec,vec) #to get a smooth curve we are also getting data points for (y). Plugging in the paramaters using the x (t_vec_), plug in the new data into vec
+        pl.plot(t_vec,smooth_line_quadratic + vec, 'orange', linestyle = '--', linewidth = 1) #plot the smooth curve  
+
+    if len(outtime[e])>4: #Gompertz
+        result_gompertz = np.log(test2[e]) + gompertz_residuals[e] #Gompertz 
+        pl.plot(test[e], result_gompertz, 'b.', markersize = 8, label = 'Gompertz') #datapoints
+        t_vec=np.linspace(0,700,1000) #to get a smooth curve we need to plug in our own time vector (x)
+        vec=np.ones(len(t_vec)) 
+        residual_smooth_gompertz = residuals_gompertz(gompertz_params_minimize[e], t_vec, vec)
+        pl.plot(t_vec, residual_smooth_gompertz + vec, 'blue', linestyle = '--', linewidth = 1)
+
+    pl.plot(test[e],np.log(test2[e]), 'k+', markersize = 8,markeredgewidth = 2, label = 'Data')
     pl.legend(fontsize = 10)
     pl.xlabel('Time(Hours)', fontsize = 10)
     pl.ylabel('Population(log)', fontsize = 10)
     pl.ticklabel_format(style='scientific', scilimits=[0,3])
     pl.show()
+
+
+#Try catch to see errors and which doesnt Fit
+#can legend show which ID it is?
+#Fix baranyi for the rest 

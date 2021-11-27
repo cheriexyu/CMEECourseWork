@@ -438,21 +438,6 @@ pl.show()
 
 
 
-
-
-
-
-x = outtime[1]
-y = np.log(outpop[1])
-slope, intercept, r_value, p_value, std_err = stats.linregress(x,y)
-
-
-
-
-
-
-
-
 ####################################################################Plotting all graphs####################################################################
 
 pl.rcParams['figure.figsize'] = [5, 10] #set up figure enivornment with width and height #NEED TO FIGURE THIS OUT
