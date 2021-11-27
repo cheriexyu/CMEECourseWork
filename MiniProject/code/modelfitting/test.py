@@ -71,7 +71,7 @@ y = np.log(outpop[i])
 slope, intercept, r_value, p_value, std_err = stats.linregress(x,y) #calc regression line using least square 
 
 params_gompertz=Parameters()
-params_gompertz.add_many(('N_0', np.log(outpop[i][-1]) , True, None, None, None, None),('N_max', np.log(max(outpop[i])) , True, None, None, None, None),('r_max', slope, True, None, None, None, None),('t_lag', diff, True, None, None, None, None)) 
+params_gompertz.add_many(('N_0', -11.859056562153 , True, None, None, None, None),('N_max', -0.565219889506912 , True, None, None, None, None),('r_max', 0.277697681076982, True, None, None, None, None),('t_lag', -65.6337641265574, True, None, None, None, None)) 
 
 def residuals_gompertz(params, t, data):
     v = params.valuesdict()

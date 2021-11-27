@@ -11,6 +11,7 @@ from scipy.stats import linregress
 import numpy as np
 import matplotlib.pylab as pl 
 import seaborn as sns 
+import csv
 
 data = pd.read_csv("../../data/editeddata.csv")
 #print("Loaded {} columns.".format(len(data.columns.values))) #load 10 columns
@@ -34,6 +35,7 @@ test['outtime'] = outtime
 test.set_index('ID', inplace=True)
 test.drop([4,14,16,20,88,280,281,282,283,284],inplace=True)
 test = test.reset_index()
+test.to_csv("../../data/data_after_sample_gompertz.csv",sep=",",quoting=csv.QUOTE_ALL) #save as csv to edited data after sampling gompertz, NEED TO EDIT THIS
 
 outpop_test = test["outpop"].to_numpy()
 outtime_test = test["outtime"].to_numpy()
@@ -43,10 +45,10 @@ ID = test["ID"].to_numpy()
 slope_r_max=[]
 diff_lag=[]
 
-gompertz_minimize = []
-gompertz_residuals = []
-params = []
-alloc = np.zeros((275,5))
+#gompertz_minimize = []
+#gompertz_residuals = [] #all these are 27500
+params = [] #all these are 27500
+alloc = np.zeros((275,5)) 
 
 for d in range(len(outtime_test)):
     print(d)
@@ -82,7 +84,7 @@ for d in range(len(outtime_test)):
                 minner_gompertz = Minimizer(residuals_gompertz, params[d], fcn_args=(outtime_test[d],np.log(outpop_test[d])))
                 fit_gompertz_NLLS = minner_gompertz.minimize() #THIS IS THE SENSITIVE PART
                 #gompertz_minimize.append(fit_gompertz_NLLS)
-                gompertz_residuals.append(fit_gompertz_NLLS.residual)
+                #gompertz_residuals.append(fit_gompertz_NLLS.residual)
                 par_dict = fit_gompertz_NLLS.params.valuesdict()
                 values = np.fromiter(par_dict.values(), dtype=float)
                 x = fit_gompertz_NLLS.aic
@@ -95,7 +97,7 @@ for d in range(len(outtime_test)):
                 text = np.nan
                 alloc[d] = text
                 #gompertz_minimize.append(text)
-                gompertz_residuals.append(text)
+                #gompertz_residuals.append(text)
                 #gompertz_params_minimize.append(text)
     
         except Exception:
@@ -111,7 +113,8 @@ df2
 df2.to_csv("../../data/minimized_paras_gompertz.csv", sep=',',na_rep="NaN")
 
 
-
+#values 
+#residuals_gompertz(#gompertz_params_minimize[f], t_vec, vec)
 
 
 for f in range(len(outtime_test)):

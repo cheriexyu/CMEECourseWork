@@ -38,15 +38,28 @@ data = data[data['Time'] > 0]
 
 data.to_csv("../../data/editeddata.csv", sep=',')
 
+
+
+test = data
+test.set_index('ID', inplace=True)
+test.drop([4,14,16,20,88,280,281,282,283,284],inplace=True)
+test = test.reset_index()
+test
+Sample_size = test.groupby('ID').size().sort_values().reset_index(name='Sample_Size')
+Sample_size.set_index('ID', inplace=True)
+Sample_size.to_csv("../../data/sample_size.csv", sep=',')
+
+
+
 # #Get rid of 280,281,282,283,284,285 ID, didn't work while sampling for minimizing 
 
-data_aftersample = data
+# data_aftersample = data
 
-data_aftersample = data_aftersample.loc[data_aftersample["ID"] != 280]
-data_aftersample = data_aftersample.loc[data_aftersample["ID"] != 281]
-data_aftersample = data_aftersample.loc[data_aftersample["ID"] != 282]
-data_aftersample = data_aftersample.loc[data_aftersample["ID"] != 283]
-data_aftersample = data_aftersample.loc[data_aftersample["ID"] != 284]
+# data_aftersample = data_aftersample.loc[data_aftersample["ID"] != 280]
+# data_aftersample = data_aftersample.loc[data_aftersample["ID"] != 281]
+# data_aftersample = data_aftersample.loc[data_aftersample["ID"] != 282]
+# data_aftersample = data_aftersample.loc[data_aftersample["ID"] != 283]
+# data_aftersample = data_aftersample.loc[data_aftersample["ID"] != 284]
 
-data_aftersample.to_csv("../../data/data_aftersample.csv", sep=',')
+# data_aftersample.to_csv("../../data/data_aftersample.csv", sep=',')
 
