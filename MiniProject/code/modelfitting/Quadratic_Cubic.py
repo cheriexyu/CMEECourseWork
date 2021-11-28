@@ -2,13 +2,36 @@
 #############################
 # LOOP FOR ALL Quadratic and Cubic
 #############################
-data = pd.read_csv("../../data/data_after_sample_gompertz.csv")
+data = pd.read_csv("../../data/editeddata.csv")
 #print("Loaded {} columns.".format(len(data.columns.values))) #load 10 columns
 data = data.drop(columns=['Unnamed: 0'])
+data_subset=data[['ID','Time','PopBio','Time_units','PopBio_units']] #data_subset is a subset of data with only the variables we need
+
+#Loop to get subsets of data into a dictionary 
+subset = data_subset['ID'].unique()
+output = {a: data_subset[data_subset['ID'] == a ]for a in subset}
+
+#Convert time and population column for all subset into a numpy array 
+outtime = [output[l]['Time'].to_numpy() for l in range(len(output))]
+outpop = [output[l]['PopBio'].to_numpy() for l in range(len(output))] 
+outtime = np.asarray(outtime, dtype=object)
+outpop = np.asarray(outpop, dtype=object)
+
+#New data set of n=275 after getting rid of data that don't fit
+test = pd.DataFrame(data=subset,columns=['ID'])
+test['outpop'] = outpop
+test['outtime'] = outtime
+test.set_index('ID', inplace=True)
+test.drop([4,14,16,20,88,280,281,282,283,284],inplace=True)
+test = test.reset_index()
+test.to_csv("../../data/data_after_sample_gompertz.csv",sep=",",quoting=csv.QUOTE_ALL) #save as csv to edited data after sampling gompertz, NEED TO EDIT THIS
+
 outpop_test = test["outpop"].to_numpy()
-len(outpop_test)
 outtime_test = test["outtime"].to_numpy()
 ID = test["ID"].to_numpy()
+
+
+########
 
 params_linear=Parameters() #To store parameters
 params_linear.add('a', value = 1)
@@ -86,7 +109,7 @@ AIC_gompertz = AIC_gompertz_csv["AIC"].to_numpy()
 AIC_output['Gompertz'] = AIC_gompertz
 AIC_output.set_index('ID', inplace=True)
 
-
+len(AIC_output)
 AIC_output.to_csv("../../data/AIC_output.csv",sep=',',na_rep="NA")
 
 

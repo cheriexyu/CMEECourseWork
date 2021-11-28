@@ -11,8 +11,9 @@ from scipy.stats import linregress
 import numpy as np
 import matplotlib.pylab as pl 
 import seaborn as sns 
+import csv
 
-#DATA = ID 1 
+#DATA = ID 0
 
 data = pd.read_csv("../../data/editeddata.csv")
 print("Loaded {} columns.".format(len(data.columns.values))) #load 10 columns
@@ -71,7 +72,7 @@ y = np.log(outpop[i])
 slope, intercept, r_value, p_value, std_err = stats.linregress(x,y) #calc regression line using least square 
 
 params_gompertz=Parameters()
-params_gompertz.add_many(('N_0', -11.859056562153 , True, None, None, None, None),('N_max', -0.565219889506912 , True, None, None, None, None),('r_max', 0.277697681076982, True, None, None, None, None),('t_lag', -65.6337641265574, True, None, None, None, None)) 
+params_gompertz.add_many(('N_0', -9349.44228454348 , True, None, None, None, None),('N_max', -1.30860700306332 , True, None, None, None, None),('r_max', 66.5013343232838, True, None, None, None, None),('t_lag', -1042.00126200408, True, None, None, None, None)) 
 
 def residuals_gompertz(params, t, data):
     v = params.valuesdict()
@@ -82,19 +83,19 @@ minner = Minimizer(residuals_gompertz, params_gompertz, fcn_args=(outtime[i], np
 fit_gompertz = minner.minimize()
 report_fit(fit_gompertz)
 
-# #Baranyi
-params_baranyi=Parameters()
-params_baranyi.add_many(('N_0', outpop[i][-1] , True, None, None, None, None),('N_max', max(outpop[i]) , True, None, None, None, None),('r_max', slope, True, None, None, None, None),('V', slope , True, None, None, None, None),('M', 1, True, None, None, None, None),('t_lag', (outtime[i][np.argmax(np.diff(np.diff(np.log(outpop[i]))))]), True, None, None, None, None))  #h_0 = lag time * growth rate 
+# # #Baranyi
+# params_baranyi=Parameters()
+# params_baranyi.add_many(('N_0', outpop[i][-1] , True, None, None, None, None),('N_max', max(outpop[i]) , True, None, None, None, None),('r_max', slope, True, None, None, None, None),('V', slope , True, None, None, None, None),('M', 1, True, None, None, None, None),('t_lag', (outtime[i][np.argmax(np.diff(np.diff(np.log(outpop[i]))))]), True, None, None, None, None))  #h_0 = lag time * growth rate 
 
-def residuals_baranyi(params, t, data):
-    v4 = params.valuesdict()
-    model3 = t + (1 / v4['V']) * np.log( np.exp(-v4['V'] * t) + np.exp((-v4['t_lag'] * v4['r_max']) - np.exp(((-v4['V']) * t) - (v4['t_lag'] * v4['r_max']))))
-    model = v4['N_0'] + v4['r_max'] * model3 - ( 1 / v4['M'] ) * np.log ( 1 + ((( np.exp(v4['r_max'] * model3)) - 1 ) / (np.exp(v4['M'] * (v4['N_max'] - v4['N_0'])))))
-    return model - data 
+# def residuals_baranyi(params, t, data):
+#     v4 = params.valuesdict()
+#     model3 = t + (1 / v4['V']) * np.log( np.exp(-v4['V'] * t) + np.exp((-v4['t_lag'] * v4['r_max']) - np.exp(((-v4['V']) * t) - (v4['t_lag'] * v4['r_max']))))
+#     model = v4['N_0'] + v4['r_max'] * model3 - ( 1 / v4['M'] ) * np.log ( 1 + ((( np.exp(v4['r_max'] * model3)) - 1 ) / (np.exp(v4['M'] * (v4['N_max'] - v4['N_0'])))))
+#     return model - data 
 
-minner_baranyi = Minimizer(residuals_baranyi, params_baranyi, fcn_args=(outtime[i], np.log(outpop[i])))
-fit_baranyi = minner_baranyi.minimize()
-report_fit(fit_baranyi)
+# minner_baranyi = Minimizer(residuals_baranyi, params_baranyi, fcn_args=(outtime[i], np.log(outpop[i])))
+# fit_baranyi = minner_baranyi.minimize()
+# report_fit(fit_baranyi)
 
 #GRAPHHHHHHHH
 f1 = pl.figure()
@@ -120,12 +121,12 @@ vec = np.ones(len(t_vec))
 residual_smooth_gompertz = residuals_gompertz(fit_gompertz.params, t_vec, vec)
 pl.plot(t_vec, residual_smooth_gompertz + vec, 'blue', linestyle = '--', linewidth = 1)
 
-result_baranyi = np.log(outpop[i]) + fit_baranyi.residual
-pl.plot(outtime[i], result_baranyi, '.', markerfacecolor = 'magenta', markeredgecolor = 'magenta', markersize = 8, label = 'Baranyi')
-t_vec = np.linspace(0,max(outtime[i]),1000)
-vec = np.ones(len(t_vec))
-residual_smooth_baranyi = residuals_baranyi(fit_baranyi.params, t_vec, vec)
-pl.plot(t_vec, residual_smooth_baranyi + vec, 'magenta', linestyle = '--', linewidth = 1)
+# result_baranyi = np.log(outpop[i]) + fit_baranyi.residual
+# pl.plot(outtime[i], result_baranyi, '.', markerfacecolor = 'magenta', markeredgecolor = 'magenta', markersize = 8, label = 'Baranyi')
+# t_vec = np.linspace(0,max(outtime[i]),1000)
+# vec = np.ones(len(t_vec))
+# residual_smooth_baranyi = residuals_baranyi(fit_baranyi.params, t_vec, vec)
+# pl.plot(t_vec, residual_smooth_baranyi + vec, 'magenta', linestyle = '--', linewidth = 1)
 
 pl.plot(outtime[i],np.log(outpop[i]), 'k+', markersize = 8,markeredgewidth = 2, label = 'Data')
 pl.legend(fontsize = 10)

@@ -3,9 +3,6 @@
 # Data testing model linear 
 #############################
 
-#remove negative time and population??
-#weighted aic vs normal aic
-
 from lmfit import Minimizer, Parameters, report_fit
 import pandas as pd
 import scipy as sc

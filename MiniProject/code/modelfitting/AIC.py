@@ -3,12 +3,13 @@
 # AIC rescaling 
 #############################
 aic = pd.read_csv("../../data/AIC_output.csv")
+aic.dropna(axis=0,how ='all',subset=["Quadratic","Cubic","Gompertz"],inplace=True) #drop rows with ALL NA
+aic.to_csv("../../data/AIC_output.csv",sep=',',na_rep="NA")
 
-aic_drop=aic.dropna(axis=0,how ='all',subset=["Quadratic","Cubic","Gompertz"]) #drop rows with ALL NA
-cubic_aic = aic_drop["Cubic"].to_numpy(na_value=np.nan)
-quadratic_aic = aic_drop["Quadratic"].to_numpy(na_value=np.nan)
-gompertz_aic = aic_drop["Gompertz"].to_numpy(na_value=np.nan)
-ID_aic = aic_drop["ID"].to_numpy(dtype=object)
+cubic_aic = aic["Cubic"].to_numpy(na_value=np.nan)
+quadratic_aic = aic["Quadratic"].to_numpy(na_value=np.nan)
+gompertz_aic = aic["Gompertz"].to_numpy(na_value=np.nan)
+ID_aic = aic["ID"].to_numpy(dtype=object)
 
 sample_size = pd.read_csv("../../data/sample_size.csv")
 sample_size.sort_values(by=['ID'],inplace=True)
@@ -31,3 +32,33 @@ aicc_df["ID"] = ID_aic
 aicc_df.set_index('ID', inplace=True)
 
 aicc_df.to_csv("../../data/AICc_output.csv",sep=',',na_rep="NA")
+
+
+###########
+#∆AIC, Loop through to calculate 
+
+Aicc_min = [min(aicc[n]) for n in range(len(cubic_aic))]
+
+aicc_scaled = np.ones((273,3))
+for n in range(len(cubic_aic)):
+    output = aicc[n] - Aicc_min[n]
+    aicc_scaled[n] = output
+
+scaled_aicc = pd.DataFrame(aicc_scaled,columns=["Cubic","Quadratic","Gompertz"])
+scaled_aicc["ID"] = ID_aic
+scaled_aicc.set_index('ID', inplace=True)
+scaled_aicc.to_csv("../../data/scaled_aicc.csv",sep=',',na_rep="NA")
+
+###########
+#Akaike Weights
+
+AICC_weights = np.ones((273,3))
+for k in range(len(cubic_aic)):
+    value = np.exp( -0.5 * aicc_scaled[k])
+    value = value / np.sum(value)
+    AICC_weights[k] = value
+
+akaike_weight = pd.DataFrame(AICC_weights,columns=["Cubic","Quadratic","Gompertz"])
+akaike_weight["ID"] = ID_aic
+akaike_weight.set_index('ID', inplace=True)
+akaike_weight.to_csv("../../data/akaike_weight.csv",sep=',',na_rep="NA")
