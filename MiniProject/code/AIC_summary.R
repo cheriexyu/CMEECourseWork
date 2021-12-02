@@ -1,10 +1,9 @@
-library(tidyverse)
-install.packages("sjPlot")
-samplesize<-read.csv("../../data/sample_size.csv")
-AICc<-read.csv("../../data/AICc_output.csv")
-scale_AIC<-read.csv("../../data/scaled_aicc.csv")
-AIC_weight<-read.csv("../../data/akaike_weight.csv")
-AIC<-read.csv("../../data/AIC_output.csv") 
+require(tidyverse)
+samplesize<-read.csv("../data/sample_size.csv")
+AICc<-read.csv("../data/AICc_output.csv")
+scale_AIC<-read.csv("../data/scaled_aicc.csv")
+AIC_weight<-read.csv("../data/akaike_weight.csv")
+AIC<-read.csv("../data/AIC_output.csv") 
 
 samplesize = samplesize[-1,] #delete first row and second row due to the lack of parameters
 samplesize = samplesize[-1,] #delete first row and second row due to the lack of parameters
@@ -43,14 +42,13 @@ final$AIC <- round(final$AIC, digits=2)
 final$AICc <- round(final$AICc, digits=2)
 final$ΔAICci <- round(final$ΔAICci, digits=2)
 final$Wi <- round(final$Wi, digits=2)
-#Fix column Names
-#Consider Adding species Info
 
-write.csv(final, "../../data/AIC_final.csv", row.names=FALSE)
+
+write.csv(final, "../data/AIC_final.csv", row.names=FALSE)
 
 new <- final
 new <- filter(final, ΔAICci == 0)
-write.csv(new, "../../data/filtered_AIC_final.csv", row.names=FALSE)
+write.csv(new, "../data/filtered_AIC_final.csv", row.names=FALSE)
 
 
 

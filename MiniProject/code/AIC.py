@@ -2,19 +2,23 @@
 #############################
 # AIC rescaling 
 #############################
-aic = pd.read_csv("../../data/AIC_output.csv")
+import pandas as pd
+import scipy as sc 
+import csv
+import numpy as np
+
+aic = pd.read_csv("../data/AIC_output.csv")
 aic.dropna(axis=0,how ='all',subset=["Quadratic","Cubic","Gompertz"],inplace=True) #drop rows with ALL NA
-aic.to_csv("../../data/AIC_output.csv",sep=',',na_rep="NA")
+aic.to_csv("../data/AIC_output.csv",sep=',',na_rep="NA")
 
 cubic_aic = aic["Cubic"].to_numpy(na_value=np.nan)
 quadratic_aic = aic["Quadratic"].to_numpy(na_value=np.nan)
 gompertz_aic = aic["Gompertz"].to_numpy(na_value=np.nan)
 ID_aic = aic["ID"].to_numpy(dtype=object)
 
-sample_size = pd.read_csv("../../data/sample_size.csv")
+sample_size = pd.read_csv("../data/sample_size.csv")
 sample_size.sort_values(by=['ID'],inplace=True)
 size = sample_size["Sample_Size"].to_numpy() #Array of samples sizes 
-
 
 aicc = np.ones((273,3)) #273 after dropping all NAs, preallocate vector
 
@@ -31,8 +35,7 @@ aicc_df = pd.DataFrame(aicc,columns=["Cubic","Quadratic","Gompertz"])
 aicc_df["ID"] = ID_aic
 aicc_df.set_index('ID', inplace=True)
 
-aicc_df.to_csv("../../data/AICc_output.csv",sep=',',na_rep="NA")
-
+aicc_df.to_csv("../data/AICc_output.csv",sep=',',na_rep="NA")
 
 ###########
 #∆AIC, Loop through to calculate 
@@ -47,7 +50,7 @@ for n in range(len(cubic_aic)):
 scaled_aicc = pd.DataFrame(aicc_scaled,columns=["Cubic","Quadratic","Gompertz"])
 scaled_aicc["ID"] = ID_aic
 scaled_aicc.set_index('ID', inplace=True)
-scaled_aicc.to_csv("../../data/scaled_aicc.csv",sep=',',na_rep="NA")
+scaled_aicc.to_csv("../data/scaled_aicc.csv",sep=',',na_rep="NA")
 
 ###########
 #Akaike Weights
@@ -61,4 +64,4 @@ for k in range(len(cubic_aic)):
 akaike_weight = pd.DataFrame(AICC_weights,columns=["Cubic","Quadratic","Gompertz"])
 akaike_weight["ID"] = ID_aic
 akaike_weight.set_index('ID', inplace=True)
-akaike_weight.to_csv("../../data/akaike_weight.csv",sep=',',na_rep="NA")
+akaike_weight.to_csv("../data/akaike_weight.csv",sep=',',na_rep="NA")

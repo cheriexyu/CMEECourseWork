@@ -43,12 +43,11 @@ df1 <- data.frame(timepoints, logistic_points)
 df1$model <- "Logistic equation"
 names(df1) <- c("Time", "N", "model")
 
-pdf("example_data_logistic.pdf")
-ggplot(data, aes(x = Time, y = N)) +
-  geom_line(data = df1, aes(x = Time, y = N), size = 1) +
-  theme(aspect.ratio=1)+ # make the plot square 
-  labs(x = "Time", y = "Log Growth")
+pdf("graphs/example_data_logistic.pdf")
+ggplot(data, aes(x = Time, y = N)) +geom_line(data = df1, aes(x = Time, y = N), size = 1) + theme(aspect.ratio=1)+ labs(x = "Time", y = "Log Growth")+ geom_text(x=18, y=5.7e+06, label="A") + 
+  geom_text(x=10,y=3e+06,label= expression(paste(mu,"m"))) + geom_text(x=8, y=0, label=expression(paste(lambda)))
 dev.off()
+
 
 
 
