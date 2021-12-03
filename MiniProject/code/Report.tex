@@ -119,8 +119,7 @@ parameters are 4 and 3 respectively.
 
 The Gompertz model is one of the most frequently used non-linear sigmoid model fitted to growth curves \cite{gompertz_xxiv_1825}. 
 Originally used to describe human mortality rates, it has now been re-parametrized to be applicable within 
-modelling bacteria growth, becoming one of the most common mechanistic models to be used by microbiologists \cite{tjorve_use_2017,gibson_predicting_1988}.
-(17)(A) 
+modelling bacterial growth, becoming one of the most common mechanistic models to be used by microbiologists \cite{tjorve_use_2017,gibson_predicting_1988}.
 
 Provided by the literature, the modified Gompertz equation is represented by the general equation: 
     \begin{equation}    
@@ -133,7 +132,7 @@ $t_{lag}$ is the $x$ intercept (time) to the tangent of the slope of the exponen
 
 \noindent\textbf{Data}
 
-The dataset contains measurements of change in biomass or number of cells of microbes over time(hours). Data was collected 
+The dataset contains measurements of change in biomass or number of cells of microbes over time (hours). Data was collected 
 through lab experiments across the world, citied from ten research papers \cite{bae_growth_2014,bernhardt_metabolic_2018,roth_wheaton_1962,galarz_predicting_2016,gill_growth_1991,silva_modelling_2018,sivonen_effects_1990,stannard_temperaturegrowth_1985,zwietering_modeling_1994,phillips_relation_1987}.
 Single population growth rate curves are identified by unique temperature-species-medium-citation-replicate combination IDs. A total of 284 
 unique IDs was isolated, identified as ID 0 to 284. Using Python 3.9, I eliminated any negative time and population 
@@ -204,12 +203,12 @@ However, during the process of $AIC_{c}$ calculations, I eliminated two datasets
 less than the number of free parameters in the quadratic equation ($N<$3), which is too small for any meaningful analysis. 
 In addition for 10 data sets, $-Inf$ and $Inf$ was outputted. From a closer look, it was due to $n$ being divided by a total value 
 of 0 or less. Along with any datasets with only one successfully calculated AIC model ($N<$4), a total of 18 unique data 
-sets was eliminated from my final table which demonstrates the best fitted model for each ID. 
+sets was eliminated from my final table which demonstrates the best fitted model for each ID (Supplementary table 4). 
 
 \noindent\textbf{Computing Languages and Tools}
 
 Data Wrangling, model fitting, graphing and AIC calculations was performed in Python 3.9. AIC tables was created in R 4.1.2 
-using R Studio. Sample graph (figure x) was created in R 4.1.2. Specific packages used within each computing languages can 
+using R Studio. Sample graph (figure 1) was created in R 4.1.2. Specific packages used within each computing languages can 
 be found in README.md.
 
 \section{Results}
@@ -324,7 +323,7 @@ during the lag, growth and stationary phases. If no counts were made during the 
 observed in data with approximately 10 or less. In addition, if there was no observation in the lag or stationary phases, an unrealistic 
 estimate would be produced \cite{murphy_development_1996}. All of my unique IDs had a small sample size, from $N$ = 4 being the smallest, to $N$ = 66 the largest. Even for IDs
 (91,90,92,89) with the largest sample size ($N$=66,63,57,54), the Gompertz model did not fit properly. I suggest that this is due to the lack
-of observations collected during the lag phase, which unlike ID 90 had, successfully deemed the Gompertz as the best fitted model ($AIC_{c}$ = -216.31). 
+of observations collected during the lag phase, which unlike ID 90 had, successfully deemed the Gompertz as the best fitted model ($AIC_{c}$ = -216.31,$\triangle$AICc = 0). 
 
 \begin{figure}[ht]
     \begin{subfigure}[b]{0.5\linewidth}
@@ -371,7 +370,7 @@ models (Gompertz, Barayani and Vázquez-Murado) based on the results for the $RS
 It can be suggested that the Gompertz model was ranked second in my study due to the quality and type of data provided. As such, the phenological
 mathematical models seemed to be a better fit for predicting bacterial species data. However, what if we consider the power of fit between
 phenomenological models? From table \ref{table:2}, I can conclude that the result where IDs identifying the quadratic model as the best fit is insignificant.
-Instead, both types of phenomenological model (cubic vs quadratic) was similar in their respective datasets ($AIC_{c}<$2). In polynomial equations, previous work has shown mixed 
+Instead, both types of phenomenological model (cubic vs quadratic) was similar in their respective datasets ($\triangle$AICc$<$2). In polynomial equations, previous work has shown mixed 
 results regarding model fitting. Murphy et al. found that the cubic model was superior to lower order models (quadratic) in fitting bacterial population 
 growth \cite{murphy_development_1996}. While others have shown that quadratic models yield more accurate estimates of growth rate and lag time in noisy data sets \cite{ng_mathematical_1997,gauch_prediction_1993,mcclure_predictive_1997}.
 In some cases, the power of the equations to reflect the data was approximately the same \cite{gibson_predicting_1988}. This study is unable to demonstrate a 
