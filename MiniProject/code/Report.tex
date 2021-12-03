@@ -12,6 +12,7 @@
 \usepackage{cite}
 \usepackage{longtable}
 \usepackage{subcaption}
+\usepackage{booktabs}
 \DeclareUnicodeCharacter{0394}{\ensuremath{\Delta}}
 
 
@@ -30,16 +31,16 @@
 \begin{abstract}
     Population growth rates are often used as a response variable to observe and predict changes to 
     population density and abundance. Mathematical models are applied in food microbiology to 
-    determine the growth of bacterial populations for the basis of food safety. This study aims 
-    to compare how well phenomenological and mechanistic theory models fit to population growth data 
+    determine the growth of bacterial populations on the basis of food safety. This study aims 
+    to compare how well phenomenological and mechanistic theory models fit population growth data 
     of bacterial species. By sampling starting parameters from a normal distribution, the polynomial 
-    cubic, quadratic and Gompertz equation was successfully fitted to 255 of the 284 unique ID datasets. 
+    cubic, quadratic and Gompertz equations were successfully fitted to 255 of the 284 unique ID datasets. 
     The Akaike Information Criterion (AIC) was calculated for model comparison. Across all the datasets, 
     the phenomenological cubic equation had the highest total of best fitted growth curves, while 
     the Gompertz model ranked second. This study shows that the mechanistic model has underperformed 
     for unevenly distributed bacterial growth data with small sample sizes and species that demonstrated 
     a death phase. We conclude that model fitting is dependent on the quality of the 
-    experimental data. We suggest that model fitting in microbiology should also consider 
+    experimental data. We suggest that model fitting in microbiology should also consider
     phenomenological models in an area that is rather heavily dependent on mechanistic theories. 
 \end{abstract}
 
@@ -49,9 +50,9 @@
 Population growth rates are used to observe trends in population density and abundance, from 
 whether these variables are changing, to the rate they occur \cite{sibly_population_2002}. In addition, population 
 growth rates are often applied to predict future projections on population sizes \cite{sibly_population_2002}. Population 
-growth rates is important to the application of scientific topics ranging from population ecology, 
+growth rates are important to the application of scientific topics ranging from population ecology, 
 conservation biology, food microbiology, evolutionary biology and more \cite{sibly_population_2002,sibly_population_2002-1}. For example, 
-population growth rate can be used as a response variable to analysis the success of the invasion 
+population growth rate can be used as a response variable to analyse the success of the invasion 
 of maladaptive traits into a resident population \cite{sibly_population_2002-1}.Especially in response to current changing 
 conditions that may alter population dynamics e.g climate change, we need to be able to identify 
 drivers to the process of population growth, thus helping to prioritize and target management actions \cite{eacker_assessing_2017}. 
@@ -60,13 +61,13 @@ to effectively give realistic predictions of microbial growth during food storag
 environmental conditions have allowed the minimizing of ineffective, expensive and slow laboratory 
 challenge testing of foods \cite{soboleva_predictive_2000,baranyi_mathematics_1995,perni_estimating_2005}. 
 
-Measuring bacteria growth is a measure of all cellular processes and captures how the cells adapts and 
+Measuring bacteria growth is a measure of all cellular processes and captures how the cells adapt and 
 survive in their environmental niches \cite{tonner_bayesian_2020}. As exemplified in figure \ref{fig:mesh1}, bacterial growth in batch culture often assumes a sigmoid growth 
 function with three growth phases captured by three parameters: lag phase is where no growth occurs in which 
-bacteria undergoes physiological and regulatory processes that is needed for optimal growth, exponential
+bacteria undergo physiological and regulatory processes that are needed for optimal growth, exponential
 phase is where there is accelerating rapid growth in a certain period of time (lag time, also denoted as $\lambda$),
-thus reaching a maximal value ($\mu m$) \cite{rolfe_lag_2012}. The final phase is the stationary phase where the carrying capacity ($A$) is reached, 
-growth rates decreases and reaches 0 where nutrients has been exhausted \cite{tonner_detecting_2017,zwietering_modeling_1990}.  
+thus, reaching a maximal value ($\mu m$) \cite{rolfe_lag_2012}. The final phase is the stationary phase where the carrying capacity ($A$) is reached, 
+growth rates decreases and reaches 0 where nutrients have been exhausted \cite{tonner_detecting_2017,zwietering_modeling_1990}.  
 
     \begin{figure}[H]
     \centering
@@ -79,17 +80,17 @@ growth rates decreases and reaches 0 where nutrients has been exhausted \cite{to
 Previous work has proposed a variety of mathematical models in the form of algebraic curves to describe 
 microbial growth, expressed by functions and equations \cite{soboleva_predictive_2000,peleg_microbial_2011}.In this study, I have split such 
 models into two distinct forms: phenomenological models and mechanistic theory models. Phenomenological 
-models uses a mathematical function that is fitted to the data to describe the underlying biological process \cite{white_should_2019}.
+models use a mathematical function that is fitted to the data to describe the underlying biological process \cite{white_should_2019}.
 In contrast, mechanistic models include hypothesis-based parameters that have a biological interpretation 
-and explicitly tracks the process of a biological system \cite{geritz_mathematical_2012}. The aim of this study is to compare how well 
+and explicitly tracks the process of a biological system \cite{geritz_mathematical_2012}. This study aims to compare how well 
 these two different types of mathematical models fit to population growth data across bacterial species. A 
 large part of the literature has been involved in analysing the power between different mechanistic theories 
 in modelling bacterial growth, while phenomenological models are often absent in such context \cite{gibson_predicting_1988,adair_comparison_1989,labuza_growth_1993,mackey_effect_1988}.Although
 phenomenological models have substantial predictive power, it can also risk not being validated for any
 biological systems due to the generality of their parameters, especially if a prediction is outside the known 
-parameters \cite{heitzer_utility_1991,schiraldi_phenomenological_nodate,geritz_mathematical_2012}. In mathematical models, the less number of parameters there are, the greater the explanatory
+parameters \cite{heitzer_utility_1991,schiraldi_phenomenological_nodate,geritz_mathematical_2012}. In mathematical models, the fewer parameters there are, the greater the explanatory
 power. The more meaningful and intuitive the parameters of a model are, the more phases of microbial growth
-is covered, providing highly accurate models \cite{esser_modeling_2015}. For such reasons, it can be hypothesized that mechanistic
+are covered, providing highly accurate models \cite{esser_modeling_2015}. For such reasons, it can be hypothesized that mechanistic
 models can be a better fit within bacterial populations that demonstrate a predictive growth 
 curve. The objectives of this study were to (1) fit a quadratic and cubic model to the species datasets (2) 
 fit a mechanistic Gompertz model (3) compare the models using the calculated Akaike Information Criteria 
@@ -149,23 +150,23 @@ were estimated by these methods: $N_{0}$ was calculated by isolating the last va
 the population measure. $N_{max}$ was calculated by finding the maximum value within the population measure. $r_{max}$ and $t_{lag}$
 was calculated by sampling values within a normal distribution ($N$ = 100, $\mu$ = $r_{max}$ or $t_{lag}$, $\sigma$ = 0.1), then fitted  
 to find the best minimized parameters (refer to table \ref{table:3} in the supplementary data for all minimized parameters from the Gompertz equation). 
-Out of 284 ID, I was unable to find a suitable minimized starting values for 10 unique datasets
+Out of 284 ID, I was unable to find suitable minimized starting values for 10 unique datasets
 (ID 4,14,16,20,88,280,281,282,283,284), therefore was omitted from further data processing. This resulted in 274 unique datasets remaining. 
-For datasets with a sample size of less than the numbers of free parameter in equation (3) ($df$ = 0), an output of $NaN$ was given due to 
-inadequate sample size for data analysis. Similarly, the cubic (1) and quadratic (2) equations was fitted to the remaining dataset 
+For datasets with a sample size of less than the numbers of free parameters in equation (3) ($df$ = 0), an output of $NaN$ was given due to 
+inadequate sample size for data analysis. Similarly, the cubic (1) and quadratic (2) equations were fitted to the remaining dataset 
 using the default least squares regression (Levenberg–Marquardt algorithm). All datasets were successfully fitted given the 
-estimated starting values of 1. However, unique datasets with the sample size of less than 4 and 3 ($df$ = 0) respectively was given an output of $NaN$. 
+estimated starting values of 1. However, unique datasets with a sample size of less than 4 and 3 ($df$ = 0) respectively were given an output of $NaN$. 
 
 \noindent\textbf{Model Selection and Comparison}
 
 Model selection was established using a selection criterion: AIC, or rather $AIC_{c}$ \cite{burnham_multimodel_2004}. AIC is a numerical value by which to 
-rank competition models in term of information loss. It is used in comparison with other AIC values, where the lowest 
+rank competition models in terms of information loss. It is used in comparison with other AIC values, where the lowest 
 represents the best approximating model \cite{symonds_brief_2011}. In my study, instead of AIC, $AIC_{c}$ was used. When \(\frac{n}{K}<40\) where $n$ = sample size,
 $K$ = total number of parameters in the most complex model, $AIC_{c}$ is recommended. $AIC_{c}$ is the small 
 sample (second-order bias correction) version of AIC. By using AIC on data with small sample sizes, it increases the change 
 of overfitting \cite{burnham_multimodel_2004}.
 
-Recent versions of statistical software packages provide AIC values when generating model fitting. AIC values was extracted 
+Recent versions of statistical software packages provide AIC values when generating model fitting. AIC values were extracted 
 from the cubic, quadratic, Gomepertz model during model fitting. To calculate $AIC_{c}$: 
 
     \begin{equation}    
@@ -199,7 +200,7 @@ The equation is given below:
 \noindent where $\sum_{r=1}^{R}exp(-\triangle_{r}/2)$ is the sum of the value across all models.  
 
 Using R studios, I then compiled a summary table of all the calculated AIC values for each of the unique 274 datasets. 
-However during the process of $AIC_{c}$ calculations, I eliminated two datasets (ID 200,212) for having a sample size 
+However, during the process of $AIC_{c}$ calculations, I eliminated two datasets (ID 200,212) for having a sample size 
 less than the number of free parameters in the quadratic equation ($N<$3), which is too small for any meaningful analysis. 
 In addition for 10 data sets, $-Inf$ and $Inf$ was outputted. From a closer look, it was due to $n$ being divided by a total value 
 of 0 or less. Along with any datasets with only one successfully calculated AIC model ($N<$4), a total of 18 unique data 
@@ -217,7 +218,7 @@ be found in README.md.
 
 Out of the 284 unique IDs from the original dataset, I managed to successfully fit 255 IDs with both phenomenological and mechanistic
 models. All datasets that were successfully fitted had a sample size of $N\geq$5. All curves were plotted with the residuals and 
-overlaid with the original dataset points. Some examples of model fitting is shown in Figure \ref{fig:fig2}.
+overlaid with the original dataset points. Some examples of model fitting are shown in Figure \ref{fig:fig2}.
 
 \begin{figure}[ht]
     \begin{subfigure}[b]{0.5\linewidth}
@@ -258,56 +259,51 @@ overlaid with the original dataset points. Some examples of model fitting is sho
     \begin{table}[htb]
         \caption{The total number of each best fitted models across all 255 unique datasets ranked in order from highest to lowest. The cubic mathemataical equation was
         choosen as the best fitted model for the highest number of IDs. This ranking was based on comparisons of $AIC_{c}$ scores}
-        \centering 
-        \begin{tabular}{ | m{3cm} | m{12em} | }
-            \hline
+        \centering
+        \footnotesize 
+        \begin{tabular}{  m{3cm}  m{12em}  }
+            \toprule\toprule
             Model & Total Number of Each Best Fitted Model Across All ID Based on $AIC_{c}$ Scores \\
-            \hline
+            \midrule
             Cubic & 168 \\ 
-            \hline
             Gompertz & 82 \\
-            \hline
             Quadratic & 5 \\
-            \hline
             Total & 255 \\
-            \hline
+            \bottomrule
         \end{tabular}
     \label{table:1}
     \end{table}  
 
-Table \ref{table:4} in supplmentry data demonstrates the best fitted model from each ID identified by the lowest $AIC_{c}$ score. Table \ref{table:1} further ranks
+Table \ref{table:4} in supplementary data demonstrates the best fitted model from each ID identified by the lowest $AIC_{c}$ score. Table \ref{table:1} further ranks
 the three mathematical models by how many times a given model fits best across all unique datasets. From my study, the phenomenological cubic 
-model fits best for the highest amount of ID bacterial datasets. 65\% of the ID are best fitted with a Cubic model, 32\% fitted with the 
+model fits best for the highest amount of ID bacterial datasets. 65\% of the ID is best fitted with a Cubic model, 32\% fitted with the 
 Gompertz model, while only 3\% of the ID is best described with the quadratic model (ID 58,70,214,217,239). 
 
     \begin{table}[htb]
         \caption{Total number of pairs between best fitted model and model with $AIC_{c}<$2 across all ID}
-        \centering 
-        \begin{tabular}{ | m{6em} | m{8em} | m{8em} |  }
-            \hline
+        \centering
+        \footnotesize
+        \begin{tabular}{  m{6em}  m{8em} m{8em} }
+            \toprule\toprule
             Best Fitted Model & Models with $AIC_{c}$ values with $<$2 & Total Number of IDs \\
-            \hline
+            \midrule
             Cubic & Quadratic & 1 \\ 
-            \hline
             Cubic & Gompertz & 3 \\
-            \hline
             Quadratic & Cubic & 4 \\
-            \hline
             Gompertz & Cubic & 7 \\
-            \hline
-            \multicolumn{2}{|c|}{Total} & 15 \\
-            \hline
+            \multicolumn{2}{c}{Total} & 15 \\
+            \bottomrule
         \end{tabular}
     \label{table:2}
     \end{table}  
 
 Comparing the $\triangle$AICc of candidate models between each dataset ID, it was observed that some of the differences between the scores were $<$2. 
-Full list of all mathematical models in all unique IDs with their $AIC_{c}$ values can be found in supplementary table \ref{table:5}. Highlighted
+A full list of all mathematical models in all unique IDs with their $AIC_{c}$ values can be found in supplementary table \ref{table:5}. Highlighted
 by Burnham and Anderson 2002, when a variable with poor explanatory power is added to a model, an output of $\triangle$AICc$<$2 can 
-occur \cite{burnham_basic_2002,arnold_uninformative_2010}. Only when the differences are $>$2 is considered significant \cite{wyss_seismicity_2012}. 
+occur \cite{Burnham_basic_2002,arnold_uninformative_2010}. Only when the differences are $>$2 is considered significant \cite{wyss_seismicity_2012}. 
 In table \ref{table:2}, I can see that 15 IDs demonstrated $\triangle$AICc values that are not significantly different. Within those 15
-unique IDs, 7 of those indicated that Gompertz model was the best model fitted with the given data, however they were insignificantly different in comparison
-to the cubic model. 4 out of the 5 best fitted quadratic model was not significantly different from the cubic model. While the best fitted cubic mode of 3 and
+unique IDs, 7 of those indicated that Gompertz model was the best model fitted with the given data, however, they were insignificantly different in comparison
+to the cubic model. 4 out of the 5 best fitted quadratic models was not significantly different from the cubic model. While the best fitted cubic mode of 3 and
 1 IDs was not significantly different from the Gompertz and quadratic model, respectively.
 
 \section{Discussion}
@@ -315,13 +311,13 @@ to the cubic model. 4 out of the 5 best fitted quadratic model was not significa
 Microbial growth is an area extensively studied in food microbiology due to causing the most common food poising \cite{buchanan_when_1997,xiong_comparison_1999}. The use of mathematical models
 in fitting and predicting experimental data can help describe the behaviour of microorganisms under different environmental conditions (e.g temperature, PH) \cite{zwietering_modeling_1990}.
 In my study, I compared how well two different types of mathematical models: phenomenological and mechanistic theory fit across bacterial population
-growth data. This was investigated by fitting the quadratic, cubic and Gomepertz equations to each unique ID datasets and calculating the $AIC_{c}$ values. 
+growth data. This was investigated by fitting the quadratic, cubic and Gompertz equations to each unique ID dataset and calculating the $AIC_{c}$ values. 
 The lower the $AIC_{c}$ value, the best model it is out of the candidate set. In contrast to my initial hypothesis, the phenomenological cubic model 
 had the highest percentage of being chosen as the best approximate model. The Gompertz equation was ranked second.  
 
 From visual inspection, more than 100 curves were fitted poorly with the Gompertz equation as a horizontal line was produced. For example, figure \ref{fig:fig3} demonstrates 
 four IDs (46,68,82,100) with a poor mechanistic curve. This could be mainly due to the quality of data provided for model fitting. Although highly used within the literature, the fit of the Gompertz function can be
-greatly affected by quality of the data observations \cite{labuza_growth_1993}. For a good fit of the function, Labuza T.B, Fu B. and Salazar et al. suggested that preferably 15 uniformly spread
+greatly affected by the quality of the data observations \cite{labuza_growth_1993}. For a good fit of the function, Labuza T.B, Fu B. and Salazar et al. suggested that preferably 15 uniformly spread
 data points are required through all growth phases \cite{labuza_growth_1993,salazar_primary_2021}. Murphy et al. tested out this hypothesis by undergoing random deletion of observations
 for each growth curve and refitting the Gompertz equation after. They found that fitting curves to \emph{Clostridium botulinum} species required evenly spread data
 during the lag, growth and stationary phases. If no counts were made during the growth phase, a sigmoid curve could not be fitted, and this was
@@ -365,11 +361,11 @@ of observations collected during the lag phase, which unlike ID 90 had, successf
 \end{figure}
 
 More than 20 of the graphs produced during visual inspection demonstrated a pattern of decline (refer to ($a$),($b$),($c$) in figure \ref{fig:fig3}). This is predicted to be the death phase of 
-bacterial species. My modified gompertz equation did not consider incorporating the death phase in explaining bacterial growth curves. As such, 
-the model did not fitted the growth well. Additionally, the Gompertz model would not always be compatible
+bacterial species. My modified Gompertz equation did not consider incorporating the death phase in explaining bacterial growth curves. As such, 
+the model did not fit the growth well. Additionally, the Gompertz model would not always be compatible
 with microbial growth as the model does not extend beyond the stationary phase \cite{gibson_predicting_1988,xiong_comparison_1999}. As such, other models are found to be preferred and more
 robust when modelling microbial death kinetics \cite{xiong_comparison_1999}. In the context of batch fermentation where bacterial population demonstrates a death phase,
-Salazar et al. found that the phenomenological cubic model best predict the overall dynamics of the experimental data in comparison to other mechanistic
+Salazar et al. found that the phenomenological cubic model best predicts the overall dynamics of the experimental data in comparison to other mechanistic
 models (Gompertz, Barayani and Vázquez-Murado) based on the results for the $RSS$ (residual sums of squares) $R^{2}$ and AIC value \cite{salazar_primary_2021}.
 
 It can be suggested that the Gompertz model was ranked second in my study due to the quality and type of data provided. As such, the phenological
@@ -381,14 +377,14 @@ growth \cite{murphy_development_1996}. While others have shown that quadratic mo
 In some cases, the power of the equations to reflect the data was approximately the same \cite{gibson_predicting_1988}. This study is unable to demonstrate a 
 detailed comparison between both types of phenomenological model due to limited statistical analysis in the $RSS$ and $R^{2}$ value. 
 Nonetheless, this could be investigated in future works as the main goal of model fitting is to choose the best parsimonious model that in its 
-simplest state, still correctly predicts experimental results \cite{gauch_prediction_1993,gibson_predicting_1988}. In my study, I did not take into consideration other statistical analysis
+simplest state, still correctly predicts experimental results \cite{gauch_prediction_1993,gibson_predicting_1988}. In my study, I did not take into consideration other statistical analyses
 such as an $ANOVA$ of the AIC, $RSS$, $R^{2}$ to compare model fits. Consequently, the models predicted in my study might not be the best fit even 
 though my starting values were successfully minimized. Future work is recommended in repeating this method with larger and evenly spread 
-samples across all bacterial growth stages while including additional in-depth statistical test to achieve more robust conclusions.
+samples across all bacterial growth stages while including additional in-depth statistical tests to achieve more robust conclusions.
 
 The application of mathematical models to population growth data is a widely effective method to investigate how populations respond to 
 biological interactions. My investigation highlights the importance of phenomenological equations in food microbiology that often focuses rather
-on mechanistic theory models. This provides as a reminder for future studies to consider both types of models in the study of bacterial growth data.
+on mechanistic theory models. This provides a reminder for future studies to consider both types of models in the study of bacterial growth data.
 When undergoing the process of model fitting, one should first consider the quality of the experimental data and the type of species under
 investigation. Furthermore, a true validation of the model should come from the ability to correctly predict experimental results and can be 
 confirmed through independent testing of its parameters \cite{peleg_microbial_2011}.
@@ -399,12 +395,13 @@ confirmed through independent testing of its parameters \cite{peleg_microbial_20
 \bibliography{miniproject}
 \pagebreak
 \section{Supplementary Data}
-
+    \footnotesize
     \begin{center}
     \begin{longtable}{llllll}
         \caption{Minimized parameters of the Gompertz equation after sampling a normal distribution for all ID and their AIC values}
         \label{table:3}\\
         ID  & $N_{0}$       & $N_{max}$                 & $r_{max}$            & $t_{lag}$      & AIC      \\
+        \midrule
         0   & -9349.442  & -1.309                 & 66.501            & -1042.001          & -154.622 \\
         1   & -11.859    & -0.565                 & 0.278             & -65.634            & -210.677 \\
         2   & -4.692     & -0.747                 & 0.15              & 29.309             & -157.373 \\
@@ -686,276 +683,276 @@ confirmed through independent testing of its parameters \cite{peleg_microbial_20
 
 
     \begin{center}
-        \begin{longtable}{lllllll}
+    \begin{longtable}{lllllll}
         \caption{Best fitted mathematical models for each ID dataset and their sample size, AIC, $AICc_{i}$, $\triangle$AICc, $w_{i}$ values }
         \label{table:4}\\
-    
-    ID  & Model     & Sample Size &  $AIC_{c}$ & $AICc_{i}$ & $w_{i}$    \\
-    0   & Gompertz  & 28              & -154.62 & -188.24 & 0       & 1    \\
-    1   & Gompertz  & 28              & -210.68 & -256.48 & 0       & 1    \\
-    2   & Gompertz  & 28              & -157.37 & -191.58 & 0       & 1    \\
-    3   & Gompertz  & 30              & -82.05  & -98.46  & 0       & 0.69 \\
-    5   & Gompertz  & 28              & -168.65 & -205.31 & 0       & 1    \\
-    6   & Gompertz  & 28              & -126.8  & -154.36 & 0       & 1    \\
-    7   & Gompertz  & 28              & -123.49 & -150.34 & 0       & 0.97 \\
-    8   & Gompertz  & 28              & -147.61 & -179.7  & 0       & 0.93 \\
-    9   & Cubic     & 28              & -127.72 & -155.48 & 0       & 1    \\
-    10  & Gompertz  & 28              & -151.78 & -184.78 & 0       & 1    \\
-    11  & Gompertz  & 28              & -149.15 & -181.57 & 0       & 1    \\
-    12  & Gompertz  & 28              & -177.89 & -216.56 & 0       & 1    \\
-    13  & Cubic     & 28              & -69.79  & -84.96  & 0       & 0.69 \\
-    15  & Gompertz  & 28              & -156.93 & -191.04 & 0       & 1    \\
-    17  & Cubic     & 28              & -143.46 & -174.65 & 0       & 0.57 \\
-    18  & Cubic     & 28              & -115.77 & -140.94 & 0       & 0.57 \\
-    19  & Cubic     & 28              & -67.1   & -81.69  & 0       & 0.8  \\
-    21  & Gompertz  & 28              & -156.06 & -189.99 & 0       & 0.99 \\
-    22  & Gompertz  & 21              & -111.13 & -145.85 & 0       & 1    \\
-    23  & Gompertz  & 28              & -132.21 & -160.96 & 0       & 1    \\
-    24  & Cubic     & 26              & -32.28  & -39.97  & 0       & 1    \\
-    25  & Cubic     & 26              & -20.59  & -25.49  & 0       & 1    \\
-    26  & Cubic     & 22              & -63.24  & -81.84  & 0       & 1    \\
-    27  & Cubic     & 23              & -72.55  & -92.7   & 0       & 1    \\
-    28  & Cubic     & 23              & -38.83  & -49.61  & 0       & 1    \\
-    29  & Gompertz  & 23              & -101.36 & -129.51 & 0       & 1    \\
-    30  & Cubic     & 21              & -70.15  & -92.08  & 0       & 1    \\
-    31  & Cubic     & 25              & -19.28  & -24.11  & 0       & 1    \\
-    32  & Cubic     & 23              & -31.63  & -40.42  & 0       & 1    \\
-    33  & Gompertz  & 23              & -37.12  & -47.43  & 0       & 1    \\
-    34  & Cubic     & 32              & -54.64  & -64.75  & 0       & 1    \\
-    35  & Cubic     & 25              & -38.63  & -48.28  & 0       & 1    \\
-    36  & Cubic     & 23              & -16.33  & -20.86  & 0       & 1    \\
-    37  & Cubic     & 23              & -9.44   & -12.06  & 0       & 1    \\
-    38  & Gompertz  & 23              & -49.75  & -63.57  & 0       & 1    \\
-    39  & Cubic     & 21              & -71.29  & -93.56  & 0       & 1    \\
-    40  & Cubic     & 22              & -45.13  & -58.4   & 0       & 1    \\
-    41  & Gompertz  & 32              & -49.59  & -58.78  & 0       & 1    \\
-    42  & Gompertz  & 21              & -62.62  & -82.19  & 0       & 1    \\
-    43  & Cubic     & 23              & -83.91  & -107.22 & 0       & 1    \\
-    44  & Cubic     & 12              & -18.9   & -32.4   & 0       & 1    \\
-    45  & Cubic     & 17              & -55.29  & -78.33  & 0       & 1    \\
-    46  & Cubic     & 15              & -34.31  & -51.47  & 0       & 1    \\
-    47  & Cubic     & 15              & -20.77  & -31.16  & 0       & 0.97 \\
-    48  & Cubic     & 14              & -21.73  & -33.81  & 0       & 1    \\
-    49  & Cubic     & 15              & -20.8   & -31.2   & 0       & 1    \\
-    50  & Gompertz  & 13              & -28.26  & -45.93  & 0       & 0.95 \\
-    51  & Gompertz  & 12              & -54.05  & -92.66  & 0       & 1    \\
-    52  & Cubic     & 13              & -27.45  & -44.61  & 0       & 1    \\
-    53  & Cubic     & 14              & -18.96  & -29.49  & 0       & 0.99 \\
-    54  & Cubic     & 14              & -31.31  & -48.71  & 0       & 1    \\
-    55  & Cubic     & 16              & -38.57  & -56.1   & 0       & 1    \\
-    56  & Cubic     & 16              & -6.86   & -9.98   & 0       & 0.89 \\
-    57  & Cubic     & 16              & -10.55  & -15.35  & 0       & 0.99 \\
-    58  & Quadratic & 17              & -14.58  & -19.06  & 0       & 0.61 \\
-    59  & Gompertz  & 16              & -47.13  & -68.55  & 0       & 1    \\
-    60  & Cubic     & 15              & -11.83  & -17.74  & 0       & 0.99 \\
-    61  & Cubic     & 14              & -27.71  & -43.11  & 0       & 1    \\
-    62  & Cubic     & 13              & -23.69  & -38.5   & 0       & 1    \\
-    63  & Cubic     & 16              & -8.68   & -12.63  & 0       & 0.93 \\
-    64  & Cubic     & 15              & -9.44   & -14.16  & 0       & 0.98 \\
-    65  & Gompertz  & 16              & -25.79  & -37.52  & 0       & 0.97 \\
-    66  & Cubic     & 14              & -12.83  & -19.96  & 0       & 0.92 \\
-    67  & Cubic     & 16              & -5.23   & -7.61   & 0       & 0.88 \\
-    68  & Cubic     & 16              & -4.49   & -6.54   & 0       & 1    \\
-    69  & Cubic     & 14              & -5.04   & -7.84   & 0       & 0.99 \\
-    70  & Quadratic & 15              & 26.16   & 35.67   & 0       & 0.56 \\
-    71  & Cubic     & 17              & -12.27  & -17.39  & 0       & 1    \\
-    72  & Cubic     & 17              & -16.54  & -23.43  & 0       & 0.99 \\
-    73  & Cubic     & 15              & -24.23  & -36.34  & 0       & 1    \\
-    74  & Cubic     & 16              & -15.68  & -22.81  & 0       & 0.99 \\
-    75  & Cubic     & 16              & -16.41  & -23.87  & 0       & 0.99 \\
-    76  & Cubic     & 15              & -29.19  & -43.79  & 0       & 1    \\
-    77  & Cubic     & 16              & -33.33  & -48.48  & 0       & 1    \\
-    78  & Cubic     & 18              & 4.65    & 6.43    & 0       & 0.74 \\
-    79  & Cubic     & 18              & 5.31    & 7.35    & 0       & 0.95 \\
-    80  & Cubic     & 16              & -20.49  & -29.81  & 0       & 1    \\
-    81  & Cubic     & 17              & 5.86    & 8.3     & 0       & 0.97 \\
-    82  & Cubic     & 17              & -2.06   & -2.92   & 0       & 0.95 \\
-    83  & Cubic     & 15              & -21.06  & -31.6   & 0       & 0.99 \\
-    84  & Cubic     & 15              & -16.28  & -24.42  & 0       & 1    \\
-    85  & Cubic     & 17              & -3.44   & -4.88   & 0       & 0.74 \\
-    86  & Cubic     & 17              & -9.53   & -13.5   & 0       & 0.98 \\
-    87  & Cubic     & 17              & -13.01  & -18.44  & 0       & 1    \\
-    89  & Cubic     & 54              & -66.66  & -73.46  & 0       & 0.92 \\
-    90  & Gompertz  & 63              & -199.14 & -216.31 & 0       & 1    \\
-    91  & Cubic     & 66              & -129.48 & -140.09 & 0       & 1    \\
-    92  & Cubic     & 57              & -21.7   & -23.79  & 0       & 0.89 \\
-    93  & Cubic     & 9               & -34.48  & -77.57  & 0       & 0.99 \\
-    94  & Gompertz  & 8               & -12.5   & -33.34  & 0       & 0.99 \\
-    95  & Cubic     & 14              & -22.93  & -35.67  & 0       & 1    \\
-    96  & Cubic     & 11              & -18.3   & -33.56  & 0       & 1    \\
-    97  & Cubic     & 9               & -11.65  & -26.22  & 0       & 0.96 \\
-    98  & Cubic     & 9               & -24.14  & -54.31  & 0       & 1    \\
-    99  & Gompertz  & 10              & -31.32  & -62.63  & 0       & 0.6  \\
-    100 & Cubic     & 6               & -19.34  & -116.03 & 0       & 1    \\
-    101 & Cubic     & 13              & -26.37  & -42.84  & 0       & 0.78 \\
-    102 & Cubic     & 13              & -39.4   & -64.03  & 0       & 1    \\
-    103 & Cubic     & 12              & -43.41  & -74.42  & 0       & 1    \\
-    104 & Cubic     & 9               & -19.28  & -43.38  & 0       & 1    \\
-    105 & Gompertz  & 10              & -33.18  & -66.36  & 0       & 1    \\
-    106 & Cubic     & 7               & -12.62  & -44.17  & 0       & 0.99 \\
-    107 & Gompertz  & 13              & -45.27  & -73.56  & 0       & 1    \\
-    108 & Gompertz  & 12              & -25.73  & -44.11  & 0       & 0.62 \\
-    109 & Cubic     & 11              & -32.84  & -60.2   & 0       & 0.97 \\
-    110 & Cubic     & 9               & -27.07  & -60.91  & 0       & 1    \\
-    111 & Gompertz  & 11              & -27.29  & -50.04  & 0       & 1    \\
-    112 & Gompertz  & 7               & -8.4    & -29.4   & 0       & 0.99 \\
-    113 & Cubic     & 10              & -32     & -64.01  & 0       & 1    \\
-    114 & Cubic     & 13              & -20.89  & -33.94  & 0       & 1    \\
-    115 & Cubic     & 12              & -25.85  & -44.32  & 0       & 1    \\
-    116 & Cubic     & 9               & -25.25  & -56.81  & 0       & 1    \\
-    117 & Gompertz  & 11              & -42.86  & -78.58  & 0       & 1    \\
-    118 & Cubic     & 7               & -5.56   & -19.45  & 0       & 0.94 \\
-    119 & Gompertz  & 11              & -45.8   & -83.96  & 0       & 1    \\
-    120 & Cubic     & 13              & -19.63  & -31.89  & 0       & 1    \\
-    121 & Cubic     & 12              & -41.67  & -71.44  & 0       & 1    \\
-    122 & Cubic     & 8               & -38.6   & -102.93 & 0       & 0.94 \\
-    123 & Gompertz  & 10              & -20.75  & -41.5   & 0       & 1    \\
-    124 & Cubic     & 6               & -16.41  & -98.48  & 0       & 1    \\
-    125 & Cubic     & 13              & -21.12  & -34.32  & 0       & 1    \\
-    126 & Cubic     & 11              & -18.87  & -34.59  & 0       & 0.85 \\
-    127 & Cubic     & 12              & -21.7   & -37.2   & 0       & 0.74 \\
-    128 & Cubic     & 9               & -12.29  & -27.65  & 0       & 1    \\
-    129 & Gompertz  & 10              & -31.51  & -63.03  & 0       & 0.95 \\
-    130 & Cubic     & 6               & -14.56  & -87.36  & 0       & 1    \\
-    131 & Cubic     & 13              & -23.35  & -37.95  & 0       & 1    \\
-    132 & Cubic     & 12              & -14.51  & -24.88  & 0       & 0.99 \\
-    133 & Cubic     & 10              & -23.96  & -47.92  & 0       & 1    \\
-    134 & Cubic     & 8               & -20.31  & -54.16  & 0       & 1    \\
-    135 & Gompertz  & 10              & -25     & -50.01  & 0       & 1    \\
-    136 & Gompertz  & 6               & -19.13  & -114.81 & 0       & 1    \\
-    137 & Cubic     & 14              & -36.94  & -57.47  & 0       & 0.92 \\
-    138 & Cubic     & 12              & -27.82  & -47.7   & 0       & 1    \\
-    139 & Cubic     & 9               & -21.74  & -48.91  & 0       & 1    \\
-    140 & Cubic     & 6               & -14.02  & -84.11  & 0       & 0.98 \\
-    141 & Gompertz  & 9               & -25.46  & -57.29  & 0       & 1    \\
-    142 & Gompertz  & 7               & -18.65  & -65.27  & 0       & 0.99 \\
-    143 & Cubic     & 13              & -23.82  & -38.71  & 0       & 1    \\
-    144 & Cubic     & 12              & -14.57  & -24.98  & 0       & 0.99 \\
-    145 & Cubic     & 9               & -23.3   & -52.43  & 0       & 1    \\
-    146 & Cubic     & 9               & -25.66  & -57.72  & 0       & 1    \\
-    147 & Gompertz  & 10              & -32.6   & -65.19  & 0       & 0.97 \\
-    148 & Cubic     & 14              & -23.49  & -36.54  & 0       & 0.83 \\
-    149 & Gompertz  & 7               & -20.36  & -71.27  & 0       & 1    \\
-    150 & Cubic     & 10              & -15.41  & -30.81  & 0       & 1    \\
-    151 & Cubic     & 9               & -16.31  & -36.69  & 0       & 1    \\
-    152 & Cubic     & 8               & -22.27  & -59.39  & 0       & 1    \\
-    153 & Cubic     & 10              & -32.05  & -64.09  & 0       & 1    \\
-    154 & Gompertz  & 7               & -18.25  & -63.89  & 0       & 1    \\
-    155 & Gompertz  & 13              & -44.68  & -72.6   & 0       & 1    \\
-    156 & Cubic     & 12              & -22.12  & -37.92  & 0       & 0.99 \\
-    157 & Cubic     & 8               & -14.65  & -39.06  & 0       & 1    \\
-    158 & Gompertz  & 8               & -21.08  & -56.2   & 0       & 0.97 \\
-    159 & Cubic     & 9               & -22.14  & -49.82  & 0       & 1    \\
-    160 & Cubic     & 6               & -9.9    & -59.4   & 0       & 1    \\
-    161 & Cubic     & 11              & -18.16  & -33.29  & 0       & 1    \\
-    162 & Gompertz  & 11              & -16.62  & -30.47  & 0       & 0.97 \\
-    163 & Gompertz  & 9               & -26.37  & -59.32  & 0       & 1    \\
-    164 & Cubic     & 10              & -40.03  & -80.05  & 0       & 1    \\
-    165 & Cubic     & 7               & -6.74   & -23.59  & 0       & 1    \\
-    166 & Gompertz  & 6               & -20.64  & -123.85 & 0       & 0.95 \\
-    167 & Cubic     & 7               & -45.64  & -159.73 & 0       & 1    \\
-    168 & Cubic     & 6               & -24.27  & -145.63 & 0       & 1    \\
-    169 & Cubic     & 6               & -9.4    & -56.42  & 0       & 1    \\
-    170 & Cubic     & 6               & -30.51  & -183.07 & 0       & 1    \\
-    171 & Cubic     & 9               & -13.77  & -30.98  & 0       & 1    \\
-    172 & Cubic     & 9               & -32.82  & -73.84  & 0       & 1    \\
-    173 & Cubic     & 6               & -21.31  & -127.86 & 0       & 0.91 \\
-    174 & Gompertz  & 6               & -17.04  & -102.27 & 0       & 0.62 \\
-    175 & Cubic     & 6               & -25.4   & -152.4  & 0       & 1    \\
-    176 & Gompertz  & 7               & -18.07  & -63.24  & 0       & 1    \\
-    177 & Cubic     & 7               & -31.13  & -108.96 & 0       & 1    \\
-    178 & Cubic     & 7               & -27.3   & -95.54  & 0       & 1    \\
-    182 & Cubic     & 7               & -19.37  & -67.78  & 0       & 1    \\
-    183 & Cubic     & 7               & -23.05  & -80.68  & 0       & 1    \\
-    184 & Cubic     & 7               & -18.04  & -63.13  & 0       & 1    \\
-    188 & Cubic     & 6               & -20.27  & -121.6  & 0       & 1    \\
-    189 & Cubic     & 6               & -21.14  & -126.85 & 0       & 1    \\
-    190 & Cubic     & 6               & -8.97   & -53.83  & 0       & 1    \\
-    192 & Cubic     & 6               & -7.65   & -45.9   & 0       & 1    \\
-    193 & Cubic     & 6               & -18.85  & -113.13 & 0       & 1    \\
-    194 & Cubic     & 7               & -38.08  & -133.28 & 0       & 1    \\
-    195 & Cubic     & 7               & -18.6   & -65.09  & 0       & 1    \\
-    196 & Cubic     & 7               & -20.57  & -71.98  & 0       & 1    \\
-    197 & Cubic     & 6               & -20.11  & -120.68 & 0       & 1    \\
-    198 & Cubic     & 7               & -9.72   & -34.03  & 0       & 1    \\
-    204 & Cubic     & 7               & -7.29   & -25.53  & 0       & 1    \\
-    205 & Cubic     & 5               & -3.74   & -13.09  & 0       & 1    \\
-    208 & Gompertz  & 6               & 15.34   & -61.35  & 0       & 1    \\
-    209 & Cubic     & 5               & -18.47  & -110.81 & 0       & 1    \\
-    213 & Gompertz  & 6               & 17.82   & -71.29  & 0       & 1    \\
-    214 & Quadratic & 6               & -2.47   & 7.4     & 0       & 0.53 \\
-    215 & Cubic     & 19              & -50.68  & -304.11 & 0       & 1    \\
-    216 & Gompertz  & 13              & -33.6   & -201.63 & 0       & 1    \\
-    217 & Quadratic & 7               & -9.22   & -11.67  & 0       & 0.72 \\
-    218 & Gompertz  & 10              & -32.97  & -53.57  & 0       & 1    \\
-    219 & Cubic     & 17              & -181.43 & -634.99 & 0       & 1    \\
-    220 & Gompertz  & 13              & -70.44  & -140.87 & 0       & 1    \\
-    221 & Gompertz  & 9               & -56.4   & -79.91  & 0       & 0.91 \\
-    222 & Cubic     & 14              & -22.21  & -36.09  & 0       & 1    \\
-    223 & Gompertz  & 11              & -31.91  & -71.81  & 0       & 1    \\
-    224 & Cubic     & 16              & -164.97 & -256.62 & 0       & 0.98 \\
-    225 & Cubic     & 17              & -41.14  & -75.43  & 0       & 1    \\
-    226 & Gompertz  & 12              & -22.3   & -32.44  & 0       & 0.99 \\
-    227 & Gompertz  & 9               & -31.88  & -45.16  & 0       & 1    \\
-    228 & Cubic     & 10              & -99.72  & -170.94 & 0       & 0.82 \\
-    229 & Cubic     & 16              & -168.27 & -378.61 & 0       & 1    \\
-    230 & Gompertz  & 17              & -51.2   & -102.4  & 0       & 1    \\
-    231 & Gompertz  & 11              & -42.29  & -61.52  & 0       & 1    \\
-    232 & Gompertz  & 8               & -26.71  & -37.85  & 0       & 1    \\
-    233 & Gompertz  & 5               & -29.05  & -53.26  & 0       & 1    \\
-    234 & Gompertz  & 8               & -66.92  & -178.44 & 0       & 1    \\
-    236 & Gompertz  & 10              & -45.72  & -121.92 & 0       & 1    \\
-    237 & Gompertz  & 8               & -19.77  & -30.75  & 0       & 0.6  \\
-    238 & Cubic     & 9               & -8.89   & -17.79  & 0       & 0.86 \\
-    239 & Quadratic & 9               & 4.42    & 8.85    & 0       & 0.98 \\
-    240 & Cubic     & 19              & -210.37 & -473.34 & 0       & 0.78 \\
-    241 & Gompertz  & 17              & -68.08  & -153.18 & 0       & 1    \\
-    242 & Gompertz  & 8               & -27.8   & -37.72  & 0       & 0.99 \\
-    243 & Cubic     & 8               & -10.16  & -14.39  & 0       & 0.96 \\
-    244 & Cubic     & 7               & -5.7    & -15.21  & 0       & 1    \\
-    245 & Cubic     & 18              & -193.59 & -516.24 & 0       & 0.9  \\
-    246 & Gompertz  & 14              & -50.87  & -178.05 & 0       & 1    \\
-    247 & Gompertz  & 7               & -25.56  & -35.39  & 0       & 1    \\
-    248 & Gompertz  & 8               & -27.92  & -43.43  & 0       & 1    \\
-    249 & Gompertz  & 8               & -53.57  & -187.5  & 0       & 1    \\
-    250 & Cubic     & 10              & -22.59  & -60.25  & 0       & 1    \\
-    251 & Cubic     & 16              & -17.27  & -46.04  & 0       & 1    \\
-    252 & Cubic     & 18              & -20.6   & -41.21  & 0       & 1    \\
-    253 & Cubic     & 16              & -18.04  & -26.23  & 0       & 1    \\
-    254 & Cubic     & 13              & -17.82  & -24.68  & 0       & 1    \\
-    255 & Cubic     & 9               & -30.64  & -44.56  & 0       & 0.86 \\
-    256 & Gompertz  & 20              & -66.5   & -108.07 & 0       & 1    \\
-    257 & Gompertz  & 14              & -11.34  & -25.52  & 0       & 0.65 \\
-    258 & Gompertz  & 17              & -27.81  & -37.09  & 0       & 0.84 \\
-    259 & Gompertz  & 15              & -20.86  & -32.45  & 0       & 0.97 \\
-    260 & Cubic     & 13              & -18.17  & -25.74  & 0       & 0.98 \\
-    261 & Gompertz  & 9               & -15.62  & -23.43  & 0       & 0.98 \\
-    262 & Cubic     & 19              & -26.36  & -42.84  & 0       & 0.91 \\
-    263 & Gompertz  & 12              & -8.1    & -18.22  & 0       & 0.95 \\
-    264 & Gompertz  & 13              & -35.07  & -47.6   & 0       & 1    \\
-    265 & Gompertz  & 12              & -7.49   & -12.85  & 0       & 0.61 \\
-    266 & Cubic     & 10              & -19.28  & -31.33  & 0       & 0.99 \\
-    267 & Cubic     & 7               & -21.63  & -37.08  & 0       & 0.47 \\
-    268 & Cubic     & 7               & -25.95  & -51.9   & 0       & 0.98 \\
-    269 & Cubic     & 6               & -34.97  & -122.39 & 0       & 1    \\
-    270 & Cubic     & 6               & -32.57  & -114    & 0       & 1    \\
-    271 & Cubic     & 7               & -24.09  & -144.55 & 0       & 1    \\
-    272 & Cubic     & 7               & -19.76  & -118.56 & 0       & 1    \\
-    273 & Gompertz  & 7               & -33.54  & -117.38 & 0       & 0.9  \\
-    274 & Gompertz  & 7               & -30.93  & -108.26 & 0       & 0.98 \\
-    275 & Cubic     & 7               & -5.14   & -17.98  & 0       & 0.67 \\
-    276 & Cubic     & 7               & 1.45    & 5.07    & 0       & 0.81 \\
-    278 & Cubic     & 5               & -12.92  & -45.23  & 0       & 1   
-    \end{tabular}
-    \end{table}
+        ID  & Model     & Sample Size & AIC & $AIC_{c}$ & $\triangle$AICc & $w_{i}$    \\
+        \midrule
+        0   & Gompertz  & 28              & -154.62 & -188.24 & 0       & 1    \\
+        1   & Gompertz  & 28              & -210.68 & -256.48 & 0       & 1    \\
+        2   & Gompertz  & 28              & -157.37 & -191.58 & 0       & 1    \\
+        3   & Gompertz  & 30              & -82.05  & -98.46  & 0       & 0.69 \\
+        5   & Gompertz  & 28              & -168.65 & -205.31 & 0       & 1    \\
+        6   & Gompertz  & 28              & -126.8  & -154.36 & 0       & 1    \\
+        7   & Gompertz  & 28              & -123.49 & -150.34 & 0       & 0.97 \\
+        8   & Gompertz  & 28              & -147.61 & -179.7  & 0       & 0.93 \\
+        9   & Cubic     & 28              & -127.72 & -155.48 & 0       & 1    \\
+        10  & Gompertz  & 28              & -151.78 & -184.78 & 0       & 1    \\
+        11  & Gompertz  & 28              & -149.15 & -181.57 & 0       & 1    \\
+        12  & Gompertz  & 28              & -177.89 & -216.56 & 0       & 1    \\
+        13  & Cubic     & 28              & -69.79  & -84.96  & 0       & 0.69 \\
+        15  & Gompertz  & 28              & -156.93 & -191.04 & 0       & 1    \\
+        17  & Cubic     & 28              & -143.46 & -174.65 & 0       & 0.57 \\
+        18  & Cubic     & 28              & -115.77 & -140.94 & 0       & 0.57 \\
+        19  & Cubic     & 28              & -67.1   & -81.69  & 0       & 0.8  \\
+        21  & Gompertz  & 28              & -156.06 & -189.99 & 0       & 0.99 \\
+        22  & Gompertz  & 21              & -111.13 & -145.85 & 0       & 1    \\
+        23  & Gompertz  & 28              & -132.21 & -160.96 & 0       & 1    \\
+        24  & Cubic     & 26              & -32.28  & -39.97  & 0       & 1    \\
+        25  & Cubic     & 26              & -20.59  & -25.49  & 0       & 1    \\
+        26  & Cubic     & 22              & -63.24  & -81.84  & 0       & 1    \\
+        27  & Cubic     & 23              & -72.55  & -92.7   & 0       & 1    \\
+        28  & Cubic     & 23              & -38.83  & -49.61  & 0       & 1    \\
+        29  & Gompertz  & 23              & -101.36 & -129.51 & 0       & 1    \\
+        30  & Cubic     & 21              & -70.15  & -92.08  & 0       & 1    \\
+        31  & Cubic     & 25              & -19.28  & -24.11  & 0       & 1    \\
+        32  & Cubic     & 23              & -31.63  & -40.42  & 0       & 1    \\
+        33  & Gompertz  & 23              & -37.12  & -47.43  & 0       & 1    \\
+        34  & Cubic     & 32              & -54.64  & -64.75  & 0       & 1    \\
+        35  & Cubic     & 25              & -38.63  & -48.28  & 0       & 1    \\
+        36  & Cubic     & 23              & -16.33  & -20.86  & 0       & 1    \\
+        37  & Cubic     & 23              & -9.44   & -12.06  & 0       & 1    \\
+        38  & Gompertz  & 23              & -49.75  & -63.57  & 0       & 1    \\
+        39  & Cubic     & 21              & -71.29  & -93.56  & 0       & 1    \\
+        40  & Cubic     & 22              & -45.13  & -58.4   & 0       & 1    \\
+        41  & Gompertz  & 32              & -49.59  & -58.78  & 0       & 1    \\
+        42  & Gompertz  & 21              & -62.62  & -82.19  & 0       & 1    \\
+        43  & Cubic     & 23              & -83.91  & -107.22 & 0       & 1    \\
+        44  & Cubic     & 12              & -18.9   & -32.4   & 0       & 1    \\
+        45  & Cubic     & 17              & -55.29  & -78.33  & 0       & 1    \\
+        46  & Cubic     & 15              & -34.31  & -51.47  & 0       & 1    \\
+        47  & Cubic     & 15              & -20.77  & -31.16  & 0       & 0.97 \\
+        48  & Cubic     & 14              & -21.73  & -33.81  & 0       & 1    \\
+        49  & Cubic     & 15              & -20.8   & -31.2   & 0       & 1    \\
+        50  & Gompertz  & 13              & -28.26  & -45.93  & 0       & 0.95 \\
+        51  & Gompertz  & 12              & -54.05  & -92.66  & 0       & 1    \\
+        52  & Cubic     & 13              & -27.45  & -44.61  & 0       & 1    \\
+        53  & Cubic     & 14              & -18.96  & -29.49  & 0       & 0.99 \\
+        54  & Cubic     & 14              & -31.31  & -48.71  & 0       & 1    \\
+        55  & Cubic     & 16              & -38.57  & -56.1   & 0       & 1    \\
+        56  & Cubic     & 16              & -6.86   & -9.98   & 0       & 0.89 \\
+        57  & Cubic     & 16              & -10.55  & -15.35  & 0       & 0.99 \\
+        58  & Quadratic & 17              & -14.58  & -19.06  & 0       & 0.61 \\
+        59  & Gompertz  & 16              & -47.13  & -68.55  & 0       & 1    \\
+        60  & Cubic     & 15              & -11.83  & -17.74  & 0       & 0.99 \\
+        61  & Cubic     & 14              & -27.71  & -43.11  & 0       & 1    \\
+        62  & Cubic     & 13              & -23.69  & -38.5   & 0       & 1    \\
+        63  & Cubic     & 16              & -8.68   & -12.63  & 0       & 0.93 \\
+        64  & Cubic     & 15              & -9.44   & -14.16  & 0       & 0.98 \\
+        65  & Gompertz  & 16              & -25.79  & -37.52  & 0       & 0.97 \\
+        66  & Cubic     & 14              & -12.83  & -19.96  & 0       & 0.92 \\
+        67  & Cubic     & 16              & -5.23   & -7.61   & 0       & 0.88 \\
+        68  & Cubic     & 16              & -4.49   & -6.54   & 0       & 1    \\
+        69  & Cubic     & 14              & -5.04   & -7.84   & 0       & 0.99 \\
+        70  & Quadratic & 15              & 26.16   & 35.67   & 0       & 0.56 \\
+        71  & Cubic     & 17              & -12.27  & -17.39  & 0       & 1    \\
+        72  & Cubic     & 17              & -16.54  & -23.43  & 0       & 0.99 \\
+        73  & Cubic     & 15              & -24.23  & -36.34  & 0       & 1    \\
+        74  & Cubic     & 16              & -15.68  & -22.81  & 0       & 0.99 \\
+        75  & Cubic     & 16              & -16.41  & -23.87  & 0       & 0.99 \\
+        76  & Cubic     & 15              & -29.19  & -43.79  & 0       & 1    \\
+        77  & Cubic     & 16              & -33.33  & -48.48  & 0       & 1    \\
+        78  & Cubic     & 18              & 4.65    & 6.43    & 0       & 0.74 \\
+        79  & Cubic     & 18              & 5.31    & 7.35    & 0       & 0.95 \\
+        80  & Cubic     & 16              & -20.49  & -29.81  & 0       & 1    \\
+        81  & Cubic     & 17              & 5.86    & 8.3     & 0       & 0.97 \\
+        82  & Cubic     & 17              & -2.06   & -2.92   & 0       & 0.95 \\
+        83  & Cubic     & 15              & -21.06  & -31.6   & 0       & 0.99 \\
+        84  & Cubic     & 15              & -16.28  & -24.42  & 0       & 1    \\
+        85  & Cubic     & 17              & -3.44   & -4.88   & 0       & 0.74 \\
+        86  & Cubic     & 17              & -9.53   & -13.5   & 0       & 0.98 \\
+        87  & Cubic     & 17              & -13.01  & -18.44  & 0       & 1    \\
+        89  & Cubic     & 54              & -66.66  & -73.46  & 0       & 0.92 \\
+        90  & Gompertz  & 63              & -199.14 & -216.31 & 0       & 1    \\
+        91  & Cubic     & 66              & -129.48 & -140.09 & 0       & 1    \\
+        92  & Cubic     & 57              & -21.7   & -23.79  & 0       & 0.89 \\
+        93  & Cubic     & 9               & -34.48  & -77.57  & 0       & 0.99 \\
+        94  & Gompertz  & 8               & -12.5   & -33.34  & 0       & 0.99 \\
+        95  & Cubic     & 14              & -22.93  & -35.67  & 0       & 1    \\
+        96  & Cubic     & 11              & -18.3   & -33.56  & 0       & 1    \\
+        97  & Cubic     & 9               & -11.65  & -26.22  & 0       & 0.96 \\
+        98  & Cubic     & 9               & -24.14  & -54.31  & 0       & 1    \\
+        99  & Gompertz  & 10              & -31.32  & -62.63  & 0       & 0.6  \\
+        100 & Cubic     & 6               & -19.34  & -116.03 & 0       & 1    \\
+        101 & Cubic     & 13              & -26.37  & -42.84  & 0       & 0.78 \\
+        102 & Cubic     & 13              & -39.4   & -64.03  & 0       & 1    \\
+        103 & Cubic     & 12              & -43.41  & -74.42  & 0       & 1    \\
+        104 & Cubic     & 9               & -19.28  & -43.38  & 0       & 1    \\
+        105 & Gompertz  & 10              & -33.18  & -66.36  & 0       & 1    \\
+        106 & Cubic     & 7               & -12.62  & -44.17  & 0       & 0.99 \\
+        107 & Gompertz  & 13              & -45.27  & -73.56  & 0       & 1    \\
+        108 & Gompertz  & 12              & -25.73  & -44.11  & 0       & 0.62 \\
+        109 & Cubic     & 11              & -32.84  & -60.2   & 0       & 0.97 \\
+        110 & Cubic     & 9               & -27.07  & -60.91  & 0       & 1    \\
+        111 & Gompertz  & 11              & -27.29  & -50.04  & 0       & 1    \\
+        112 & Gompertz  & 7               & -8.4    & -29.4   & 0       & 0.99 \\
+        113 & Cubic     & 10              & -32     & -64.01  & 0       & 1    \\
+        114 & Cubic     & 13              & -20.89  & -33.94  & 0       & 1    \\
+        115 & Cubic     & 12              & -25.85  & -44.32  & 0       & 1    \\
+        116 & Cubic     & 9               & -25.25  & -56.81  & 0       & 1    \\
+        117 & Gompertz  & 11              & -42.86  & -78.58  & 0       & 1    \\
+        118 & Cubic     & 7               & -5.56   & -19.45  & 0       & 0.94 \\
+        119 & Gompertz  & 11              & -45.8   & -83.96  & 0       & 1    \\
+        120 & Cubic     & 13              & -19.63  & -31.89  & 0       & 1    \\
+        121 & Cubic     & 12              & -41.67  & -71.44  & 0       & 1    \\
+        122 & Cubic     & 8               & -38.6   & -102.93 & 0       & 0.94 \\
+        123 & Gompertz  & 10              & -20.75  & -41.5   & 0       & 1    \\
+        124 & Cubic     & 6               & -16.41  & -98.48  & 0       & 1    \\
+        125 & Cubic     & 13              & -21.12  & -34.32  & 0       & 1    \\
+        126 & Cubic     & 11              & -18.87  & -34.59  & 0       & 0.85 \\
+        127 & Cubic     & 12              & -21.7   & -37.2   & 0       & 0.74 \\
+        128 & Cubic     & 9               & -12.29  & -27.65  & 0       & 1    \\
+        129 & Gompertz  & 10              & -31.51  & -63.03  & 0       & 0.95 \\
+        130 & Cubic     & 6               & -14.56  & -87.36  & 0       & 1    \\
+        131 & Cubic     & 13              & -23.35  & -37.95  & 0       & 1    \\
+        132 & Cubic     & 12              & -14.51  & -24.88  & 0       & 0.99 \\
+        133 & Cubic     & 10              & -23.96  & -47.92  & 0       & 1    \\
+        134 & Cubic     & 8               & -20.31  & -54.16  & 0       & 1    \\
+        135 & Gompertz  & 10              & -25     & -50.01  & 0       & 1    \\
+        136 & Gompertz  & 6               & -19.13  & -114.81 & 0       & 1    \\
+        137 & Cubic     & 14              & -36.94  & -57.47  & 0       & 0.92 \\
+        138 & Cubic     & 12              & -27.82  & -47.7   & 0       & 1    \\
+        139 & Cubic     & 9               & -21.74  & -48.91  & 0       & 1    \\
+        140 & Cubic     & 6               & -14.02  & -84.11  & 0       & 0.98 \\
+        141 & Gompertz  & 9               & -25.46  & -57.29  & 0       & 1    \\
+        142 & Gompertz  & 7               & -18.65  & -65.27  & 0       & 0.99 \\
+        143 & Cubic     & 13              & -23.82  & -38.71  & 0       & 1    \\
+        144 & Cubic     & 12              & -14.57  & -24.98  & 0       & 0.99 \\
+        145 & Cubic     & 9               & -23.3   & -52.43  & 0       & 1    \\
+        146 & Cubic     & 9               & -25.66  & -57.72  & 0       & 1    \\
+        147 & Gompertz  & 10              & -32.6   & -65.19  & 0       & 0.97 \\
+        148 & Cubic     & 14              & -23.49  & -36.54  & 0       & 0.83 \\
+        149 & Gompertz  & 7               & -20.36  & -71.27  & 0       & 1    \\
+        150 & Cubic     & 10              & -15.41  & -30.81  & 0       & 1    \\
+        151 & Cubic     & 9               & -16.31  & -36.69  & 0       & 1    \\
+        152 & Cubic     & 8               & -22.27  & -59.39  & 0       & 1    \\
+        153 & Cubic     & 10              & -32.05  & -64.09  & 0       & 1    \\
+        154 & Gompertz  & 7               & -18.25  & -63.89  & 0       & 1    \\
+        155 & Gompertz  & 13              & -44.68  & -72.6   & 0       & 1    \\
+        156 & Cubic     & 12              & -22.12  & -37.92  & 0       & 0.99 \\
+        157 & Cubic     & 8               & -14.65  & -39.06  & 0       & 1    \\
+        158 & Gompertz  & 8               & -21.08  & -56.2   & 0       & 0.97 \\
+        159 & Cubic     & 9               & -22.14  & -49.82  & 0       & 1    \\
+        160 & Cubic     & 6               & -9.9    & -59.4   & 0       & 1    \\
+        161 & Cubic     & 11              & -18.16  & -33.29  & 0       & 1    \\
+        162 & Gompertz  & 11              & -16.62  & -30.47  & 0       & 0.97 \\
+        163 & Gompertz  & 9               & -26.37  & -59.32  & 0       & 1    \\
+        164 & Cubic     & 10              & -40.03  & -80.05  & 0       & 1    \\
+        165 & Cubic     & 7               & -6.74   & -23.59  & 0       & 1    \\
+        166 & Gompertz  & 6               & -20.64  & -123.85 & 0       & 0.95 \\
+        167 & Cubic     & 7               & -45.64  & -159.73 & 0       & 1    \\
+        168 & Cubic     & 6               & -24.27  & -145.63 & 0       & 1    \\
+        169 & Cubic     & 6               & -9.4    & -56.42  & 0       & 1    \\
+        170 & Cubic     & 6               & -30.51  & -183.07 & 0       & 1    \\
+        171 & Cubic     & 9               & -13.77  & -30.98  & 0       & 1    \\
+        172 & Cubic     & 9               & -32.82  & -73.84  & 0       & 1    \\
+        173 & Cubic     & 6               & -21.31  & -127.86 & 0       & 0.91 \\
+        174 & Gompertz  & 6               & -17.04  & -102.27 & 0       & 0.62 \\
+        175 & Cubic     & 6               & -25.4   & -152.4  & 0       & 1    \\
+        176 & Gompertz  & 7               & -18.07  & -63.24  & 0       & 1    \\
+        177 & Cubic     & 7               & -31.13  & -108.96 & 0       & 1    \\
+        178 & Cubic     & 7               & -27.3   & -95.54  & 0       & 1    \\
+        182 & Cubic     & 7               & -19.37  & -67.78  & 0       & 1    \\
+        183 & Cubic     & 7               & -23.05  & -80.68  & 0       & 1    \\
+        184 & Cubic     & 7               & -18.04  & -63.13  & 0       & 1    \\
+        188 & Cubic     & 6               & -20.27  & -121.6  & 0       & 1    \\
+        189 & Cubic     & 6               & -21.14  & -126.85 & 0       & 1    \\
+        190 & Cubic     & 6               & -8.97   & -53.83  & 0       & 1    \\
+        192 & Cubic     & 6               & -7.65   & -45.9   & 0       & 1    \\
+        193 & Cubic     & 6               & -18.85  & -113.13 & 0       & 1    \\
+        194 & Cubic     & 7               & -38.08  & -133.28 & 0       & 1    \\
+        195 & Cubic     & 7               & -18.6   & -65.09  & 0       & 1    \\
+        196 & Cubic     & 7               & -20.57  & -71.98  & 0       & 1    \\
+        197 & Cubic     & 6               & -20.11  & -120.68 & 0       & 1    \\
+        198 & Cubic     & 7               & -9.72   & -34.03  & 0       & 1    \\
+        204 & Cubic     & 7               & -7.29   & -25.53  & 0       & 1    \\
+        205 & Cubic     & 5               & -3.74   & -13.09  & 0       & 1    \\
+        208 & Gompertz  & 6               & 15.34   & -61.35  & 0       & 1    \\
+        209 & Cubic     & 5               & -18.47  & -110.81 & 0       & 1    \\
+        213 & Gompertz  & 6               & 17.82   & -71.29  & 0       & 1    \\
+        214 & Quadratic & 6               & -2.47   & 7.4     & 0       & 0.53 \\
+        215 & Cubic     & 19              & -50.68  & -304.11 & 0       & 1    \\
+        216 & Gompertz  & 13              & -33.6   & -201.63 & 0       & 1    \\
+        217 & Quadratic & 7               & -9.22   & -11.67  & 0       & 0.72 \\
+        218 & Gompertz  & 10              & -32.97  & -53.57  & 0       & 1    \\
+        219 & Cubic     & 17              & -181.43 & -634.99 & 0       & 1    \\
+        220 & Gompertz  & 13              & -70.44  & -140.87 & 0       & 1    \\
+        221 & Gompertz  & 9               & -56.4   & -79.91  & 0       & 0.91 \\
+        222 & Cubic     & 14              & -22.21  & -36.09  & 0       & 1    \\
+        223 & Gompertz  & 11              & -31.91  & -71.81  & 0       & 1    \\
+        224 & Cubic     & 16              & -164.97 & -256.62 & 0       & 0.98 \\
+        225 & Cubic     & 17              & -41.14  & -75.43  & 0       & 1    \\
+        226 & Gompertz  & 12              & -22.3   & -32.44  & 0       & 0.99 \\
+        227 & Gompertz  & 9               & -31.88  & -45.16  & 0       & 1    \\
+        228 & Cubic     & 10              & -99.72  & -170.94 & 0       & 0.82 \\
+        229 & Cubic     & 16              & -168.27 & -378.61 & 0       & 1    \\
+        230 & Gompertz  & 17              & -51.2   & -102.4  & 0       & 1    \\
+        231 & Gompertz  & 11              & -42.29  & -61.52  & 0       & 1    \\
+        232 & Gompertz  & 8               & -26.71  & -37.85  & 0       & 1    \\
+        233 & Gompertz  & 5               & -29.05  & -53.26  & 0       & 1    \\
+        234 & Gompertz  & 8               & -66.92  & -178.44 & 0       & 1    \\
+        236 & Gompertz  & 10              & -45.72  & -121.92 & 0       & 1    \\
+        237 & Gompertz  & 8               & -19.77  & -30.75  & 0       & 0.6  \\
+        238 & Cubic     & 9               & -8.89   & -17.79  & 0       & 0.86 \\
+        239 & Quadratic & 9               & 4.42    & 8.85    & 0       & 0.98 \\
+        240 & Cubic     & 19              & -210.37 & -473.34 & 0       & 0.78 \\
+        241 & Gompertz  & 17              & -68.08  & -153.18 & 0       & 1    \\
+        242 & Gompertz  & 8               & -27.8   & -37.72  & 0       & 0.99 \\
+        243 & Cubic     & 8               & -10.16  & -14.39  & 0       & 0.96 \\
+        244 & Cubic     & 7               & -5.7    & -15.21  & 0       & 1    \\
+        245 & Cubic     & 18              & -193.59 & -516.24 & 0       & 0.9  \\
+        246 & Gompertz  & 14              & -50.87  & -178.05 & 0       & 1    \\
+        247 & Gompertz  & 7               & -25.56  & -35.39  & 0       & 1    \\
+        248 & Gompertz  & 8               & -27.92  & -43.43  & 0       & 1    \\
+        249 & Gompertz  & 8               & -53.57  & -187.5  & 0       & 1    \\
+        250 & Cubic     & 10              & -22.59  & -60.25  & 0       & 1    \\
+        251 & Cubic     & 16              & -17.27  & -46.04  & 0       & 1    \\
+        252 & Cubic     & 18              & -20.6   & -41.21  & 0       & 1    \\
+        253 & Cubic     & 16              & -18.04  & -26.23  & 0       & 1    \\
+        254 & Cubic     & 13              & -17.82  & -24.68  & 0       & 1    \\
+        255 & Cubic     & 9               & -30.64  & -44.56  & 0       & 0.86 \\
+        256 & Gompertz  & 20              & -66.5   & -108.07 & 0       & 1    \\
+        257 & Gompertz  & 14              & -11.34  & -25.52  & 0       & 0.65 \\
+        258 & Gompertz  & 17              & -27.81  & -37.09  & 0       & 0.84 \\
+        259 & Gompertz  & 15              & -20.86  & -32.45  & 0       & 0.97 \\
+        260 & Cubic     & 13              & -18.17  & -25.74  & 0       & 0.98 \\
+        261 & Gompertz  & 9               & -15.62  & -23.43  & 0       & 0.98 \\
+        262 & Cubic     & 19              & -26.36  & -42.84  & 0       & 0.91 \\
+        263 & Gompertz  & 12              & -8.1    & -18.22  & 0       & 0.95 \\
+        264 & Gompertz  & 13              & -35.07  & -47.6   & 0       & 1    \\
+        265 & Gompertz  & 12              & -7.49   & -12.85  & 0       & 0.61 \\
+        266 & Cubic     & 10              & -19.28  & -31.33  & 0       & 0.99 \\
+        267 & Cubic     & 7               & -21.63  & -37.08  & 0       & 0.47 \\
+        268 & Cubic     & 7               & -25.95  & -51.9   & 0       & 0.98 \\
+        269 & Cubic     & 6               & -34.97  & -122.39 & 0       & 1    \\
+        270 & Cubic     & 6               & -32.57  & -114    & 0       & 1    \\
+        271 & Cubic     & 7               & -24.09  & -144.55 & 0       & 1    \\
+        272 & Cubic     & 7               & -19.76  & -118.56 & 0       & 1    \\
+        273 & Gompertz  & 7               & -33.54  & -117.38 & 0       & 0.9  \\
+        274 & Gompertz  & 7               & -30.93  & -108.26 & 0       & 0.98 \\
+        275 & Cubic     & 7               & -5.14   & -17.98  & 0       & 0.67 \\
+        276 & Cubic     & 7               & 1.45    & 5.07    & 0       & 0.81 \\
+        278 & Cubic     & 5               & -12.92  & -45.23  & 0       & 1   
+    \end{longtable}
+    \end{center}
     \pagebreak
 
-
     \begin{center}
-        \begin{longtable}{lllllll}
+    \begin{longtable}{lllllll}
         \caption{All mathematical models for each ID dataset and their sample size, AIC, $AICc_{i}$ , $\triangle$AICc, $w_{i}$ values }
         \label{table:5}\\
-    ID  & Model     & Sample Size & AIC     & $AIC_{c}$ & $AICc_{i}$ & $w_{i}$   \\
+    ID  & Model& Sample Size & AIC & $AIC_{c}$ & $\triangle$AICc & $w_{i}$ \\
+    \midrule
     0   & Cubic     & 28              & -122.25 & -148.83 & 39.41   & 0    \\
     0   & Quadratic & 28              & -77.88  & -90.86  & 97.38   & 0    \\
     0   & Gompertz  & 28              & -154.62 & -188.24 & 0       & 1    \\
@@ -1775,9 +1772,7 @@ confirmed through independent testing of its parameters \cite{peleg_microbial_20
     279 & Cubic     & 4               & NA      & NA      & NA      & NA   \\
     279 & Quadratic & 4               & -15.37  & -Inf    & NA      & NA   \\
     279 & Gompertz  & 4               & NA      & NA      & NA      & NA  
-    \end{tabular}
-    \end{table}
-
-
+    \end{longtable}
+    \end{center}
 
 \end{document}

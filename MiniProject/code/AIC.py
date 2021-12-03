@@ -22,7 +22,9 @@ size = sample_size["Sample_Size"].to_numpy() #Array of samples sizes
 
 aicc = np.ones((273,3)) #273 after dropping all NAs, preallocate vector
 
-aicc_cubic = [cubic_aic[m] * ( size[m] / (size[m] - 4 - 1)) for  m in range(len(cubic_aic))]
+###########
+#calculate AICc
+aicc_cubic = [cubic_aic[m] * ( size[m] / (size[m] - 4 - 1)) for  m in range(len(cubic_aic))] 
 aicc_quadratic = [quadratic_aic[m] * ( size[m] / (size[m] - 3 - 1)) for  m in range(len(cubic_aic))]
 aicc_gompertz = [gompertz_aic[m] * ( size[m] / (size[m] - 4 - 1)) for  m in range(len(cubic_aic))]
 
@@ -35,7 +37,7 @@ aicc_df = pd.DataFrame(aicc,columns=["Cubic","Quadratic","Gompertz"])
 aicc_df["ID"] = ID_aic
 aicc_df.set_index('ID', inplace=True)
 
-aicc_df.to_csv("../data/AICc_output.csv",sep=',',na_rep="NA")
+aicc_df.to_csv("../data/AICc_output.csv",sep=',',na_rep="NA") #output AICc as a csv
 
 ###########
 #∆AIC, Loop through to calculate 
@@ -44,6 +46,7 @@ Aicc_min = [min(aicc[n]) for n in range(len(cubic_aic))]
 
 aicc_scaled = np.ones((273,3))
 for n in range(len(cubic_aic)):
+    """∆AIC"""
     output = aicc[n] - Aicc_min[n]
     aicc_scaled[n] = output
 
@@ -57,6 +60,7 @@ scaled_aicc.to_csv("../data/scaled_aicc.csv",sep=',',na_rep="NA")
 
 AICC_weights = np.ones((273,3))
 for k in range(len(cubic_aic)):
+    """loops over data to calculate akaike weights"""
     value = np.exp( -0.5 * aicc_scaled[k])
     value = value / np.sum(value)
     AICC_weights[k] = value

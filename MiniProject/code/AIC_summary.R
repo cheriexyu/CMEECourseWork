@@ -1,4 +1,6 @@
-require(tidyverse)
+library(dplyr)
+
+#reads files
 samplesize<-read.csv("../data/sample_size.csv")
 AICc<-read.csv("../data/AICc_output.csv")
 scale_AIC<-read.csv("../data/scaled_aicc.csv")
@@ -10,14 +12,13 @@ samplesize = samplesize[-1,] #delete first row and second row due to the lack of
 head(samplesize)
 
 samplesize %>% arrange(ID) #arrange in ascending order
-table <- samplesize %>% slice(rep(1:n(), each = 3)) 
+table <- samplesize %>% slice(rep(1:n(), each = 3)) #repeat the sample size by an index of 3
 table <- table %>% arrange(ID)
 
 
 AIC <- as.data.frame(AIC,stringsAsFactors = F)
-AIC_new <- pivot_longer(AIC, cols=3:5, names_to = "Model",values_to = "AIC", values_drop_na = FALSE)
+AIC_new <- pivot_longer(AIC, cols=3:5, names_to = "Model",values_to = "AIC", values_drop_na = FALSE) #pivot to long data frame
 
-library(dplyr)
 right_join(AIC_new,table,by="ID")
 final<- bind_cols(AIC_new,table$Sample_Size)
 names(final)[5] <- "Sample Size (N)"
@@ -38,7 +39,7 @@ AIC_weight<- pivot_longer(AIC_weight, cols=2:4, names_to = "Model",values_to = "
 final<- bind_cols(final,AIC_weight$Wi)
 names(final)[7] <- "Wi"
 
-final$AIC <- round(final$AIC, digits=2)
+final$AIC <- round(final$AIC, digits=2) #final dataframe with concatenated AIC dataframes
 final$AICc <- round(final$AICc, digits=2)
 final$ΔAICci <- round(final$ΔAICci, digits=2)
 final$Wi <- round(final$Wi, digits=2)
@@ -47,7 +48,7 @@ final$Wi <- round(final$Wi, digits=2)
 write.csv(final, "../data/AIC_final.csv", row.names=FALSE)
 
 new <- final
-new <- filter(final, ΔAICci == 0)
+new <- filter(final, ΔAICci == 0) #filter best fitted model for each ID
 write.csv(new, "../data/filtered_AIC_final.csv", row.names=FALSE)
 
 

@@ -13,7 +13,6 @@ import matplotlib.pylab as pl
 import csv
 
 data = pd.read_csv("../data/editeddata.csv")
-#print("Loaded {} columns.".format(len(data.columns.values))) #load 10 columns
 data = data.drop(columns=['Unnamed: 0'])
 data_subset=data[['ID','Time','PopBio','Time_units','PopBio_units']] #data_subset is a subset of data with only the variables we need
 
@@ -34,13 +33,13 @@ test['outtime'] = outtime
 test.set_index('ID', inplace=True)
 test.drop([4,14,16,20,88,280,281,282,283,284],inplace=True)
 test = test.reset_index()
-test.to_csv("../data/data_after_sample_gompertz.csv",sep=",",quoting=csv.QUOTE_ALL) #save as csv to edited data after sampling gompertz, NEED TO EDIT THIS
+test.to_csv("../data/data_after_sample_gompertz.csv",sep=",",quoting=csv.QUOTE_ALL) #save as csv to edited data after sampling gompertz
 
 outpop_test = test["outpop"].to_numpy()
 outtime_test = test["outtime"].to_numpy()
 ID = test["ID"].to_numpy()
 
-#######SAMPLE
+#######SAMPLE of Gompertz Equation##########
 slope_r_max=[]
 diff_lag=[]
 
@@ -50,6 +49,7 @@ params = [] #all these are 27500
 alloc = np.zeros((275,5)) 
 
 for d in range(len(outtime_test)):
+    """loop that samples the starting parameters and undergo minimizing fit of the Gompertz Equation for each ID"""
     print(d)
     x = outtime_test[d]
     y = np.log(outpop_test[d])
@@ -107,18 +107,17 @@ df2 = pd.DataFrame(alloc) #save parameters and AIC to csv
 df2.columns = ['N_0', 'N_max','r_max','t_lag','AIC'] 
 df2.insert(0, 'ID', ID)
 df2.set_index('ID', inplace=True)
-
 df2
-df2=df2.round(3)
+df2=df2.round(3) #round to 3 decimal places
 df2.to_csv("../data/minimized_paras_gompertz.csv", sep=',',na_rep="NaN")
 
 
 ########################################################################################################################################################
 
-#Plot all graphs into graphs folder
+#Plot all graphs into graphs directory
 
 minimized = pd.read_csv("../data/minimized_paras_gompertz.csv")
-minimized_array = minimized[["N_0", "N_max", "r_max","t_lag"]].to_numpy() #minimised_gompertz parameters
+minimized_array = minimized[["N_0", "N_max", "r_max","t_lag"]].to_numpy() #minimised gompertz parameters
 
 #####Cubic Equation
 params_linear=Parameters() #To store parameters
@@ -141,6 +140,7 @@ linear_params = []
 AIC = [] 
 
 for d in range(len(outtime_test)):
+    """loop that uses lmfit to minimize starting values of the cubic equation"""
     if len(outtime_test[d])>4:
         minner = Minimizer(residuals_linear, params_linear, fcn_args=(outtime_test[d],np.log(outpop_test[d])))
         fit_linear_NLLS = minner.minimize()
@@ -173,6 +173,7 @@ quadratic_params = []
 AIC_quadratic = [] 
 
 for d in range(len(outtime_test)):
+    """loop that uses lmfit to minimize starting values of the quadratic equation"""
     if len(outtime_test[d])>3:
         minner_quadratic = Minimizer(residuals_quadratic, params_quadratic, fcn_args=(outtime_test[d],np.log(outpop_test[d])))
         fit_quadratic_NLLS = minner_quadratic.minimize()
@@ -198,7 +199,8 @@ gompertz_minimize = []
 gompertz_residuals = [] #all these are 27500
 gompertz_params = [] #all these are 27500
 params = []
-for d in range(len(outtime_test)):    
+for d in range(len(outtime_test)):  
+    """loop that uses lmfit to minimize calculated sampled starting values of the gompertz equation"""
     params_gompertz=Parameters()
     params_gompertz.add_many(('N_0', minimized_array[d][0] , True, None, None, None, None),('N_max', minimized_array[d][1] , True, None, None, None, None),('r_max', minimized_array[d][2], True, None, None, None, None),('t_lag', minimized_array[d][3], True, None, None, None, None)) 
     params.append(params_gompertz)
@@ -230,6 +232,7 @@ AIC_output.to_csv("../data/AIC_output.csv",sep=',',na_rep="NA")
 ####GRAPHING
 
 for e in range(len(outpop_test)): #Cubic
+    """loop that plots all ID and their mathematical equations, outputs into graphs directory"""
     f1 = pl.figure()
     if len(outtime_test[e])>4:
         result = np.log(outpop_test[e]) + linear_residuals[e] # Make a variable that adds the y datapoints and residuals of the fitted data together, the datapoint on the fitted line 
