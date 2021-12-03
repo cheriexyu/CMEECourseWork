@@ -60,9 +60,6 @@ Importing `matplotlib` to be used within the module `Pylab` (already embedded in
 import matplotlib.pylab as pl
 ```   
 
-library(tidyverse)
-library(minpack.lm)
-
 Package Installations for use in R 4.1:
 
 [tidyverse](https://www.tidyverse.org/) package in R includes the core packages ( tidyr, ggplot2, dplyr, readr, purrr, tibble, stringr, forcats). I used `ggplot` and `dplyr` to create plots in R, and `dplyr` to edit, filter and create dataframes. 
