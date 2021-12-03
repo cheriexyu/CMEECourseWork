@@ -12,6 +12,7 @@
 \usepackage{cite}
 \usepackage{longtable}
 \usepackage{subcaption}
+\DeclareUnicodeCharacter{0394}{\ensuremath{\Delta}}
 
 
 \title{The Cubic Polynomial Regression Outperforms Gompertz Equation in Model Fitting of Bacterial Populations}
@@ -20,7 +21,7 @@
 
 \affil{Imperial College London}
 
-\date{3 December 2021}
+\date{3 December 2021\hspace*{3cm} word count: 2900}
 
 \begin{document}
 \maketitle
@@ -42,7 +43,7 @@
     phenomenological models in an area that is rather heavily dependent on mechanistic theories. 
 \end{abstract}
 
-\section{Introduction}\\ 
+\section{Introduction}
 
 \linenumbers
 Population growth rates are used to observe trends in population density and abundance, from 
@@ -96,48 +97,48 @@ fit a mechanistic Gompertz model (3) compare the models using the calculated Aka
 
 \section{Materials \& Methods}
 
-\noindent\textbf{Theory} \\
+\noindent\textbf{Theory}
 
 Two phenomenological models were used in this study: cubic and quadratic equation. The cubic equation were
 fitted using a third degree polynomial regression model and the quadratic equation uses a second order
-polynomial form (parabolic curve). \\
+polynomial form (parabolic curve).
 
-The cubic equation is: \\
+The cubic equation is:
     \begin{equation}
     y = at^3 + bt^2 + ct + d 
     \end{equation}
 
-The quadratic equation is: \\
+The quadratic equation is:
     \begin{equation}
     y = bt^2 + ct + d 
     \end{equation}
 
 \noindent where $y$ = population abundance at $t$, $t$ = time and $a$ $b$ $c$ $d$ are regression coefficients. The number of free 
-parameters are 4 and 3 respectively. \\
+parameters are 4 and 3 respectively. 
 
 The Gompertz model is one of the most frequently used non-linear sigmoid model fitted to growth curves \cite{gompertz_xxiv_1825}. 
 Originally used to describe human mortality rates, it has now been re-parametrized to be applicable within 
 modelling bacteria growth, becoming one of the most common mechanistic models to be used by microbiologists \cite{tjorve_use_2017,gibson_predicting_1988}.
-(17)(A) \\
+(17)(A) 
 
-Provided by the literature, the modified Gompertz equation is represented by the general equation: \\
+Provided by the literature, the modified Gompertz equation is represented by the general equation: 
     \begin{equation}    
-    log(N_{t}) = N_{0} + (N_{max} - N_{0})e^{-e}^{r_{max}exp(1)\frac{t_{lag}-t}{(N_{max} - N_{0})log(10)}+1}
+    log(N_{t}) = N_{0} + (N_{max} - N_{0})e^{-e^{r_{max}exp(1)\frac{t_{lag}-t}{(N_{max} - N_{0})log(10)}+1}}
     \end{equation}
    
 \noindent where $N_{t}$ is the population size at time $t$, $N_{0}$ is the initial population size during the lag phase,
 $N_{max}$ is the largest population size when the carrying capacity is reached, $r_{max}$ is the rate of exponential growth,
-$t_{lag}$ is the $x$ intercept (time) to the tangent of the slope of the exponential growth. \\ 
+$t_{lag}$ is the $x$ intercept (time) to the tangent of the slope of the exponential growth. 
 
-\noindent\textbf{Data} \\
+\noindent\textbf{Data}
 
 The dataset contains measurements of change in biomass or number of cells of microbes over time(hours). Data was collected 
 through lab experiments across the world, citied from ten research papers \cite{bae_growth_2014,bernhardt_metabolic_2018,roth_wheaton_1962,galarz_predicting_2016,gill_growth_1991,silva_modelling_2018,sivonen_effects_1990,stannard_temperaturegrowth_1985,zwietering_modeling_1994,phillips_relation_1987}.
 Single population growth rate curves are identified by unique temperature-species-medium-citation-replicate combination IDs. A total of 284 
 unique IDs was isolated, identified as ID 0 to 284. Using Python 3.9, I eliminated any negative time and population 
-data and $NaN$ values due to not making any meaningful biological sense.\\
+data and $NaN$ values due to not making any meaningful biological sense.
 
-\noindent\textbf{Model Fitting}\\
+\noindent\textbf{Model Fitting}
 
 All model fitting was achieved through utilizing Python 3.9. The modified Gompertz equation (3) was fitted to 284 unique ID 
 using the non-linear least squares regression. I used the Levenberg–Marquardt algorithm of minimization, which is the default 
@@ -153,58 +154,58 @@ Out of 284 ID, I was unable to find a suitable minimized starting values for 10 
 For datasets with a sample size of less than the numbers of free parameter in equation (3) ($df$ = 0), an output of $NaN$ was given due to 
 inadequate sample size for data analysis. Similarly, the cubic (1) and quadratic (2) equations was fitted to the remaining dataset 
 using the default least squares regression (Levenberg–Marquardt algorithm). All datasets were successfully fitted given the 
-estimated starting values of 1. However, unique datasets with the sample size of less than 4 and 3 ($df$ = 0) respectively was given an output of $NaN$.\\ 
+estimated starting values of 1. However, unique datasets with the sample size of less than 4 and 3 ($df$ = 0) respectively was given an output of $NaN$. 
 
-\noindent\textbf{Model Selection and Comparison}\\
+\noindent\textbf{Model Selection and Comparison}
 
 Model selection was established using a selection criterion: AIC, or rather $AIC_{c}$ \cite{burnham_multimodel_2004}. AIC is a numerical value by which to 
 rank competition models in term of information loss. It is used in comparison with other AIC values, where the lowest 
 represents the best approximating model \cite{symonds_brief_2011}. In my study, instead of AIC, $AIC_{c}$ was used. When \(\frac{n}{K}<40\) where $n$ = sample size,
 $K$ = total number of parameters in the most complex model, $AIC_{c}$ is recommended. $AIC_{c}$ is the small 
 sample (second-order bias correction) version of AIC. By using AIC on data with small sample sizes, it increases the change 
-of overfitting \cite{burnham_multimodel_2004}.\\
+of overfitting \cite{burnham_multimodel_2004}.
 
 Recent versions of statistical software packages provide AIC values when generating model fitting. AIC values was extracted 
-from the cubic, quadratic, Gomepertz model during model fitting. To calculate $AIC_{c}$: \\
+from the cubic, quadratic, Gomepertz model during model fitting. To calculate $AIC_{c}$: 
 
     \begin{equation}    
     AIC = -2(ln(likelihood))+2K(\frac{n}{n-K-1})
-    \end{equation}\\
+    \end{equation}
 
     \begin{equation}    
     AIC_{c}= AIC(\frac{n}{n-K-1})
-    \end{equation}\\
+    \end{equation}
 
-\noindent where $n$ is the sample size, $K$ is the number of free parameters in the model.\\
+\noindent where $n$ is the sample size, $K$ is the number of free parameters in the model.
 
 AIC scores are often shown as $\triangle$AIC. The individual AIC and $AIC_{c}$ values are not interpretable on its own as they have scaling 
-issues and are affected by different sample sizes. Therefore, $AIC_{c}$ was rescaled by this equation: \\
+issues and are affected by different sample sizes. Therefore, $AIC_{c}$ was rescaled by this equation: 
 
     \begin{equation}    
     \triangle_{i}= AICc_{i} - AICc_{min}
-    \end{equation}\\
+    \end{equation}
 
 \noindent where $AICc_{min}$ is the smallest $AIC_{c}$ value between candidate models. $\triangle_{i}$ is the information loss experienced if we were 
 using the fitted model $i$. This transformation will result in the best fitted model to have $\triangle_{i}$ = 0. The larger the $\triangle_{i}$, the less 
 plausible the fitted model is an accurate candidate model for the given dataset \cite{burnham_multimodel_2004}. In addition, Akaike Weight ($w_{i}$) was calculated as 
-the probability that the model chosen is the best model given the data and the set of candidate models \cite{wagenmakers_aic_2004}.\\
+the probability that the model chosen is the best model given the data and the set of candidate models \cite{wagenmakers_aic_2004}.
 
-The equation is given below:\\
+The equation is given below:
 
     \begin{equation}    
     w_{i}= \frac{exp(-\triangle_{i}/2)}{\sum_{r=1}^{R}exp(-\triangle_{r}/2)}
-    \end{equation}\\
+    \end{equation}
 
-\noindent where $\sum_{r=1}^{R}exp(-\triangle_{r}/2)$ is the sum of the value across all models. \\ 
+\noindent where $\sum_{r=1}^{R}exp(-\triangle_{r}/2)$ is the sum of the value across all models.  
 
 Using R studios, I then compiled a summary table of all the calculated AIC values for each of the unique 274 datasets. 
 However during the process of $AIC_{c}$ calculations, I eliminated two datasets (ID 200,212) for having a sample size 
 less than the number of free parameters in the quadratic equation ($N<$3), which is too small for any meaningful analysis. 
 In addition for 10 data sets, $-Inf$ and $Inf$ was outputted. From a closer look, it was due to $n$ being divided by a total value 
 of 0 or less. Along with any datasets with only one successfully calculated AIC model ($N<$4), a total of 18 unique data 
-sets was eliminated from my final table which demonstrates the best fitted model for each ID. \\
+sets was eliminated from my final table which demonstrates the best fitted model for each ID. 
 
-\noindent\textbf{Computing Languages and Tools}\\
+\noindent\textbf{Computing Languages and Tools}
 
 Data Wrangling, model fitting, graphing and AIC calculations was performed in Python 3.9. AIC tables was created in R 4.1.2 
 using R Studio. Sample graph (figure x) was created in R 4.1.2. Specific packages used within each computing languages can 
@@ -212,11 +213,11 @@ be found in README.md.
 
 \section{Results}
 
-\noindent\emph{(1,2)Fitting phenomenological and mechanistic mathematical models}\\
+\noindent\emph{(1,2)Fitting phenomenological and mechanistic mathematical models}
 
 Out of the 284 unique IDs from the original dataset, I managed to successfully fit 255 IDs with both phenomenological and mechanistic
-models. All datasets that were successfully fitted had a sample size of N>=5. All curves were plotted with the residuals and 
-overlaid with the original dataset points. Some examples of model fitting is shown in Figure \ref{fig:fig2}.\\
+models. All datasets that were successfully fitted had a sample size of $N\geq$5. All curves were plotted with the residuals and 
+overlaid with the original dataset points. Some examples of model fitting is shown in Figure \ref{fig:fig2}.
 
 \begin{figure}[ht]
     \begin{subfigure}[b]{0.5\linewidth}
@@ -252,7 +253,8 @@ overlaid with the original dataset points. Some examples of model fitting is sho
     \label{fig:fig2}
 \end{figure}
 
-\noindent\emph{(3)Model comparison using Akaike Information Criteria}\\
+\noindent\emph{(3)Model comparison using Akaike Information Criteria}
+
     \begin{table}[htb]
         \caption{The total number of each best fitted models across all 255 unique datasets ranked in order from highest to lowest. The cubic mathemataical equation was
         choosen as the best fitted model for the highest number of IDs. This ranking was based on comparisons of $AIC_{c}$ scores}
@@ -271,12 +273,12 @@ overlaid with the original dataset points. Some examples of model fitting is sho
             \hline
         \end{tabular}
     \label{table:1}
-    \end{table} \\ 
+    \end{table}  
 
 Table \ref{table:4} in supplmentry data demonstrates the best fitted model from each ID identified by the lowest $AIC_{c}$ score. Table \ref{table:1} further ranks
 the three mathematical models by how many times a given model fits best across all unique datasets. From my study, the phenomenological cubic 
 model fits best for the highest amount of ID bacterial datasets. 65\% of the ID are best fitted with a Cubic model, 32\% fitted with the 
-Gompertz model, while only 3\% of the ID is best described with the quadratic model (ID 58,70,214,217,239). \\
+Gompertz model, while only 3\% of the ID is best described with the quadratic model (ID 58,70,214,217,239). 
 
     \begin{table}[htb]
         \caption{Total number of pairs between best fitted model and model with $AIC_{c}<$2 across all ID}
@@ -297,18 +299,18 @@ Gompertz model, while only 3\% of the ID is best described with the quadratic mo
             \hline
         \end{tabular}
     \label{table:2}
-    \end{table} \\ 
+    \end{table}  
 
 Comparing the $\triangle$AICc of candidate models between each dataset ID, it was observed that some of the differences between the scores were $<$2. 
-Full list of all mathematical models in all unique IDs with their $AIC_{c}$ values can be found in supplementary table \ref{table:5}.  Highlighted
+Full list of all mathematical models in all unique IDs with their $AIC_{c}$ values can be found in supplementary table \ref{table:5}. Highlighted
 by Burnham and Anderson 2002, when a variable with poor explanatory power is added to a model, an output of $\triangle$AICc$<$2 can 
 occur \cite{burnham_basic_2002,arnold_uninformative_2010}. Only when the differences are $>$2 is considered significant \cite{wyss_seismicity_2012}. 
-In table \ref{table:2}, I can see that 15 IDs demonstrated ∆AICc values that are not significantly different. Within those 15
+In table \ref{table:2}, I can see that 15 IDs demonstrated $\triangle$AICc values that are not significantly different. Within those 15
 unique IDs, 7 of those indicated that Gompertz model was the best model fitted with the given data, however they were insignificantly different in comparison
 to the cubic model. 4 out of the 5 best fitted quadratic model was not significantly different from the cubic model. While the best fitted cubic mode of 3 and
 1 IDs was not significantly different from the Gompertz and quadratic model, respectively.
 
-\section{Discussion}\\
+\section{Discussion}
 
 Microbial growth is an area extensively studied in food microbiology due to causing the most common food poising \cite{buchanan_when_1997,xiong_comparison_1999}. The use of mathematical models
 in fitting and predicting experimental data can help describe the behaviour of microorganisms under different environmental conditions (e.g temperature, PH) \cite{zwietering_modeling_1990}.
@@ -685,7 +687,7 @@ confirmed through independent testing of its parameters \cite{peleg_microbial_20
 
     \begin{center}
         \begin{longtable}{lllllll}
-        \caption{Best fitted mathematical models for each ID dataset and their sample size, AIC, $AICc_{i}$, $\triangleAIC_{c}$, $w_{i}$ values }
+        \caption{Best fitted mathematical models for each ID dataset and their sample size, AIC, $AICc_{i}$, $\triangle$AICc, $w_{i}$ values }
         \label{table:4}\\
     
     ID  & Model     & Sample Size &  $AIC_{c}$ & $AICc_{i}$ & $w_{i}$    \\
@@ -951,7 +953,7 @@ confirmed through independent testing of its parameters \cite{peleg_microbial_20
 
     \begin{center}
         \begin{longtable}{lllllll}
-        \caption{All mathematical models for each ID dataset and their sample size, AIC, $AICc_{i}$, $\triangleAIC_{c}$, $w_{i}$ values }
+        \caption{All mathematical models for each ID dataset and their sample size, AIC, $AICc_{i}$ , $\triangle$AICc, $w_{i}$ values }
         \label{table:5}\\
     ID  & Model     & Sample Size & AIC     & $AIC_{c}$ & $AICc_{i}$ & $w_{i}$   \\
     0   & Cubic     & 28              & -122.25 & -148.83 & 39.41   & 0    \\

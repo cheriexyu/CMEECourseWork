@@ -10,7 +10,6 @@ from scipy import stats
 from scipy.stats import linregress
 import numpy as np
 import matplotlib.pylab as pl 
-import seaborn as sns 
 import csv
 
 data = pd.read_csv("../data/editeddata.csv")
