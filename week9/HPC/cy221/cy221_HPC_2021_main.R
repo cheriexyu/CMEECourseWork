@@ -227,6 +227,108 @@ cluster_run <- function(speciation_rate, size, wall_time, interval_rich, interva
 
 # Question 20 
 process_cluster_results <- function()  {
+  data<-list()
+  data_octave <- list()
+  for (i in 1:100){
+    file <- paste0("HPC_output/cy221_cluster_run_", i , "_.rda")
+    load(file,.GlobalEnv)
+    data[[i]]<-list(burn_in_generations,initial_community,list_oct,interval_oct,interval_rich,
+            richness_vec,size,speciation_rate,total_time,wall_time)
+    data_octave[[i]]<-data[[i]][[3]]} #get a list of all octaves [[3]]
+  ############
+  
+  list_of_sum_500 = list()
+  sum_per_simulation_500 = unlist(data_octave[[1]][81])
+  total_vector_500 = c()
+  
+  for (l in 1:25){ #community 500
+    print(l)
+    max<-length(data_octave[[l]]) #end length
+    total = max - 82
+    total_vector_500 = c(total_vector_500,total)
+    for (d in 82:max){
+      #print(d)
+      sum_per_simulation_500  = sum_vect( sum_per_simulation_500 ,unlist(data_octave[[l]][d])) #Running sum within one simulation
+      list_of_sum_500[[l]] = list(sum_per_simulation_500)
+    }
+  }
+  
+  list_of_sum_1000 = list()
+  sum_per_simulation_1000 = unlist(data_octave[[26]][81])
+  total_vector_1000 = c()
+  for (l in 26:50){ #community 1000
+    print(l)
+    max<-length(data_octave[[l]]) #end length
+    total_1000 = max - 82
+    total_vector_1000 = c(total_vector_1000,total_1000)
+    for (d in 82:max){
+      #print(d)
+      sum_per_simulation_1000  = sum_vect( sum_per_simulation_1000 ,unlist(data_octave[[l]][d])) #Running sum within one simulation
+      list_of_sum_1000[[l]] = list(sum_per_simulation_1000)}
+  }
+  list_of_sum_1000 = list_of_sum_1000[26:50]
+  
+  
+  list_of_sum_2500 = list()
+  sum_per_simulation_2500 = unlist(data_octave[[51]][81])
+  total_vector_2500 = c()
+  for (l in 51:75){ #community 2500
+    print(l)
+    max<-length(data_octave[[l]]) #end length
+    total_2500 = max - 82
+    total_vector_2500 = c(total_vector_2500,total_2500)
+    for (d in 82:max){
+      #print(d)
+      sum_per_simulation_2500  = sum_vect( sum_per_simulation_2500 ,unlist(data_octave[[l]][d])) #Running sum within one simulation
+      list_of_sum_2500[[l]] = list(sum_per_simulation_2500)}
+  }
+  list_of_sum_2500 = list_of_sum_2500[51:75]
+  
+  
+  list_of_sum_10000 = list()
+  sum_per_simulation_10000 = unlist(data_octave[[76]][81])
+  total_vector_10000 = c()
+  for (l in 76:100){ #community 10000
+    print(l)
+    max<-length(data_octave[[l]]) #end length
+    total_10000 = max - 82
+    total_vector_10000 = c(total_vector_10000,total_10000)
+    for (d in 82:max){
+      #print(d)
+      sum_per_simulation_10000  = sum_vect( sum_per_simulation_10000 ,unlist(data_octave[[l]][d])) #Running sum within one simulation
+      list_of_sum_10000[[l]] = list(sum_per_simulation_10000)}
+  }
+  list_of_sum_10000 = list_of_sum_10000[76:100]
+  
+  
+#######SUM ALL OCTAVES FOR SIZE 500,1000,2500,10000
+  final_sum_size_500 = unlist(list_of_sum_500[[1]])
+  final_sum_size_1000 = unlist(list_of_sum_1000[[1]])
+  final_sum_size_2500 = unlist(list_of_sum_2500[[1]])
+  final_sum_size_10000 = unlist(list_of_sum_10000[[1]])
+  
+  for (h in 2:25){
+    final_sum_size_500 = sum_vect(final_sum_size_500,unlist(list_of_sum_500[[h]]))
+    final_sum_size_1000 = sum_vect(final_sum_size_1000,unlist(list_of_sum_1000[[h]]))
+    final_sum_size_2500 = sum_vect(final_sum_size_2500,unlist(list_of_sum_2500[[h]]))
+    final_sum_size_10000 = sum_vect(final_sum_size_10000,unlist(list_of_sum_10000[[h]]))
+    
+  }
+
+  divide_500 = sum(total_vector_500)
+  vector_500 = final_sum_size_500 / divide_500 #Running mean for community 500 
+
+  divide_1000 = sum(total_vector_1000)
+  vector_1000 = final_sum_size_1000 / divide_1000 #Running mean for community 1000 
+  
+  divide_2500 = sum(total_vector_2500)
+  vector_2500 = final_sum_size_2500 / divide_2500 #Running mean for community 2500
+  
+  divide_10000 = sum(total_vector_10000)
+  vector_2500 = final_sum_size_2500 / divide_2500 #Running mean for community 2500
+  
+  
+  
   combined_results <- list() #create your list output here to return
   # save results to an .rda file
   
@@ -236,50 +338,114 @@ plot_cluster_results <- function()  {
     # clear any existing graphs and plot your graph within the R window
     # load combined_results from your rda file
     # plot the graphs
-    
-    return(combined_results)
+  graphics.off()
+  par(mfrow = c(2, 2))
+  
+  plot_500<-data.frame(vector_500)
+  bin_500=c(1,"2-3","4-7","8-15","16-31","32-63","64-127","128-255","256-511")
+  plot_500<-t(plot_500)
+  colnames(plot_500)<-bin_500
+  barplot(height=plot_500,ylim=c(0,17), xlab="Number of individuals per species", ylab="Number of Species", main="size=500",cex.main=0.7, col=c("pink"))
+  
+  plot_1000<-data.frame(vector_1000)
+  bin_1000=c(1,"2-3","4-7","8-15","16-31","32-63","64-127","128-255","256-511","512-1023")
+  plot_1000<-t(plot_1000)
+  colnames(plot_1000)<-bin_1000
+  barplot(height=plot_1000,ylim=c(0,34), xlab="Number of individuals per species", ylab="Number of Species", main="size=1000",cex.main=0.7, col=c("blue"))
+  
+  plot_2500<-data.frame(vector_2500)
+  bin_2500=c(1,"2-3","4-7","8-15","16-31","32-63","64-127","128-255","256-511","512-1023","1024-2047","2048-4095")
+  plot_2500<-t(plot_2500)
+  colnames(plot_2500)<-bin_2500
+  barplot(height=plot_2500,ylim=c(0,45), xlab="Number of individuals per species", ylab="Number of Species", main="size=2500",cex.main=0.7, col=c("grey"))
+  
+  
+      return(combined_results)
 }
 
 # Question 21
 question_21 <- function()  {
-    
-  return("type your written answer here")
+  x <- log(8) / log(3)
+  print("The fractal requires 8 times the material to make the shape that is 3 times as wide
+        to find the dimension, we do x = log(8) divide by log(3).")
+  return("The dimension of the fractal is 1.892789")
 }
 
 # Question 22
 question_22 <- function()  {
-    
-  return("type your written answer here")
+  x <- log(20) / log(3)
+  print("The fractal requires 20 times the material to make the object that is 3 times as wide
+        to find the dimension, we do x = log(20) divide by log(3).")
+  return("The dimension of the fractal is 2.726833")
 }
 
 # Question 23
 chaos_game <- function()  {
   # clear any existing graphs and plot your graph within the R window
+  A<-c(0,0)
+  B<-c(3,4)
+  C<-c(4,1)
+  coordinates<-data.frame(x1=numeric(),x3=numeric())
+  coordinates[1,]<-A
+  coordinates[2,]<-B
+  coordinates[3,]<-C
   
-  return("type your written answer here")
+  plot(coordinates,pch=20,cex=0.5)
+  X = A
+  
+  for (loop in 1:100){
+    #points(X[1],X[2],cex=0.5,pch=20,col="red")
+    random_point <- sample(1:3,1)
+    if (random_point == 1){
+      X = (A+X) / 2 }
+    if (random_point == 2){
+      X = (B+X) / 2 }
+    if (random_point == 3){
+      X = (C+X) / 2}
+    points(X[1],X[2],cex=0.5,pch=20,col="red")
+    }
+  return("I see a fractal shape called the Sierpinski gasket!")
 }
 
 # Question 24
 turtle <- function(start_position, direction, length)  {
-    
-  return() # you should return your endpoint here.
+  
+  x<-start_position[1]+(cos(direction)*length) #new point x
+  y<-start_position[2]+(sin(direction)*length) #new point y
+  endpoint<-c(x,y)
+  
+  #plot(x = 1,type = "n",xlim = c(0, 50),ylim = c(0, 50))
+  #points(start_position[1],start_position[2],pch=16)
+  #points(endpoint[1],endpoint[2],pch=16)
+  segments(start_position[1],start_position[2],endpoint[1],endpoint[2],col="red")
+  return(endpoint) # you should return your endpoint here.
 }
 
 # Question 25
 elbow <- function(start_position, direction, length)  {
+  endpoint<-turtle(start_position, direction, length)
+  turtle(endpoint,direction-pi/4,length*0.95)
   
 }
 
+
 # Question 26
 spiral <- function(start_position, direction, length)  {
-  
-  return("type your written answer here")
+if (length>0.05){
+  endpoint<-turtle(start_position, direction, length)
+  spiral(endpoint,direction-pi/4,length*0.95)}
+
+return("We created a spiral! This is because we are iterating over itself, the angle gets smaller everytime eventually reaching infinity and the length of the line gets shorter, thus forming a spiral.
+       Note that the original error message occured due to the length reaching an infinity that was too much for R, so need to make a limit.")
 }
 
 # Question 27
 draw_spiral <- function()  {
   # clear any existing graphs and plot your graph within the R window
-  
+  graphics.off()
+  plot(x = 1,type = "n",xlim = c(0, 20),ylim = c(0, 20))
+  start_position<-c(3,7)
+  invisible(spiral(start_position,14,4))
 }
 
 # Question 28
