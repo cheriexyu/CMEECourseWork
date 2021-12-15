@@ -285,33 +285,33 @@ process_cluster_results <- function()  {
   list_of_sum_2500 = list_of_sum_2500[51:75]
   
   
-  list_of_sum_10000 = list()
-  sum_per_simulation_10000 = unlist(data_octave[[76]][81])
-  total_vector_10000 = c()
+  list_of_sum_50000 = list()
+  sum_per_simulation_50000 = unlist(data_octave[[76]][81])
+  total_vector_50000 = c()
   for (l in 76:100){ #community 10000
     print(l)
     max<-length(data_octave[[l]]) #end length
-    total_10000 = max - 82
-    total_vector_10000 = c(total_vector_10000,total_10000)
+    total_50000 = max - 82
+    total_vector_50000 = c(total_vector_50000,total_50000)
     for (d in 82:max){
       #print(d)
-      sum_per_simulation_10000  = sum_vect( sum_per_simulation_10000 ,unlist(data_octave[[l]][d])) #Running sum within one simulation
-      list_of_sum_10000[[l]] = list(sum_per_simulation_10000)}
+      sum_per_simulation_50000  = sum_vect( sum_per_simulation_50000 ,unlist(data_octave[[l]][d])) #Running sum within one simulation
+      list_of_sum_50000[[l]] = list(sum_per_simulation_50000)}
   }
-  list_of_sum_10000 = list_of_sum_10000[76:100]
+  list_of_sum_50000 = list_of_sum_50000[76:100]
   
   
 #######SUM ALL OCTAVES FOR SIZE 500,1000,2500,10000
   final_sum_size_500 = unlist(list_of_sum_500[[1]])
   final_sum_size_1000 = unlist(list_of_sum_1000[[1]])
   final_sum_size_2500 = unlist(list_of_sum_2500[[1]])
-  final_sum_size_10000 = unlist(list_of_sum_10000[[1]])
+  final_sum_size_50000 = unlist(list_of_sum_50000[[1]])
   
   for (h in 2:25){
     final_sum_size_500 = sum_vect(final_sum_size_500,unlist(list_of_sum_500[[h]]))
     final_sum_size_1000 = sum_vect(final_sum_size_1000,unlist(list_of_sum_1000[[h]]))
     final_sum_size_2500 = sum_vect(final_sum_size_2500,unlist(list_of_sum_2500[[h]]))
-    final_sum_size_10000 = sum_vect(final_sum_size_10000,unlist(list_of_sum_10000[[h]]))
+    final_sum_size_50000 = sum_vect(final_sum_size_50000,unlist(list_of_sum_50000[[h]]))
     
   }
 
@@ -324,9 +324,8 @@ process_cluster_results <- function()  {
   divide_2500 = sum(total_vector_2500)
   vector_2500 = final_sum_size_2500 / divide_2500 #Running mean for community 2500
   
-  divide_10000 = sum(total_vector_10000)
-  vector_2500 = final_sum_size_2500 / divide_2500 #Running mean for community 2500
-  
+  divide_50000 = sum(total_vector_50000)
+  vector_50000 = final_sum_size_50000 / divide_50000 #Running mean for community 2500
   
   
   combined_results <- list() #create your list output here to return
@@ -425,9 +424,7 @@ turtle <- function(start_position, direction, length)  {
 elbow <- function(start_position, direction, length)  {
   endpoint<-turtle(start_position, direction, length)
   turtle(endpoint,direction-pi/4,length*0.95)
-  
 }
-
 
 # Question 26
 spiral <- function(start_position, direction, length)  {
@@ -450,31 +447,52 @@ draw_spiral <- function()  {
 
 # Question 28
 tree <- function(start_position, direction, length)  {
-  
+  if (length>0.05){
+    endpoint<-turtle(start_position, direction, length)
+    tree(endpoint,direction-pi/4,length*0.65)
+    tree(endpoint,direction+pi/4,length*0.65)
+  }
 }
-
 draw_tree <- function()  {
   # clear any existing graphs and plot your graph within the R window
-
+  graphics.off()
+  plot(x = 1,type = "n",xlim = c(-5, 20),ylim = c(0, 20))
+  start_position<-c(3,7)
+  tree(start_position,14,4)
 }
-
 # Question 29
 fern <- function(start_position, direction, length)  {
-  
-}
+  if (length>0.005){
+    endpoint<-turtle(start_position, direction, length)
+    fern(endpoint,direction+pi/4,length*0.38) #left
+    fern(endpoint,direction,length*0.87) #straight 
+    }
+  }
 
 draw_fern <- function()  {
   # clear any existing graphs and plot your graph within the R window
-
+  graphics.off()
+  plot(x = 1,type = "n",xlim = c(0, 5),ylim = c(0, 10))
+  start_position<-c(2,1)
+  fern(start_position,pi/2,0.8)
 }
 
 # Question 30
 fern2 <- function(start_position, direction, length, dir)  {
-  
+  if (length>0.01){
+    endpoint<-turtle(start_position, direction, length)
+    fern2(endpoint,direction + (dir*pi/4),length*0.38,dir=dir) #left
+    dir=dir*-1
+    fern2(endpoint,direction,length*0.87,dir=dir) #straight 
+  }
+
 }
 draw_fern2 <- function()  {
   # clear any existing graphs and plot your graph within the R window
-
+  graphics.off()
+  plot(x = 1,type = "n",xlim = c(0, 5),ylim = c(0, 10))
+  start_position<-c(2,1)
+  fern2(start_position,pi/2, 1, 1)
 }
 
 # Challenge questions - these are optional, substantially harder, and a maximum of 16% is available for doing them.  
