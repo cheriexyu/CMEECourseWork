@@ -218,14 +218,14 @@ cluster_run <- function(speciation_rate, size, wall_time, interval_rich, interva
     }
     y = y+1
     end_time <- proc.time()[[3]]
-    total_time <- end_time - timer
+    total_time <- end_time - timer #in seconds
   }
   save(richness_vec,list_oct,initial_community,speciation_rate,size,wall_time,interval_rich,interval_oct,burn_in_generations,total_time,file = output_file_name)
 }
 
 # Questions 18 and 19 involve writing code elsewhere to run your simulations on the cluster
 
-# Question 20 
+# Question 20
 process_cluster_results <- function()  {
   data<-list()
   data_octave <- list()
@@ -233,104 +233,69 @@ process_cluster_results <- function()  {
     file <- paste0("HPC_output/cy221_cluster_run_", i , "_.rda")
     load(file,.GlobalEnv)
     data[[i]]<-list(burn_in_generations,initial_community,list_oct,interval_oct,interval_rich,
-            richness_vec,size,speciation_rate,total_time,wall_time)
+                    richness_vec,size,speciation_rate,total_time,wall_time)
     data_octave[[i]]<-data[[i]][[3]]} #get a list of all octaves [[3]]
-  ############
   
-  list_of_sum_500 = list()
-  sum_per_simulation_500 = unlist(data_octave[[1]][81])
+  #########
+  
+  sum_per_simulation_500 = c()
   total_vector_500 = c()
-  
   for (l in 1:25){ #community 500
-    print(l)
     max<-length(data_octave[[l]]) #end length
-    total = max - 82
+    total = max - 81
     total_vector_500 = c(total_vector_500,total)
-    for (d in 82:max){
-      #print(d)
+    for (d in 81:max){
       sum_per_simulation_500  = sum_vect( sum_per_simulation_500 ,unlist(data_octave[[l]][d])) #Running sum within one simulation
-      list_of_sum_500[[l]] = list(sum_per_simulation_500)
     }
   }
+  divide_500 = sum(total_vector_500)
+  vector_500 = (sum_per_simulation_500 / divide_500)
   
-  list_of_sum_1000 = list()
-  sum_per_simulation_1000 = unlist(data_octave[[26]][81])
+  
+  sum_per_simulation_1000 = c()
   total_vector_1000 = c()
   for (l in 26:50){ #community 1000
-    print(l)
     max<-length(data_octave[[l]]) #end length
-    total_1000 = max - 82
+    total_1000 = max - 81
     total_vector_1000 = c(total_vector_1000,total_1000)
-    for (d in 82:max){
-      #print(d)
+    for (d in 81:max){
       sum_per_simulation_1000  = sum_vect( sum_per_simulation_1000 ,unlist(data_octave[[l]][d])) #Running sum within one simulation
-      list_of_sum_1000[[l]] = list(sum_per_simulation_1000)}
+    }
   }
-  list_of_sum_1000 = list_of_sum_1000[26:50]
+  divide_1000 = sum(total_vector_1000)
+  vector_1000 = (sum_per_simulation_1000 / divide_1000)
   
   
-  list_of_sum_2500 = list()
-  sum_per_simulation_2500 = unlist(data_octave[[51]][81])
+  sum_per_simulation_2500 = c()
   total_vector_2500 = c()
   for (l in 51:75){ #community 2500
-    print(l)
     max<-length(data_octave[[l]]) #end length
-    total_2500 = max - 82
+    total_2500 = max - 81
     total_vector_2500 = c(total_vector_2500,total_2500)
-    for (d in 82:max){
-      #print(d)
+    for (d in 81:max){
       sum_per_simulation_2500  = sum_vect( sum_per_simulation_2500 ,unlist(data_octave[[l]][d])) #Running sum within one simulation
-      list_of_sum_2500[[l]] = list(sum_per_simulation_2500)}
+    }
   }
-  list_of_sum_2500 = list_of_sum_2500[51:75]
-  
-  
-  list_of_sum_50000 = list()
-  sum_per_simulation_50000 = unlist(data_octave[[76]][81])
-  total_vector_50000 = c()
-  for (l in 76:100){ #community 10000
-    print(l)
-    max<-length(data_octave[[l]]) #end length
-    total_50000 = max - 82
-    total_vector_50000 = c(total_vector_50000,total_50000)
-    for (d in 82:max){
-      #print(d)
-      sum_per_simulation_50000  = sum_vect( sum_per_simulation_50000 ,unlist(data_octave[[l]][d])) #Running sum within one simulation
-      list_of_sum_50000[[l]] = list(sum_per_simulation_50000)}
-  }
-  list_of_sum_50000 = list_of_sum_50000[76:100]
-  
-  
-#######SUM ALL OCTAVES FOR SIZE 500,1000,2500,10000
-  final_sum_size_500 = unlist(list_of_sum_500[[1]])
-  final_sum_size_1000 = unlist(list_of_sum_1000[[1]])
-  final_sum_size_2500 = unlist(list_of_sum_2500[[1]])
-  final_sum_size_50000 = unlist(list_of_sum_50000[[1]])
-  
-  for (h in 2:25){
-    final_sum_size_500 = sum_vect(final_sum_size_500,unlist(list_of_sum_500[[h]]))
-    final_sum_size_1000 = sum_vect(final_sum_size_1000,unlist(list_of_sum_1000[[h]]))
-    final_sum_size_2500 = sum_vect(final_sum_size_2500,unlist(list_of_sum_2500[[h]]))
-    final_sum_size_50000 = sum_vect(final_sum_size_50000,unlist(list_of_sum_50000[[h]]))
-    
-  }
-
-  divide_500 = sum(total_vector_500)
-  vector_500 = final_sum_size_500 / divide_500 #Running mean for community 500 
-
-  divide_1000 = sum(total_vector_1000)
-  vector_1000 = final_sum_size_1000 / divide_1000 #Running mean for community 1000 
-  
   divide_2500 = sum(total_vector_2500)
-  vector_2500 = final_sum_size_2500 / divide_2500 #Running mean for community 2500
-  
-  divide_50000 = sum(total_vector_50000)
-  vector_50000 = final_sum_size_50000 / divide_50000 #Running mean for community 2500
+  vector_2500 = (sum_per_simulation_2500 / divide_2500)
   
   
-  combined_results <- list() #create your list output here to return
-  # save results to an .rda file
+  sum_per_simulation_5000 = c()
+  total_vector_5000 = c()
+  for (l in 76:100){ #community 5000
+    max<-length(data_octave[[l]]) #end length
+    total_5000 = max - 81
+    total_vector_5000 = c(total_vector_5000,total_5000)
+    for (d in 81:max){
+      sum_per_simulation_5000  = sum_vect( sum_per_simulation_5000 ,unlist(data_octave[[l]][d])) #Running sum within one simulation
+    }
+  }
+  divide_5000 = sum(total_vector_5000)
+  vector_5000 = (sum_per_simulation_5000 / divide_5000)
   
+  combined_results<-list(vector_500,vector_1000,vector_2500,vector_5000)
+  save(combined_results,file="combined_results.rda")
+  print(combined_results)
 }
 
 plot_cluster_results <- function()  {
@@ -338,28 +303,34 @@ plot_cluster_results <- function()  {
     # load combined_results from your rda file
     # plot the graphs
   graphics.off()
+  load("combined_results.rda")
   par(mfrow = c(2, 2))
   
-  plot_500<-data.frame(vector_500)
+  plot_500<-data.frame(combined_results[[1]])
   bin_500=c(1,"2-3","4-7","8-15","16-31","32-63","64-127","128-255","256-511")
   plot_500<-t(plot_500)
   colnames(plot_500)<-bin_500
-  barplot(height=plot_500,ylim=c(0,17), xlab="Number of individuals per species", ylab="Number of Species", main="size=500",cex.main=0.7, col=c("pink"))
+  barplot(height=plot_500,ylim=c(0,1.5), xlab="Number of individuals per species", ylab="Number of Species", main="size=500",cex.main=0.7, col=c("pink"))
   
-  plot_1000<-data.frame(vector_1000)
+  plot_1000<-data.frame(combined_results[[2]])
   bin_1000=c(1,"2-3","4-7","8-15","16-31","32-63","64-127","128-255","256-511","512-1023")
   plot_1000<-t(plot_1000)
   colnames(plot_1000)<-bin_1000
-  barplot(height=plot_1000,ylim=c(0,34), xlab="Number of individuals per species", ylab="Number of Species", main="size=1000",cex.main=0.7, col=c("blue"))
+  barplot(height=plot_1000,ylim=c(0,3), xlab="Number of individuals per species", ylab="Number of Species", main="size=1000",cex.main=0.7, col=c("blue"))
   
-  plot_2500<-data.frame(vector_2500)
+  plot_2500<-data.frame(combined_results[[3]])
   bin_2500=c(1,"2-3","4-7","8-15","16-31","32-63","64-127","128-255","256-511","512-1023","1024-2047","2048-4095")
   plot_2500<-t(plot_2500)
   colnames(plot_2500)<-bin_2500
-  barplot(height=plot_2500,ylim=c(0,45), xlab="Number of individuals per species", ylab="Number of Species", main="size=2500",cex.main=0.7, col=c("grey"))
+  barplot(height=plot_2500,ylim=c(0,7), xlab="Number of individuals per species", ylab="Number of Species", main="size=2500",cex.main=0.7, col=c("grey"))
   
+  plot_5000<-data.frame(combined_results[[4]])
+  bin_5000=c(1,"2-3","4-7","8-15","16-31","32-63","64-127","128-255","256-511","512-1023","1024-2047","2048-4095")
+  plot_5000<-t(plot_5000)
+  colnames(plot_5000)<-bin_5000
+  barplot(height=plot_5000,ylim=c(0,14), xlab="Number of individuals per species", ylab="Number of Species", main="size=5000",cex.main=0.7, col=c("green"))
   
-      return(combined_results)
+  return(combined_results)
 }
 
 # Question 21
@@ -413,9 +384,6 @@ turtle <- function(start_position, direction, length)  {
   y<-start_position[2]+(sin(direction)*length) #new point y
   endpoint<-c(x,y)
   
-  #plot(x = 1,type = "n",xlim = c(0, 50),ylim = c(0, 50))
-  #points(start_position[1],start_position[2],pch=16)
-  #points(endpoint[1],endpoint[2],pch=16)
   segments(start_position[1],start_position[2],endpoint[1],endpoint[2],col="red")
   return(endpoint) # you should return your endpoint here.
 }
