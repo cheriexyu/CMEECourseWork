@@ -5,6 +5,13 @@
 #Arugments: MyVar -> 'string', a and b -> read number provided by reader
 #Date: Oct 2021
 
+#Shows the use of special variables
+echo "This script was called with $# parameters" #number of parameters
+echo "This script's name is $0" #basename including extension
+echo "The arguments are $@" #input arguments e.g $1 and $2
+echo "The first argument is $1"
+echo "The second argument is $2"
+
 #Shows the use of variables
 MyVar='some string'
 echo 'the current value of the variable is' $MyVar #You add dollar sign infront of variable to signify it is a variable 
@@ -16,7 +23,7 @@ echo 'the current value of the variable is' $MyVar #Replaces the MyVar in line 4
 echo 'Enter two numbers separated by space (s)'
 read a b #Tells audience to put a string for a and b, and shell to read it as that
 echo 'you entered' $a 'and' $b '. Their sum is:' #Dollar sign means signify it as variable
-mysum=`expr $a + $b` #Adding two numbers in Bash and putting it as a variable
+mysum=$(expr $a + $b) #Adding two numbers in Bash and putting it as a variable
 echo $mysum
 
 #exit
