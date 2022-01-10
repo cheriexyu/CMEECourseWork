@@ -2,9 +2,7 @@
 #Author: cy221@ic.ac.uk
 #Script: tabtocsv.sh
 #Description: substitute the tabs in the files with commas
-#
-#Saves the output into a .csv file
-#Arugments: 1 -> tab delimited file
+#Arguments: 1 -> tab delimited file
 #Date: Oct 2021
 
 if [ $# -eq 0 ]; then
