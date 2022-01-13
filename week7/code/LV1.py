@@ -2,6 +2,8 @@
 #############################
 # Practical 
 #############################
+"""Self-standing script that plots two graphs of the Lotka-Volterra model in results folder""""
+
 import scipy as sc
 import numpy as np
 import matplotlib.pylab as p

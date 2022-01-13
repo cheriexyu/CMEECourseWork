@@ -2,6 +2,7 @@
 #############################
 # Profiling in Python
 #############################
+"""Profiling code to find the speed at each sections"""
 
 def my_squares(iters):
     """append the output of range(iters) to the power of 2 into a list"""

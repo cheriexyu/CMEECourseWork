@@ -3,6 +3,7 @@
 # Quick profiling with timeit 
 #############################
 #Loop vs list comprehensions: which is faster?
+"""using timeit module to find the faster command within a larger program"""
 
 iters=1000000
 
