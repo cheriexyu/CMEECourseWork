@@ -1,8 +1,7 @@
 ################################################################
 ################## Wrangling the Pound Hill Dataset ############
 ################################################################
-install.packages("tidyverse")
-require(tidyverse)
+library(tidyverse)
 library(dplyr)
 library(tidyr)
 
