@@ -1,8 +1,7 @@
 #Are temperatures of one year significantly correlated with the next year 
 #(successive years), across years in a given location? 
 
-load("../data/KeyWestAnnualMeanTemperature.Rdata") #Temperature in KeyWest for the 20th Century
-head(ats)
+load("../data/KeyWestAnnualMeanTemperature.RData") #Temperature in KeyWest for the 20th Century
 pdf("../code/keywest.pdf")
 keywest<-plot(ats)
 keywest<-abline(lm(ats$Temp~ats$Year),col="blue")
@@ -18,8 +17,8 @@ Temp
 is.vector(Temp) #Check it is a vector
 
 #approx correltation of year and temp
-approx<-cor.test(Year,Temp,use="everything",method=c("pearson")) #correlation coefficent
-approx
+cor.test(Year,Temp,use="everything",method=c("pearson")) #correlation coefficent
+approx <- 0.5331784
 #0.5331784 is the approx correlation coefficent 
 
 #Shuffle the temp then calculate a correlation coefficient, repeat by 10000
