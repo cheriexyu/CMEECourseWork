@@ -5,6 +5,7 @@
 *.ipynb_checkpoints/
  
 # Gitignore files and directory
+!.gitkeep
 *.DS_Store
 week1/code/.*
 week1/sandbox/*
