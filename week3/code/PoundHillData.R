@@ -21,7 +21,8 @@ rownames(TempData)<-NULL
 head(TempData)
 
 #Convert data to long format
-require(reshape2)
+install.packages("reshape2")
+library("reshape2")
 MyWrangledData<-melt(TempData, id=c("Cultivation","Block","Plot","Quadrat"), variable.name="Species", value.name="Count")
 head(MyWrangledData);tail(MyWrangledData) #show the head and tail (5 rows each)
 
@@ -35,8 +36,10 @@ MyWrangledData[, "Quadrat"] <- as.factor(MyWrangledData[, "Quadrat"])
 MyWrangledData[, "Count"] <- as.integer(MyWrangledData[, "Count"])
 str(MyWrangledData)
 
-install.packages(c("tidyverse"))
-require("tidyverse")
+if (!require("tidyverse", character.only=T, quietly=T)) {
+  install.packages("tidyverse")
+  library("tidyverse", character.only=T)
+}
 tidyverse_packages(include_self = TRUE)
 
 # "::" allow you to access a particular function from a package 

@@ -1,6 +1,9 @@
 #############Annotating Plots###############
 #Using geom text
-require(ggplot2)
+if (!require("ggplot2", character.only=T, quietly=T)) {
+  install.packages("ggplot2")
+  library("ggplot2", character.only=T)
+}
 
 a<-read.table("../data/Results.txt",header=TRUE)
 head(a)
@@ -10,7 +13,7 @@ a$ymin<-rep(0,dim(a)[1]) #make a column of zeros
 #print the first linerange
 p<-ggplot(a)
 p <- p + geom_linerange(data = a, aes(x = x,ymin = ymin,ymax = y1,size = (0.5)),colour = "#E69F00",alpha = 1/2, show.legend = FALSE)
-s# Print the second linerange
+# Print the second linerange
 p <- p + geom_linerange(data = a, aes(x = x, ymin = ymin, ymax = y2, size = (0.5)),colour = "#56B4E9",alpha = 1/2, show.legend = FALSE)
 
 # Print the third linerange:
