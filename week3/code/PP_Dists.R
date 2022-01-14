@@ -1,6 +1,5 @@
 install.packages("tidyverse")
-require("tidyverse")
-
+library("tidyverse")
 
 MyDF <- read.csv("../data/EcolArchives-E089-51-D1.csv")
 dim(MyDF)
@@ -63,4 +62,3 @@ hist(log10(Ratio$Size.Ratio[Ratio$Type.of.feeding.interaction=="predacious"]), x
 hist(log10(Ratio$Size.Ratio[Ratio$Type.of.feeding.interaction=="predacious/piscivorous"]), xlab = "log10 (Size ratio of prey mass over predator mass (g))", ylab = "predacious/piscivorous", main ="")
 mtext("Types of feeding interaction and Size ratios of prey mass over predator mass (g)",side = 3,line = - 2,outer = TRUE)
 graphics.off();
-
