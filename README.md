@@ -12,17 +12,25 @@ If you would like to use and download my repository, please *clone* this and mov
 ***
 ## Project Structure 
 The repository is organised in week structures. Within each week contains the core directories: 
-*code*, *data*, *results*, *sandbox*
+*code*, *data*, *results*, *sandbox*. *code* directories contains coding scripts for the coresponding weeks. *data* directories 
+contains data files used for coding. *results* and *sandbox* directories should be empty. When running scripts, output files should 
+automatically be moved into *results* directory. 
 
+In brief, the git repository consist of these directories:
     - Week1: Unix/Linux, Bash Shell Scripting and LaTeX
     - Week2: Biological Computing with Python I
-    - Week3: Biological Computhin with R
+    - Week3: Biological Computing with R
+    - Week4: Statistics in R 
+    - Week5: Spatial Analysis and GIS
+    - Week6: Genomics and Bioinformatics
     - Week7: Biological Computing with Python II and Introduction to Jupyter Notebooks
     - MiniProject 
+    - Proposalinside
+    - Feedback 
+    - .gitignore 
 
+Further information on each week content can be found in their indivdual README.md files inside the directories. 
 ***
-## Note
-Note that these codes are all written on a MacOS, therefore there might be minimal differences in the use of syntax, however in general it would run in any operating systems. 
 
 Author: Cherie Yu
 Contact: cyy21@ic.ac.uk
