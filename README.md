@@ -32,11 +32,11 @@ In brief, the git repository consist of these directories:
 
     - Week7: Biological Computing with Python II and Introduction to Jupyter Notebooks
 
-    - MiniProject 
+    - MiniProject
 
-    - Proposalinside
+    - Proposalinside: Project proposal for MRES project 
 
-    - Feedback 
+    - Feedback
 
     - .gitignore 
 
