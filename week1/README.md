@@ -27,6 +27,14 @@ brew install imagemagick
 brew install --cask MacTeX 
 ```
 
+To run bash scripts on Terminal:
+
+```bash
+bash script.sh
+```
+
+Some scripts require one or more input files and will be instructed when attempting to run bash scripts. 
+
 ***
 ## Project Structure and Usage
 
@@ -39,8 +47,12 @@ brew install --cask MacTeX
     - ConcatenateTwoFiles.sh: Bash script to merge two files to a new output
     - tiff2png.sh: Bash script to convert .tiff to .png with imagemagick
     - csvtospace.sh: Bash script to take .CSV and convert to space separated value files in a new output 
+    - variables.sh: Show how to use variables in shell scripts
+    - MyExampleScript.sh: Introduces how to use the $USER (same as $USERNAME) environmental variable
     - CompileLaTeX.sh: Bash script to compile a LaTeX .pdf document 
-
+    - FirstExample.tex: An example LaTex docuemnts 
+    - FirstBiblio.bib: Biblbiography for the LaTex file FirstExample.tex
 
 Author: Cherie Yu
+
 Contact: cyy21@ic.ac.uk
