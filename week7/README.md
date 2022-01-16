@@ -66,5 +66,11 @@ Instructions to install iPython kernel and R kernel can be found [here](https://
    - oaks_debugme.py : Practical using doctest to debug code 
    - MyFirstJupyterNb.ipynb : First notebook in Jupyter using both ipython and R languages
 
+../data
+../results
+../sandbox
+
+
 Author: Cherie Yu
+
 Contact: cyy21@ic.ac.uk
