@@ -81,12 +81,12 @@ library(#name of package)
    - Florida_warming.pdf : pdf result file for Florida_warming.R code pratical
    - Florida_warming.tex : LaTex source codes to producing a pdf results file (Florida_warming.pdf)
    - Groupwork Practicals
-            1. get_TreeHeight.R
-            2. get_TreeHeight.py
-            3. run_get_TreeHeight.sh
-            4. TAutoCorr.R
-            5. TAutoCorr.tex
-            6. CompileLaTeX.sh
+        - get_TreeHeight.R
+        - get_TreeHeight.py
+        - run_get_TreeHeight.sh
+        - TAutoCorr.R
+        - TAutoCorr.tex
+        - CompileLaTeX.sh
 
 ../data
 

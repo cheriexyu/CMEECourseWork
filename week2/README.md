@@ -39,18 +39,18 @@ brew install ipython
    - using_name.py : Using name to import a module
    - control_flow.py : Python program using various control flow tools
    - Comprehension Practicals
-            1. lc1.py
-            2. lc2.py
-            3. tuple.py
-            4. dictionary.py
+        - lc1.py
+        - lc2.py
+        - tuple.py
+        - dictionary.py
    - test_control_flow.py : Embedding unit testing with doctest in program
    - debugme.py : Example script for debugging
    - align_seqs.py : Practical editing a python program to align DNA sequences
    - oaks_debugme.py : Practical using debugging methods to modify script
    - Groupwork Practicals
-            1. align_seqs_fasta.py
-            2. align_seqs_better.py
-            3. oaks_debugme.py
+        - align_seqs_fasta.py
+        - align_seqs_better.py
+        - oaks_debugme.py
 
 ../data
 
