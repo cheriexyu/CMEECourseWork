@@ -10,3 +10,5 @@ rm *.aux
 rm *.log
 rm *.bbl
 rm *.blg
+
+mv project_proposal.pdf ../results/
