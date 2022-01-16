@@ -33,8 +33,11 @@ brew install --cask rstudio
 ## Project Structure and Usage
 
 ../code
+
 ../data
+
 ../results
+
 ../sandbox
 
 

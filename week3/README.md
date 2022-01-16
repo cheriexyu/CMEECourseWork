@@ -89,7 +89,9 @@ library(#name of package)
             6. CompileLaTeX.sh
 
 ../data
+
 ../results
+
 ../sandbox
 
 

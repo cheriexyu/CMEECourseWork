@@ -67,7 +67,9 @@ Instructions to install iPython kernel and R kernel can be found [here](https://
    - MyFirstJupyterNb.ipynb : First notebook in Jupyter using both ipython and R languages
 
 ../data
+
 ../results
+
 ../sandbox
 
 

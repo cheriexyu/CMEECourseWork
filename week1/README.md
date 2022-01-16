@@ -54,7 +54,9 @@ Some scripts require one or more input files and will be instructed when attempt
    - FirstBiblio.bib: Biblbiography for the LaTex file FirstExample.tex
 
 ../data
+
 ../results
+
 ../sandbox
 
 Author: Cherie Yu
