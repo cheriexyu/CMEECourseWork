@@ -56,12 +56,9 @@ Some scripts require one or more input files and will be instructed when attempt
 ../data
 
    - spawannxs.txt: List of protected species of Marine and Coastal Flora 
+   - ../data/Fasta: Directory containing fasta files of sequence data
+   - ../data/Temperature: Directory containing csv Temperature files
 
-   ../data/Fasta: Directory containing fasta files of sequence data
-
-   ../data/Temperature: Directory containing csv Temperature files
-
- 
 ../results
 
 ../sandbox
