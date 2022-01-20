@@ -68,6 +68,10 @@ Instructions to install iPython kernel and R kernel can be found [here](https://
 
 ../data
 
+   - TestOaksData.csv : Species file that contains oak species
+   - JustOaksData.csv : Species file that contains only oak species
+   
+
 ../results
 
 ../sandbox

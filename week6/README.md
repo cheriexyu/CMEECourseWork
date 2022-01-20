@@ -36,7 +36,15 @@ brew install --cask rstudio
 
 ../code
 
+   - Genomics_Practial1.R : R Script for Practial 1 
+   - Genomics_Practial2.R : R Script for Practial 2
+   - Genomics_Practial3.R : R Script for Practial 3
+   - Genomics_Practial4.R : R Script for Practial 4
+
 ../data
+
+   - bears.csv : Genomic sequences in bears 
+
 
 ../results
 

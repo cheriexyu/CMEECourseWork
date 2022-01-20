@@ -76,19 +76,27 @@ library(#name of package)
    - PP_Dists.R : Practical on body mass distributions in predator and prey
    - MyBars.R : Annotating plots using ggplot in R
    - plotLin.R : Annotating linear regression plots 
-   - PP_Regress.R : Practical on visualizing regression analysis 
-   - bash.sh : Bash program to run Florida_warming.tex script
+   - PP_Regress.R : Practical on visualizing regression analysis
+   - CompileLaTeX.sh : Shell script to compile LaTeX documents 
    - Florida_warming.pdf : pdf result file for Florida_warming.R code pratical
    - Florida_warming.tex : LaTex source codes to producing a pdf results file (Florida_warming.pdf)
    - Groupwork Practicals
-        - get_TreeHeight.R
-        - get_TreeHeight.py
-        - run_get_TreeHeight.sh
-        - TAutoCorr.R
-        - TAutoCorr.tex
-        - CompileLaTeX.sh
+        - get_TreeHeight.R : Group script that calculates tree height and outputs into a output file name as InputFileName_treeheights.csv
+        - get_TreeHeight.py : Python version of get_TreeHeight.R
+        - run_get_TreeHeight.sh : Shell script to test get_TreeHeight.py
+        - TAutoCorr.R : R script that answers the question "Are temperatures of one year significantly correlated with the next year (successive years), across years in a given location?"
+        - TAutoCorr.tex : Results of TAutoCorr.R are presented in this LaTeX document  
+        
 
 ../data
+
+   - EcolArchives-E089-51-D1.csv : Dataset on consumer-resource body mass ratios from figshare (Barnes et al. 2008, Ecology 89:881)
+   - GPDDFiltered.RData : Global Population Dynamics Database (GPDD) RData
+   - KeyWestAnnualMeanTemperature.RData : Annual temperature dataset from Key West in Florida, USA for the 20th century
+   - PoundHillData.csv : Dataset collected by students in past Silwood field course 
+   - PoundHillMetaData.csv : Metadata file describing the data of PoundHillData.csv
+   - Results.txt : Example data used for plotting in MyBars.R
+   - trees.csv : Data of tree species, distance and height 
 
 ../results
 

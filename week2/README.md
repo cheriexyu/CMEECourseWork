@@ -46,13 +46,20 @@ brew install ipython
    - test_control_flow.py : Embedding unit testing with doctest in program
    - debugme.py : Example script for debugging
    - align_seqs.py : Practical editing a python program to align DNA sequences
-   - oaks_debugme.py : Practical using debugging methods to modify script
    - Groupwork Practicals
-        - align_seqs_fasta.py
-        - align_seqs_better.py
-        - oaks_debugme.py
+        - align_seqs_fasta.py : Takes any two fasta sequences to be aligned as input
+        - align_seqs_better.py : Modified script that also saves all equally best aligments as well 
+        - group_oaks_debugme.py : Group missing oaks problem
 
 ../data
+
+   - bodymass.csv : Species file containing body mass(kg) 
+   - testcsv.vsv : Species file containing taxonomic infomation and body mass(kg) 
+   - testalign.txt : Input fasta sequence file for align_seqs.py 
+   - TestOaksData.csv : Species file that contains oak species
+   - JustOaksData.csv : Species file that contains only oak species
+   - ../data/Fasta : Directory containing fasta files of sequence data
+
 
 ../results
 

@@ -34,9 +34,18 @@ brew install --cask rstudio
 
 ../code
 
+   - GIS_Practial1.R : R Script for Practial 1 
+   - GIS_Practial2.R : R Script for Practial 2
+   - GIS_Practial3.R : R Script for Practial 3
+
 ../data
 
+   - Practical1 : Data for GIS_Practial1.R
+   - Practical2 : Data for GIS_Practial2.R
+   - Practical3 : Data for GIS_Practial3.R
+
 ../results
+
 
 ../sandbox
 

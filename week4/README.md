@@ -35,7 +35,14 @@ brew install --cask rstudio
 
 ../code
 
+   - Introduction_to_Coding.R : Intoduction to writing if, else, loop statements in R
+   - Introduction_to_Data Wrangling.R : Introduction to data wrangling using R dependencies
+   - Introductin_to_Graphics.R : Introduction to plotting in R
+
 ../data
+
+   - bees.csv : Body data of bee species
+   - bird.csv : Data of bird species
 
 ../results
 
