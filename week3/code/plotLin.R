@@ -1,8 +1,5 @@
 ###########Mathematical Display###############
-if (!require("ggplot2", character.only=T, quietly=T)) {
-  install.packages("ggplot2")
-  library("ggplot2", character.only=T)
-}
+require("ggplot2")
 
 x<-seq(0,100,by=0.1)
 y<--4.+0.25*x+rnorm(length(x),mean=0.,sd=2.5)

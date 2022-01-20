@@ -1,7 +1,4 @@
-if (!require("ggplot2", character.only=T, quietly=T)) {
-  install.packages("ggplot2")
-  library("ggplot2", character.only=T)
-}
+require("ggplot2")
 
 #function object that calculate the ellipse
 build_ellipse<-function(hradius,vradius){ #function that returns an ellipse

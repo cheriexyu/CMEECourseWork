@@ -1,9 +1,9 @@
 ################################################################
 ################## Wrangling the Pound Hill Dataset ############
 ################################################################
-library(tidyverse)
-library(dplyr)
-library(tidyr)
+require("tidyverse")
+require("dplyr")
+require("tidyr")
 
 ############# Load the dataset ###############
 # header = false because the raw data don't have real headers

@@ -1,7 +1,7 @@
 require(tidyverse)
 require(ggplot2)
 require(tidyr)
-library(dplyr)
+require(dplyr)
 require(broom)
 
 MyDF <- read.csv("../data/EcolArchives-E089-51-D1.csv")

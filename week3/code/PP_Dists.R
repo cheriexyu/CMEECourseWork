@@ -1,7 +1,4 @@
-if (!require("tidyverse", character.only=T, quietly=T)) {
-  install.packages("tidyverse")
-  library("tidyverse", character.only=T)
-}
+require("tidyverse")
 
 MyDF <- read.csv("../data/EcolArchives-E089-51-D1.csv")
 dim(MyDF)

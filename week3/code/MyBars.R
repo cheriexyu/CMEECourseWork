@@ -1,9 +1,7 @@
 #############Annotating Plots###############
 #Using geom text
-if (!require("ggplot2", character.only=T, quietly=T)) {
-  install.packages("ggplot2")
-  library("ggplot2", character.only=T)
-}
+
+require("ggplot2")
 
 a<-read.table("../data/Results.txt",header=TRUE)
 head(a)

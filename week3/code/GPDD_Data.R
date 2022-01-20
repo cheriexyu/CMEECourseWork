@@ -1,13 +1,8 @@
 install.packages("maps")
 install.packages("mapdata")
-if (!require("ggplot2", character.only=T, quietly=T)) {
-  install.packages("ggplot2")
-  library("ggplot2", character.only=T)
-}
-
+require("ggplot2")
 library(maps)
 library(mapdata)
-library(ggplot2)
 
 load("../data/GPDDFiltered.RData")
 head(gpdd)
