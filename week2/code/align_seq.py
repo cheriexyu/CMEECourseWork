@@ -18,12 +18,9 @@ with open('../data/testalign.txt', 'r') as f:
     lines = []
     for line in f:
         lines.append(line.strip())
-    print(lines)
     
 seq1 = lines[0]
 seq2 = lines[1]
-print(seq1)
-print(seq2)
 
 # Assign the longer sequence s1, and the shorter to s2
 # l1 is length of the longest, l2 that of the shortest
@@ -37,8 +34,8 @@ def main(argv):
 #Positioning the longer sequence on top
 l1 = len(seq1) # Count the length of the sequences, In this example, l2 is longer than l1
 l2 = len(seq2)
-print(l1) #10
-print(l2) #16
+#print(l1) #10
+#print(l2) #16
 if l1 >= l2: # if l1 is longer than l2
     """Switching position of squences with longer sequence on top as first sequence"""
     s1 = seq1 #longer sequence
@@ -46,13 +43,13 @@ if l1 >= l2: # if l1 is longer than l2
 else:
     s1 = seq2 #16
     s2 = seq1 #10
-    print(s1) 
-    print(s2)
+    #print(s1) 
+    #print(s2)
     l1, l2 = l2, l1 # swap the two lengths
-print(l1)
-print(l2)
-print(s1) # equals to seq2
-print(s2) # equals to seq1
+#print(l1)
+#print(l2)
+#print(s1) # equals to seq2
+#print(s2) # equals to seq1
 
 # A function that computes a score by returning the number of matches starting
 # from arbitrary startpoint (chosen by user)
